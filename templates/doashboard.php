@@ -112,7 +112,7 @@
     <?php
     $sesionRole = 'seller';
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
-
+    $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $RouterRolers = [
         [
             'role' => 'seller',
@@ -120,32 +120,12 @@
                 [
                     'icon' => '<i class="fa-solid fa-house"></i>',
                     'title' => 'Tổng quan',
-                    'link' => '/templates/doashboard.php'
+                    'link' => BASEURL . '/home'
                 ],
                 [
                     'icon' => '<i class="fa-brands fa-product-hunt"></i>',
                     'title' => 'Sản phẩm',
-                    'link' => '/product.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-codepen"></i>',
-                    'title' => 'Thống kê',
-                    'link' => '/index2.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => '/product2.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-codepen"></i>',
-                    'title' => 'Thống kê',
-                    'link' => '/index3.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => '/product3.php'
+                    'link' => BASEURL . '/products'
                 ],
             ],
         ],
@@ -154,13 +134,13 @@
             'routers' => [
                 [
                     'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index.php'
+                    'title' => 'Tổng quan',
+                    'link' => BASEURL . '/home'
                 ],
                 [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index2.php'
+                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
+                    'title' => 'Sản phẩm',
+                    'link' => BASEURL . '/products'
                 ],
             ],
         ],
@@ -169,13 +149,13 @@
             'routers' => [
                 [
                     'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index.php'
+                    'title' => 'Tổng quan',
+                    'link' => BASEURL . '/home'
                 ],
                 [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'Admin',
-                    'link' => '/index2.php'
+                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
+                    'title' => 'Sản phẩm',
+                    'link' => BASEURL . '/products'
                 ],
             ],
         ],
@@ -193,7 +173,7 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($_SERVER['REQUEST_URI'] == $router['link']) ? 'active' : ''; ?>">
+                            <li class="menu-item <?php echo $classRole ?>  <?php echo (BASEURL . $currentPath == $router['link']) ? 'active' : ''; ?>">
                                 <a href="<?php echo $router['link']; ?>">
                                     <?php echo $router['icon']; ?>
                                     <?php echo $router['title']; ?>
@@ -217,7 +197,7 @@
             } ?>
         </div>
         <div class="col-sm-10">
-            <!-- $content -->
+            <?= $content ?>
         </div>
     </div>
 
