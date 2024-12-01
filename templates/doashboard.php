@@ -110,7 +110,7 @@
 
 <body>
     <?php
-    $sesionRole = 'seller';
+    
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
 
     $RouterRolers = [
@@ -153,14 +153,19 @@
             'role' => 'customer',
             'routers' => [
                 [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index.php'
+                    'icon' => '<i class="fas fa-list-alt me-2"></i>',
+                    'title' => 'Đơn hàng',
+                    'link' => '..\Customer\Order.php'
                 ],
                 [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index2.php'
+                    'icon' => '<i class="fas fa-exclamation-circle me-2"></i>',
+                    'title' => 'Phản hồi',
+                    'link' => '../Customer/Complaint.php'
+                ],
+                [
+                    'icon' => '<i class="fas fa-comments me-2"></i>',
+                    'title' => 'Tin nhắn',
+                    'link' => '../Customer/CusChat.php'
                 ],
             ],
         ],
@@ -188,7 +193,7 @@
                 if ($RouterRoler['role'] === $sesionRole) {
             ?>
                     <div class="logo">
-                        <img src="../src/assets/images/logoTechStore.png" alt="logo">
+                        <img src="/src/assets/images/logoTechStore.png" alt="logo">
                     </div>
 
                     <ul>
@@ -217,7 +222,7 @@
             } ?>
         </div>
         <div class="col-sm-10">
-            <!-- $content -->
+            <?= $content ?>
         </div>
     </div>
 
