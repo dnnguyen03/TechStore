@@ -110,9 +110,9 @@
 
 <body>
     <?php
-    
+    $sesionRole = 'customer';
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
-
+    $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $RouterRolers = [
         [
             'role' => 'seller',
@@ -120,32 +120,12 @@
                 [
                     'icon' => '<i class="fa-solid fa-house"></i>',
                     'title' => 'Tổng quan',
-                    'link' => '/templates/doashboard.php'
+                    'link' => BASEURL . '/home'
                 ],
                 [
                     'icon' => '<i class="fa-brands fa-product-hunt"></i>',
                     'title' => 'Sản phẩm',
-                    'link' => '/product.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-codepen"></i>',
-                    'title' => 'Thống kê',
-                    'link' => '/index2.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => '/product2.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-codepen"></i>',
-                    'title' => 'Thống kê',
-                    'link' => '/index3.php'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => '/product3.php'
+                    'link' => BASEURL . '/products'
                 ],
             ],
         ],
@@ -153,19 +133,19 @@
             'role' => 'customer',
             'routers' => [
                 [
-                    'icon' => '<i class="fas fa-list-alt me-2"></i>',
+                    'icon' => '<i class="fa-solid fa-house"></i>',
                     'title' => 'Đơn hàng',
-                    'link' => '..\Customer\Order.php'
+                    'link' => BASEURL . '/home'
                 ],
                 [
-                    'icon' => '<i class="fas fa-exclamation-circle me-2"></i>',
-                    'title' => 'Phản hồi',
-                    'link' => '../Customer/Complaint.php'
+                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
+                    'title' => 'Đánh giá',
+                    'link' => BASEURL . '/complaint'
                 ],
                 [
-                    'icon' => '<i class="fas fa-comments me-2"></i>',
+                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
                     'title' => 'Tin nhắn',
-                    'link' => '../Customer/CusChat.php'
+                    'link' => BASEURL . '/cuschat'
                 ],
             ],
         ],
@@ -174,13 +154,13 @@
             'routers' => [
                 [
                     'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'DashBoard',
-                    'link' => '/index.php'
+                    'title' => 'Tổng quan',
+                    'link' => BASEURL . '/home'
                 ],
                 [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'Admin',
-                    'link' => '/index2.php'
+                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
+                    'title' => 'Sản phẩm',
+                    'link' => BASEURL . '/products'
                 ],
             ],
         ],
@@ -198,7 +178,7 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($_SERVER['REQUEST_URI'] == $router['link']) ? 'active' : ''; ?>">
+                            <li class="menu-item <?php echo $classRole ?>  <?php echo (BASEURL . $currentPath == $router['link']) ? 'active' : ''; ?>">
                                 <a href="<?php echo $router['link']; ?>">
                                     <?php echo $router['icon']; ?>
                                     <?php echo $router['title']; ?>
