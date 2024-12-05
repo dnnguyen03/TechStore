@@ -6,7 +6,6 @@ include '../TechStore/config/routers.php';
 $request_uri = $_SERVER['REQUEST_URI'];
 $route = 'seller';
 
-
 foreach ($routers as $router) {
     if ($request_uri == '/') {
         //TODO: Nguyên gọi home
@@ -16,7 +15,7 @@ foreach ($routers as $router) {
                 if ($request_uri == $action['link']) {
                     $controllerName = $action['page'];
                     $method = $action['method'];
-
+                    
                     $controllerName->$method();
                     break;
                 }
@@ -24,3 +23,6 @@ foreach ($routers as $router) {
         }
     }
 }
+
+// $controller = new HomeController();
+// $controller->index();

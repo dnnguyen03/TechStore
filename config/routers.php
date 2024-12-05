@@ -1,6 +1,7 @@
 <?php
 // Định nghĩa các route
 
+use App\Controllers\Auth\AuthController;
 use App\Controllers\Sellers\HomeController;
 
 $routers = [
@@ -65,22 +66,22 @@ $routers = [
         ]
     ],
     [
-        'route' => '',
+        'route' => 'auth',
         'actions' => [
             [
-                'link' => '/',
-                'page' => new HomeController,
-                'method' => 'index'
+                'link' => '/signin',
+                'page' => new AuthController,
+                'method' => 'signin'
             ],
             [
-                'link' => '/home',
-                'page' => new HomeController,
-                'method' => 'index'
+                'link' => '/register',
+                'page' => new AuthController,
+                'method' => 'register'
             ],
             [
-                'link' => '/products',
-                'page' => new HomeController,
-                'method' => 'index2'
+                'link' => '/forgot',
+                'page' => new AuthController,
+                'method' => 'forgot'
             ],
         ]
     ],
