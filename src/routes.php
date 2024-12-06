@@ -4,6 +4,7 @@ use App\Controllers\Sellers\SelCustomerController;
 use App\Controllers\Sellers\SelHomeController;
 use App\Controllers\Sellers\SelOrderController;
 use App\Controllers\Sellers\SelProductController;
+use App\Controllers\Sellers\SelShopController;
 use App\Router;
 
 // Usage:
@@ -23,9 +24,19 @@ $sessionRoute = "seller";
 if($sessionRoute == "seller") {
     $router->addRoute('/\//', [new SelHomeController(), 'index']);
     $router->addRoute('/\/home/', [new SelHomeController(), 'index']);
+
     $router->addRoute('/\/products/', [new SelProductController(), 'index']);
+    $router->addRoute('/\/products\/create/', [new SelProductController(), 'create']);
+    $router->addRoute('/\/products\/update\/(\d+)/', [new SelProductController(), 'update']);
+
     $router->addRoute('/\/customers/', [new SelCustomerController(), 'index']);
+
     $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
+    
+    $router->addRoute('/\/shops/', [new SelShopController(), 'index']);
+    $router->addRoute('/\/shops\/create/', [new SelShopController(), 'create']);
+    $router->addRoute('/\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
+
 } else if($sessionRoute == "admin") {
     $router->addRoute('/\//', [new SelHomeController(), 'index']);
     $router->addRoute('/\/home/', [new SelHomeController(), 'index']);

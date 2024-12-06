@@ -10,6 +10,21 @@ class SelProductController extends Controller
     {
         $this->render('Seller/products/index', []);
     }
+
+    public function create()
+    {
+        $this->render('Seller/products/edit', []);
+    }
+
+    public function update($productId)
+    {
+        $this->render('Seller/products/edit', []);
+    }
+
+    public function delete($productId)
+    {
+        $this->render('Seller/products/index', []);
+    }
 }
 
 ?>
