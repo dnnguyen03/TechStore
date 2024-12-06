@@ -68,7 +68,7 @@
                     <th>Quantity</th>
                     <th>Per.Price</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,10 +82,12 @@
                     <td>
                         <span class="status-badge status-live">Live</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a href="/products/update/1"><i class="fa-regular fa-pen-to-square"></i></a>
-                        
-                        <a href="/products/delete/1"><i class="fa-regular fa-trash-can"></i></i></a>
+
+                        <a href="/products/delete/1" onclick="return confirm('Xác nhận xóa sản phẩm?')">
+                            <i style="color: red; margin-left: 12px;" class="fa-regular fa-trash-can"></i>
+                        </a>
                     </td>
                 </tr>
                 <!-- Repeat Rows for more products -->

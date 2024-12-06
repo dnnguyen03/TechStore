@@ -10,14 +10,16 @@
     <title>Tech Store</title>
 
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
         ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-        }
-
-        ul li {
-            padding-left: 0;
         }
 
         .menu-item {
@@ -128,7 +130,8 @@
                 if ($RouterRoler['role'] === $sesionRole) {
             ?>
                     <div class="logo">
-                        <img src="../src/assets/images/logoTechStore.png" alt="logo">
+                        <!-- <img src="../TechStore/src/assets/images/logoTechStore.png" alt="logo"> -->
+                        <h2 class="text-center" style="color: #FF9C00;">Tech store</h2>
                     </div>
 
                     <ul>

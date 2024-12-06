@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Sellers\SelChatController;
 use App\Controllers\Sellers\SelCustomerController;
 use App\Controllers\Sellers\SelHomeController;
 use App\Controllers\Sellers\SelOrderController;
@@ -28,6 +29,7 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/products/', [new SelProductController(), 'index']);
     $router->addRoute('/\/products\/create/', [new SelProductController(), 'create']);
     $router->addRoute('/\/products\/update\/(\d+)/', [new SelProductController(), 'update']);
+    $router->addRoute('/\/products\/delete\/(\d+)/', [new SelProductController(), 'delete']);
 
     $router->addRoute('/\/customers/', [new SelCustomerController(), 'index']);
 
@@ -36,6 +38,8 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/shops/', [new SelShopController(), 'index']);
     $router->addRoute('/\/shops\/create/', [new SelShopController(), 'create']);
     $router->addRoute('/\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
+    
+    $router->addRoute('/\/chats/', [new SelChatController(), 'index']);
 
 } else if($sessionRoute == "admin") {
     $router->addRoute('/\//', [new SelHomeController(), 'index']);
