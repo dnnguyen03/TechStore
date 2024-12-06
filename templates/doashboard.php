@@ -36,7 +36,7 @@
             transition: all 0.3s;
         }
 
-        .menu-item.notSeller a  {
+        .menu-item.notSeller a {
             color: white;
         }
 
@@ -44,7 +44,8 @@
             color: #FF9C00;
             background-color: #F2EEEA;
         }
-        .menu-item.notSeller a:hover  {
+
+        .menu-item.notSeller a:hover {
             color: white;
             background-color: #FF9C00;
         }
@@ -53,7 +54,8 @@
             background-color: #F2EEEA;
             color: #FF9C00;
         }
-        .menu-item.notSeller.active a  {
+
+        .menu-item.notSeller.active a {
             background-color: #FF9C00;
             color: white;
         }
@@ -96,12 +98,15 @@
             height: 200px;
             z-index: 10;
         }
-        .sidebar-footer{
+
+        .sidebar-footer {
             background: #F9F2EF;
         }
+
         .sidebar-footer.notSeller {
             background: #585656;
         }
+
         .sidebar-footer.notSeller p {
             color: #ffffff;
         }
@@ -110,56 +115,11 @@
 
 <body>
     <?php
-    $sesionRole = 'seller';
+    include '../TechStore/config/sidebar.php';
+    $sesionRole = 'admin';
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
     $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $RouterRolers = [
-        [
-            'role' => 'seller',
-            'routers' => [
-                [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'Tổng quan',
-                    'link' => BASEURL . '/home'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => BASEURL . '/products'
-                ],
-            ],
-        ],
-        [
-            'role' => 'customer',
-            'routers' => [
-                [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'Tổng quan',
-                    'link' => BASEURL . '/home'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => BASEURL . '/products'
-                ],
-            ],
-        ],
-        [
-            'role' => 'admin',
-            'routers' => [
-                [
-                    'icon' => '<i class="fa-solid fa-house"></i>',
-                    'title' => 'Tổng quan',
-                    'link' => BASEURL . '/home'
-                ],
-                [
-                    'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                    'title' => 'Sản phẩm',
-                    'link' => BASEURL . '/products'
-                ],
-            ],
-        ],
-    ];
+
     ?>
 
     <div class="row" style="width: 100vw;">
@@ -173,7 +133,7 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo (BASEURL . $currentPath == $router['link']) ? 'active' : ''; ?>">
+                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($currentPath == $router['link']) ? 'active' : ''; ?>">
                                 <a href="<?php echo $router['link']; ?>">
                                     <?php echo $router['icon']; ?>
                                     <?php echo $router['title']; ?>
