@@ -36,7 +36,7 @@
             transition: all 0.3s;
         }
 
-        .menu-item.notSeller a  {
+        .menu-item.notSeller a {
             color: white;
         }
 
@@ -44,7 +44,8 @@
             color: #FF9C00;
             background-color: #F2EEEA;
         }
-        .menu-item.notSeller a:hover  {
+
+        .menu-item.notSeller a:hover {
             color: white;
             background-color: #FF9C00;
         }
@@ -53,7 +54,8 @@
             background-color: #F2EEEA;
             color: #FF9C00;
         }
-        .menu-item.notSeller.active a  {
+
+        .menu-item.notSeller.active a {
             background-color: #FF9C00;
             color: white;
         }
@@ -96,12 +98,15 @@
             height: 200px;
             z-index: 10;
         }
-        .sidebar-footer{
+
+        .sidebar-footer {
             background: #F9F2EF;
         }
+
         .sidebar-footer.notSeller {
             background: #585656;
         }
+
         .sidebar-footer.notSeller p {
             color: #ffffff;
         }
@@ -168,7 +173,7 @@
                 if ($RouterRoler['role'] === $sesionRole) {
             ?>
                     <div class="logo">
-                        <img src="../src/assets/images/logoTechStore.png" alt="logo">
+                        <img src="../TechStore/src/assets/images/logoTechStore.png" alt="logo">
                     </div>
 
                     <ul>
