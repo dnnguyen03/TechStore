@@ -52,31 +52,33 @@
     <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Per.Price</th>
-                <th>Status</th>
-                <th class="text-center">Action</th>
+                <th style="width: 60px;">Ảnh</th>
+                <th>Tên mặt hàng</th>
+                <th>Loại hàng</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Trạng thái</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <!-- Example Row -->
             <tr>
-                <td>#231212135612</td>
-                <td>Adidas slippers</td>
-                <td>Men's Cloth</td>
-                <td>20/11</td>
-                <td>Rs.100,000.00</td>
                 <td>
-                    <span class="status-badge status-live">Live</span>
+                    <div style="width: 60px; height: 60px; overflow: hidden;">
+                        <img style="width: 100%; height: 100%; object-fit: cover; object-fit: center;" src="https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg" alt="product">
+                    </div>
                 </td>
+                <td>Laptop gaming ASC2</td>
+                <td>Laptop</td>
+                <td>20</td>
+                <td>100,000.00</td>
+                <td>Khởi tạo</td>
                 <td class="text-center">
-                    <a href="/products/update/1"><i style="font-size: 20px;" class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="/products/update/1" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
 
-                    <a href="/products/delete/1" onclick="return confirm('Xác nhận xóa sản phẩm?')">
-                        <i style="color: red; margin-left: 12px; font-size: 20px;" class="fa-regular fa-trash-can"></i>
+                    <a href="/products/delete/1" class="btn btn-danger btn-sm" onclick="return confirm('Xác nhận xóa sản phẩm?')">
+                        <i class="fa-regular fa-trash-can"></i>
                     </a>
                 </td>
             </tr>
