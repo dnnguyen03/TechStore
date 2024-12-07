@@ -128,7 +128,7 @@
                 if ($RouterRoler['role'] === $sesionRole) {
             ?>
                     <div class="logo">
-                        <img src="../src/assets/images/logoTechStore.png" alt="logo">
+                        <img src="../TechStore/src/assets/images/logoTechStore.png" alt="logo">
                     </div>
 
                     <ul>
