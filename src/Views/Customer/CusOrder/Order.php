@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">My Orders</h2>
-        <p>12th January of 2023, 12:00 pm</p>
+       
     </div>
     <div class="card">
         <div class="card-body p-0">

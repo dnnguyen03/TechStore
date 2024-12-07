@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-include '../TechStore/config/routers.php';
+require __DIR__. '/src/routes.php';
 
 $request_uri = $_SERVER['REQUEST_URI'];
 $route = 'customer';
