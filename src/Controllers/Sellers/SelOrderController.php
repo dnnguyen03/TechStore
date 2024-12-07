@@ -10,6 +10,11 @@ class SelOrderController extends Controller
     {
         $this->render('Seller/orders/index', []);
     }
+    
+    public function detail()
+    {
+        $this->render('Seller/orders/detail', []);
+    }
 }
 
 ?>
