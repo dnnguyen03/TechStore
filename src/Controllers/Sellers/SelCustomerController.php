@@ -10,5 +10,10 @@ class SelCustomerController extends Controller
     {
         $this->render('Seller/customers/index', []);
     }
+    
+    public function detail()
+    {
+        $this->render('Seller/customers/detail', []);
+    }
 }
 ?>

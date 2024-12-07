@@ -32,8 +32,10 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/products\/delete\/(\d+)/', [new SelProductController(), 'delete']);
 
     $router->addRoute('/\/customers/', [new SelCustomerController(), 'index']);
+    $router->addRoute('/\/customers\/detail/', [new SelCustomerController(), 'detail']);
 
     $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
+    $router->addRoute('/\/orders\/detail/', [new SelOrderController(), 'detail']);
     
     $router->addRoute('/\/shops/', [new SelShopController(), 'index']);
     $router->addRoute('/\/shops\/create/', [new SelShopController(), 'create']);
