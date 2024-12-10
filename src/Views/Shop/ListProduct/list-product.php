@@ -51,7 +51,7 @@
         transform: translate(zoo);
     }
 </style>
-<div class="list-product container" style="margin-bottom: 30px; margin-top: 20px;">
+<div class="list-product container" style="margin-bottom: 30px;">
     <div class="cardProduct">
         <div class="image">
             <img src="../../../assets/images/product.png" alt="">

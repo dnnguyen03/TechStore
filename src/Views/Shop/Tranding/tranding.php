@@ -36,7 +36,7 @@
     }
 </style>
 <div class="Tranding container">
-    <h1 style="margin-bottom: 15px;">Trandig Produtc</h1>
+    <h1 style="margin-bottom: 15px;">Tranding Produtc</h1>
     <div>
         <div style="margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
             <div class="cardTranding">
