@@ -53,10 +53,6 @@
                     </div>
 =======
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
 
     #chat-box {
         overflow-y: auto;

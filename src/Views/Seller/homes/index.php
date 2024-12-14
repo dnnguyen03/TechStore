@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
 <style>
-    /* Custom Styles */
     .dashboard-card {
         background-color: #fff;
         border-radius: 10px;
