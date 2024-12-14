@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Complaint Modal with Scroll</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     .modal-dialog {
       max-width: 900px; /* Tăng kích thước modal */
@@ -75,14 +69,6 @@
       padding: 10px 15px;
     }
   </style>
-</head>
-<body>
-  <!-- Nút mở Modal -->
-  <div class="container mt-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#complaintModal">
-      Open Complaint Modal
-    </button>
-  </div>
 
   <!-- Modal -->
   <div class="modal fade" id="complaintModal" tabindex="-1" aria-labelledby="complaintModalLabel" aria-hidden="true">
@@ -158,5 +144,4 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+

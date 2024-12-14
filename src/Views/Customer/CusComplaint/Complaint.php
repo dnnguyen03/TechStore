@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php ob_start(); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complaints & Reporting</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,9 +71,9 @@
             text-decoration: underline;
         }
     </style>
-</head>
 
-<body>
+
+
     <div class="main-content">
         <!-- Header -->
         <div class="header">
@@ -127,9 +121,6 @@
             </table>
         </div>
     </div>
-    <?php include 'ComplaintDetail.php'; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    
+    <?php $content = ob_get_clean(); ?>
+<?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>
