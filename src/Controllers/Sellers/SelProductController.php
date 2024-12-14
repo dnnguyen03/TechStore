@@ -34,7 +34,8 @@ class SelProductController extends Controller
             $seller_id = 1;
 
             if (isset($_FILES['uploadPhoto'])) {
-                $fileName = uniqid() . '-' . basename($_FILES['uploadPhoto']['name']);
+                // $fileName = uniqid() . '-' . basename($_FILES['uploadPhoto']['name']);
+                $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
             }
@@ -58,7 +59,7 @@ class SelProductController extends Controller
             $seller_id = 1;
 
             if (isset($_FILES['uploadPhoto'])) {
-                $fileName = uniqid() . '-' . basename($_FILES['uploadPhoto']['name']);
+                $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
             }
