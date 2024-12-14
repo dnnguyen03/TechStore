@@ -311,8 +311,8 @@
 <header class="py-3 mb-4 border-bottom" style="transition: all 0.3s ease;">
     <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
 
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            <img width="100%" height="100%" src="" alt="">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none" style="height: 50px;">
+            <img width="100%" height="100%" src="/src/assets/images/logoTechStore.png" alt="" style="object-fit: none;">
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">

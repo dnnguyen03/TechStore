@@ -41,7 +41,7 @@
         <div style="margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
             <div class="cardTranding">
                 <div class="background">
-                    <img src="../../../assets/images/product.png" alt="" style="height: 100% ; object-fit:fill;">
+                    <img src="/src/assets/images/product.png" alt="" style="height: 100% ; object-fit:fill;">
                 </div>
                 <div class="title">
                     <h3>Product Category</h3>
@@ -50,7 +50,7 @@
             </div>
             <div class="cardTranding">
                 <div class="background">
-                    <img src="../../../assets/images/product.png" alt="">
+                    <img src="/src/assets/images/product.png" alt="">
                 </div>
                 <div class="title">
                     <h3>Product Category</h3>

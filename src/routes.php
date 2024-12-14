@@ -6,21 +6,16 @@ use App\Controllers\Sellers\SelHomeController;
 use App\Controllers\Sellers\SelOrderController;
 use App\Controllers\Sellers\SelProductController;
 use App\Controllers\Sellers\SelShopController;
+use App\Controllers\Shop\ShopController;
 use App\Router;
 
 // Usage:
 $router = new Router();
 
-$sessionRoute = "seller";
+$sessionRoute = "";
 
-// // Add routes
-// $router->addRoute('/\//', [new PostController(), 'index']);
-// $router->addRoute('/\/post/', [new PostController(), 'index']);
-// $router->addRoute('/\/post\/index/', [new PostController(), 'index']);
-// $router->addRoute('/\/post\/show\/(\d+)/', [new PostController(), 'show']);
-// $router->addRoute('/\/post\/create/', [new PostController(), 'create']);
-// $router->addRoute('/\/post\/update\/(\d+)/', [new PostController(), 'update']);
-// $router->addRoute('/\/post\/delete\/(\d+)/', [new PostController(), 'delete']);
+
+$router->addRoute('/\//', [new ShopController(), 'index']);
 
 if ($sessionRoute == "seller") {
     $router->addRoute('/\//', [new SelHomeController(), 'index']);

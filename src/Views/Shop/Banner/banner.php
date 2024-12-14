@@ -40,7 +40,7 @@
 </style>
 <div class="banner container" style="position: relative; border-radius: 15px;padding: 0; overflow: hidden;">
     <div class="background">
-        <img style="width: 100%;" src="../../../assets/images/bannerHome.png" alt="">
+        <img style="width: 100%;" src="\src\assets\images\bannerHome.png" alt="">
     </div>
     <div style="width: 50%; position: absolute; transform: translate(-70%,-50%); top: 50%;left: 50%;">
         <h1>Tìm sản phẩm tất nhất với <p style="color: orange;">TechStore</p>

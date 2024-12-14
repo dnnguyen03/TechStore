@@ -54,7 +54,7 @@
 <div class="list-product container" style="margin-bottom: 30px;">
     <div class="cardProduct">
         <div class="image">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforProduct p-3">
             <h4 class="nameProduct">Product Name</h4>
@@ -65,7 +65,7 @@
     </div>
     <div class="cardProduct">
         <div class="image">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforProduct p-3">
             <h4 class="nameProduct">Product Name</h4>
@@ -76,7 +76,7 @@
     </div>
     <div class="cardProduct">
         <div class="image">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforProduct p-3">
             <h4 class="nameProduct">Product Name</h4>
@@ -87,7 +87,7 @@
     </div>
     <div class="cardProduct">
         <div class="image">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforProduct p-3">
             <h4 class="nameProduct">Product Name</h4>

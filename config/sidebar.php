@@ -24,11 +24,7 @@ $RouterRolers = [
                 'link' => '/customers'
             ],
             [
-<<<<<<< HEAD
-                'icon' => '<i class="fa-solid fa-shop"></i>',
-=======
                 'icon' => '<i class="fa-solid fa-store"></i>',
->>>>>>> eb73ed7d0fc2151f173908f45884c6c667679ba6
                 'title' => 'Shop của tôi',
                 'link' => '/shops'
             ],
