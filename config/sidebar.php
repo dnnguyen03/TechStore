@@ -6,22 +6,22 @@ $RouterRolers = [
             [
                 'icon' => '<i class="fa-solid fa-house"></i>',
                 'title' => 'Tổng quan',
-                'link' => '/seller/home'
+                'link' => '/home'
             ],
             [
                 'icon' => '<i class="fa-brands fa-product-hunt"></i>',
                 'title' => 'Sản phẩm',
-                'link' => '/seller/products'
+                'link' => '/products'
             ],
             [
                 'icon' => '<i class="fa-solid fa-file-invoice"></i>',
                 'title' => 'Đơn hàng',
-                'link' => '/seller/orders'
+                'link' => '/orders'
             ],
             [
                 'icon' => '<i class="fa-solid fa-user"></i>',
                 'title' => 'Khách hàng',
-                'link' => '/seller/customers'
+                'link' => '/customers'
             ],
             [
 <<<<<<< HEAD
@@ -30,12 +30,12 @@ $RouterRolers = [
                 'icon' => '<i class="fa-solid fa-store"></i>',
 >>>>>>> eb73ed7d0fc2151f173908f45884c6c667679ba6
                 'title' => 'Shop của tôi',
-                'link' => '/seller/shops'
+                'link' => '/shops'
             ],
             [
                 'icon' => '<i class="fa-solid fa-comments"></i>',
                 'title' => 'Nhắn tin',
-                'link' => '/seller/chats'
+                'link' => '/chats'
             ],
         ],
     ],

@@ -4,10 +4,10 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-fit: center;
     }
 </style>
-<div class="container">
+<div class="container" >
     <!-- Content Header (Page header) -->
     <section style="margin: 12px 0;">
         <h2>
@@ -23,58 +23,71 @@
     <section class="content">
         <div class="card">
             <div class="card-body">
-                <form action="/seller/products/<?= isset($product['product_id']) ? "update/$product[product_id]" : 'create' ?>" method="post" enctype="multipart/form-data" class="row g-3">
-                    <div class="col-md-12">
-                        <label for="product_name" class="form-label">Tên sản phẩm:</label>
-                        <input type="text" id="product_name" name="product_name" class="form-control" required
-                            value="<?= isset($product['product_name']) ? $product['product_name'] : '' ?>">
+                <form action="adminProductSave" method="post" enctype="multipart/form-data" class="row g-3">
+                    <!-- Mã sách -->
+                    <div class="col-md-6">
+                        <label for="masach" class="form-label">Mã sách:</label>
+                        <?php if (isset($add) && !$add): ?>
+                            <input type="text" id="masach" name="masach" class="form-control" readonly value="<?= htmlspecialchars($s['masach']) ?>">
+                        <?php else: ?>
+                            <input type="text" id="masach" name="masach" class="form-control" required value="<?= htmlspecialchars($s['masach'] ?? '') ?>">
+                        <?php endif; ?>
                     </div>
 
+                    <!-- Tên sách -->
                     <div class="col-md-6">
-                        <label for="category_id" class="form-label">Loại sản phẩm:</label>
-                        <select id="category_id" name="category_id" class="form-select" required>
-                            <option value="">-- Chọn Loại --</option>
-                            <option value="1">TV</option>
-                            <option value="2">Tủ lạnh</option>
-                            <option value="3">Laptop</option>
+                        <label for="tensach" class="form-label">Tên sách:</label>
+                        <input type="text" id="tensach" name="tensach" class="form-control" required value="<?= htmlspecialchars($s['tensach'] ?? '') ?>">
+                    </div>
+
+                    <!-- Tác giả -->
+                    <div class="col-md-6">
+                        <label for="tacgia" class="form-label">Tác giả:</label>
+                        <input type="text" id="tacgia" name="tacgia" class="form-control" value="<?= htmlspecialchars($s['tacgia'] ?? '') ?>">
+                    </div>
+
+                    <!-- Loại sách -->
+                    <div class="col-md-6">
+                        <label for="maloai" class="form-label">Loại sách:</label>
+                        <select id="maloai" name="maloai" class="form-select" required>
+                            <option value="">-- Chọn Loại sách --</option>
+                            <?php if (!empty($loai)): ?>
+                                <?php foreach ($loai as $l): ?>
+                                    <option value="<?= htmlspecialchars($l['maloai']) ?>" <?= (isset($s['maloai']) && $s['maloai'] == $l['maloai']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($l['tenloai']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </select>
                     </div>
 
+                    <!-- Số lượng -->
                     <div class="col-md-6">
-                        <label for="product_decs" class="form-label">Mô tả:</label>
-                        <textarea id="product_decs" name="product_decs" class="form-control" required rows="1"><?= isset($product['product_decs']) ? $product['product_decs'] : '' ?></textarea>
+                        <label for="soluong" class="form-label">Số lượng:</label>
+                        <input type="number" id="soluong" name="soluong" class="form-control" value="<?= htmlspecialchars($s['soluong'] ?? '') ?>">
                     </div>
 
+                    <!-- Giá -->
                     <div class="col-md-6">
-                        <label for="quantity" class="form-label">Số lượng:</label>
-                        <input type="number" id="quantity" name="quantity" class="form-control" required value="<?= isset($product['quantity']) ? $product['quantity'] : '' ?>">
+                        <label for="gia" class="form-label">Giá:</label>
+                        <input type="number" id="gia" name="gia" class="form-control" required value="<?= htmlspecialchars($s['gia'] ?? '') ?>">
                     </div>
-                    <div class="col-md-6">
-                        <label for="status" class="form-label">Trạng thái:</label>
-                        <div class="form-check">
-                            <input type="checkbox" id="status" name="status" class="form-check-input" value="1"
-                                <?= isset($product['status']) && $product['status'] == 0 ? '' : 'checked' ?>>
-                            <label class="form-check-label" for="status">Đang bán</label>
-                        </div>
-                    </div>
+
+                    <!-- Ảnh -->
                     <div class="col-md-6">
                         <label for="uploadPhoto" class="form-label">Ảnh minh họa:</label>
                         <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*"
                             onchange="document.getElementById('Photo').src = window.URL.createObjectURL(this.files[0])">
                         <div class="mt-4">
-                            <input type="hidden" id="inputPhoto" name="image" value="<?= isset($product['image']) ? $product['image'] : '' ?>">
+                            <input type="hidden" id="inputPhoto" name="anh" value="<?= htmlspecialchars($s['anh'] ?? '') ?>">
                             <div style="width: 160px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo" src="<?= isset($product['image']) ? $product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo" src="<?= htmlspecialchars($s['anh'] ?? 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg') ?>"
                                     class="img-thumbnail img-child ">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="price" class="form-label">Giá:</label>
-                        <input type="number" id="price" name="price" class="form-control" required value="<?= isset($product['price']) ? $product['price'] : '' ?>">
-                    </div>
-
+                    <!-- Buttons -->
                     <div class="col-12">
                         <?php if (isset($add) && !$add): ?>
                             <button type="submit" class="btn btn-primary" name="save" value="edit">
@@ -85,7 +98,7 @@
                                 <i class="fa fa-floppy-o"></i> Lưu dữ liệu
                             </button>
                         <?php endif; ?>
-                        <a href="/seller/products" class="btn btn-secondary">Quay lại</a>
+                        <a href="/products" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </form>
             </div>

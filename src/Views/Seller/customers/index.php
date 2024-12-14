@@ -111,24 +111,28 @@
     <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr>
-                <th>Tên khách hàng</th>
-                <th>Email</th>
-                <th>Số điện thoại</th>
-                <th>Số đơn hàng</th>
-                <th>Tổng tiền</th>
-                <th></th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Per.Price</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
             <!-- Example Row -->
             <tr>
-                <td>Hoàng Thị Quỳnh Chí</td>
-                <td>htqc@gmail.com</td>
-                <td>0123456789</td>
-                <td>12</td>
-                <td>100,000.00</td>
+                <td>#231212135612</td>
+                <td>Adidas slippers</td>
+                <td>Men's Cloth</td>
+                <td>20/11</td>
+                <td>Rs.100,000.00</td>
+                <td>
+                    <span class="status-badge status-live">Live</span>
+                </td>
                 <td class="text-center">
-                    <a href="/seller/customers/detail/1" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
+                    <a href="/customers/detail/1"><i style="font-size: 20px; color: #FF9C00" class="fa-regular fa-eye"></i></a>
                 </td>
             </tr>
             <!-- Repeat Rows for more products -->

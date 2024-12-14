@@ -130,26 +130,31 @@
     <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr>
-                <th>Mã đơn hàng</th>
-                <th>Tên khách hàng</th>
-                <th>Ngày đặt</th>
-                <th>Tổng tiền</th>
-                <th>Trạng thái</th>
-                <th></th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Per.Price</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
+            <!-- Example Row -->
             <tr>
-                <td>1</td>
-                <td>Nguyễn Thị Ngọc Nguyên</td>
-                <td>12/12/2024</td>
-                <td>200,000.00</td>
-                <td>Đơn hàng mới</td>
-
+                <td>#231212135612</td>
+                <td>Adidas slippers</td>
+                <td>Men's Cloth</td>
+                <td>20/11</td>
+                <td>Rs.100,000.00</td>
+                <td>
+                    <span class="status-badge status-live">Live</span>
+                </td>
                 <td class="text-center">
-                    <a href="/seller/orders/detail/1"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                    <a href="/orders/detail/1"><i style="font-size: 20px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
                 </td>
             </tr>
+            <!-- Repeat Rows for more products -->
         </tbody>
     </table>
 </div>
