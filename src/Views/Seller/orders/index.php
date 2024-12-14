@@ -56,7 +56,7 @@
                 <td>Đơn hàng mới</td>
 
                 <td class="text-center">
-                    <a href="/orders/detail/1"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                    <a href="/seller/orders/detail/1"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
                 </td>
             </tr>
         </tbody>

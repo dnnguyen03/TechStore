@@ -47,7 +47,7 @@
                 <td>12</td>
                 <td>100,000.00</td>
                 <td class="text-center">
-                    <a href="/customers/detail/1" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
+                    <a href="/seller/customers/detail/1" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
                 </td>
             </tr>
             <!-- Repeat Rows for more products -->

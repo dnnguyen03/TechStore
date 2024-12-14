@@ -14,7 +14,7 @@
                     <a class="btn btn-primary me-3" href="#" onclick="return confirm('Xác nhận thanh toán cho đơn hàng #12345')">
                         Xác nhận
                     </a>
-                    <a href="/orders" class="btn btn-secondary">Quay lại</a>
+                    <a href="/seller/orders" class="btn btn-secondary">Quay lại</a>
                 </div>
             </div>
             <div class="card-body">

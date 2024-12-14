@@ -4,7 +4,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-fit: center;
+        object-position: center;
     }
 </style>
 
@@ -81,7 +81,7 @@
                                 <i class="fa fa-floppy-o"></i> Lưu dữ liệu
                             </button>
                         <?php endif; ?>
-                        <a href="/products" class="btn btn-secondary">Quay lại</a>
+                        <a href="/seller/products" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </form>
             </div>
