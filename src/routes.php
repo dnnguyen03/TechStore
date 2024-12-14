@@ -27,6 +27,7 @@ if($sessionRoute == "seller") {
 
     $router->addRoute('/\/seller\/orders/', [new SelOrderController(), 'index']);
     $router->addRoute('/\/seller\/orders\/detail/', [new SelOrderController(), 'detail']);
+
     
     $router->addRoute('/\/seller\/shops/', [new SelShopController(), 'index']);
     $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);

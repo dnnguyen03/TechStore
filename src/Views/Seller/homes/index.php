@@ -76,6 +76,9 @@
     <div class="dashboard-header">
         <h2>Dashboard</h2>
     </div>
+<<<<<<< HEAD
+</body>
+=======
 
     <div class="row">
         <!-- Stats Section -->
@@ -86,6 +89,7 @@
                 <p>Total Products</p>
             </div>
         </div>
+>>>>>>> eb73ed7d0fc2151f173908f45884c6c667679ba6
 
         <div class="col-md-3">
             <div class="stat-card">
