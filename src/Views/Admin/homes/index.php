@@ -4,12 +4,12 @@ $totalCustomers = 1200;
 $totalOrdersToday = 240;
 
 $newAccounts = [
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'New', 'type' => 'Shopper'],
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Customer'],
-    ['id' => '#23121235612', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
+    ['id' => '#1', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
+    ['id' => '#2', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'New', 'type' => 'Shopper'],
+    ['id' => '#3', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
+    ['id' => '#4', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
+    ['id' => '#5', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Customer'],
+    ['id' => '#6', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
 ];
 ob_start();
 ?>
@@ -21,7 +21,7 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Tech Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -81,7 +81,7 @@ ob_start();
 
         <div class="card shadow-sm">
             <div class="card-header bg-white">
-                <h5>New Accounts</h5>
+                <h5>Users Management</h5>
             </div>
             <div class="card-body">
                 <table class="table table-hover">

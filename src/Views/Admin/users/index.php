@@ -1,9 +1,9 @@
 <?php
 $accounts = [
-    ["id" => "#231212135612", "name" => "Ahinsa De Silva", "date" => "12/12/23", "status" => "Verified", "type" => "Shopper"],
-    ["id" => "#231212135612", "name" => "Ahinsa De Silva", "date" => "12/12/23", "status" => "New", "type" => "Shopper"],
-    ["id" => "#231212135612", "name" => "Ahinsa De Silva", "date" => "12/12/23", "status" => "Rejected", "type" => "Customer"],
-    ["id" => "#231212135612", "name" => "Ahinsa De Silva", "date" => "12/12/23", "status" => "Verified", "type" => "Shopper"],
+    ["id" => "#1", "name" => "Ahinsa De Silva1", "date" => "12/12/23", "status" => "Verified", "type" => "Shopper"],
+    ["id" => "#2", "name" => "Ahinsa De Silva2", "date" => "12/12/23", "status" => "New", "type" => "Shopper"],
+    ["id" => "#3", "name" => "Ahinsa De Silva3", "date" => "12/12/23", "status" => "Rejected", "type" => "Customer"],
+    ["id" => "#4", "name" => "Ahinsa De Silva4", "date" => "12/12/23", "status" => "Verified", "type" => "Shopper"],
 ];
 ob_start();
 ?>
@@ -15,7 +15,7 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,14 @@ ob_start();
         table.table-hover tbody tr:hover {
             background-color: #f1f1f1;
         }
+
+        .action-icons a {
+            margin-right: 10px;
+        }
+
+        .action-icons i {
+            font-size: 1.2em;
+        }
     </style>
 </head>
 
@@ -49,11 +57,13 @@ ob_start();
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Accounts Management</h1>
             <div>
-                <select class="form-select mt-1">
-                    <option>Filter by Type</option>
-                    <option>Shopper</option>
-                    <option>Customer</option>
-                </select>
+                <form method="GET">
+                    <select class="form-select mt-1" name="filter" onchange="this.form.submit()">
+                        <option value="">Filter by Type</option>
+                        <option value="Shopper" <?= isset($_GET['filter']) && $_GET['filter'] === 'Shopper' ? 'selected' : ''; ?>>Shopper</option>
+                        <option value="Customer" <?= isset($_GET['filter']) && $_GET['filter'] === 'Customer' ? 'selected' : ''; ?>>Customer</option>
+                    </select>
+                </form>
             </div>
         </div>
         <table class="table table-bordered table-hover">
@@ -64,7 +74,7 @@ ob_start();
                     <th>Registered Date</th>
                     <th>AC. Verification</th>
                     <th>Type</th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,7 +93,12 @@ ob_start();
                             <?php endif; ?>
                         </td>
                         <td><?= htmlspecialchars($account['type']); ?></td>
-                        <td><i class="fas fa-arrow-right"></i></td>
+                        <td>
+                            <button class="btn btn-light btn-sm">
+                                <a href="edit_account.php?id=<?= urlencode($account['id']); ?>" class="text-warning">
+                                    <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -93,6 +108,7 @@ ob_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
 <?php $content = ob_get_clean(); ?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

@@ -1,3 +1,39 @@
+<?php
+
+use App\Controllers\Auth\AuthController;
+
+// Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng tới trang chủ
+if (isset($_SESSION['user_id'])) {
+    header('Location: home');
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $authController = new AuthController();
+    $error_message = $authController->signin($username, $password);
+    // Gọi phương thức xác thực người dùng trong model
+    require_once '../Models/user.php';
+    $userModel = new \App\Models\User();
+    $user = $userModel->verifyUser($username, $password);
+
+    if ($user) {
+        // Lưu thông tin người dùng vào session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
+
+        // Chuyển hướng đến trang chủ
+        header('Location: home.php');
+        exit();
+    } else {
+        $error_message = "Invalid username or password";
+    }
+}
+?>
+
 <!-- /templates/layout.php -->
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +82,7 @@
         .form-group {
             margin-bottom: 20px;
         }
-        input[type="email"], input[type="password"] {
+        input[type="username"], input[type="password"] {
             width: 100%;
             padding: 12px 15px;
             margin: 5px 0;
@@ -86,10 +122,10 @@
             <img src="/src/assets/images/logoTechStore.png" alt="Logo"> 
         </div>
         <h1>Sign In</h1>
-        <p>Sign in with your email address and password</p>
-        <form action="process_login.php" method="POST">
+        <p>Sign in with your username and password</p>
+        <form action="/" method="POST">
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="username" name="username" placeholder="Username" required>
             </div>
             <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
