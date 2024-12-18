@@ -11,10 +11,10 @@
     <!-- Content Header (Page header) -->
     <section style="margin: 12px 0;">
         <h2>
-            <?php if (isset($add) && !$add): ?>
-                Sửa thông tin sách
+            <?php if (isset($product['product_id'])): ?>
+                Sửa thông tin sản phẩm
             <?php else: ?>
-                Thêm thông tin sách
+                Thêm thông tin sản phẩm
             <?php endif; ?>
         </h2>
     </section>
@@ -53,7 +53,7 @@
                         <label for="status" class="form-label">Trạng thái:</label>
                         <div class="form-check">
                             <input type="checkbox" id="status" name="status" class="form-check-input" value="1"
-                                <?= isset($product['status']) && $product['status'] == 0 ? '' : 'checked' ?>>
+                                <?= isset($product['status']) ? ($product['status'] == 0 ? '' : 'checked') : 'checked' ?>>
                             <label class="form-check-label" for="status">Đang bán</label>
                         </div>
                     </div>
@@ -76,21 +76,64 @@
                     </div>
 
                     <div class="col-12">
-                        <?php if (isset($add) && !$add): ?>
-                            <button type="submit" class="btn btn-primary" name="save" value="edit">
-                                <i class="fa fa-floppy-o"></i> Lưu dữ liệu
-                            </button>
-                        <?php else: ?>
-                            <button type="submit" class="btn btn-primary" name="save" value="create">
-                                <i class="fa fa-floppy-o"></i> Lưu dữ liệu
-                            </button>
-                        <?php endif; ?>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-floppy-o"></i> Lưu dữ liệu
+                        </button>
                         <a href="/seller/products" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+
+
+    <?php if (isset($product['product_id'])) { ?>
+        <section style="margin-top: 24px;">
+            <h3>Danh sách ảnh</h3>
+            <div class="card">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 60px;">Ảnh</th>
+                            <th>Mô tả</th>
+                            <th style="width: 200px;">Thứ tự</th>
+                            <th style="width: 200px;">Ẩn ảnh</th>
+                            <th style="width: 100px; text-align: center;">
+                                <a href="/seller/products/photo/create?product_id=<?= $product['product_id'] ?>" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($photos as $photo): ?>
+                            <tr>
+                                <td>
+                                    <div style="width: 60px; height: 60px; overflow: hidden;">
+                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($photo['image']) ? $photo['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="photo">
+                                    </div>
+                                </td>
+                                <td><?= $photo['description'] ?></td>
+                                <td><?= $photo['display_order'] ?></td>
+                                <td>
+                                    <?php if ($photo['is_hidden'] == 0): ?>
+                                        <p style="color: green;">Đang hiện</p>
+                                    <?php else: ?>
+                                        <p style="color: red;">Đang ẩn</p>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/seller/products/photo/update/<?= $photo['photo_id'] ?>?product_id=<?= $product['product_id'] ?>" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+
+                                    <a href="/seller/products/photo/delete/<?= $photo['photo_id'] ?>?product_id=<?= $product['product_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Xác nhận xóa ảnh?')">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    <?php } ?>
 </div>
 
 <?php $content = ob_get_clean(); ?>
