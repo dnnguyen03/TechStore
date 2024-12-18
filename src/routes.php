@@ -21,6 +21,9 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/products\/create/', [new SelProductController(), 'create']);
     $router->addRoute('/\/seller\/products\/update\/(\d+)/', [new SelProductController(), 'update']);
     $router->addRoute('/\/seller\/products\/delete\/(\d+)/', [new SelProductController(), 'delete']);
+    $router->addRoute('/\/seller\/products\/photo\/create/', [new SelProductController(), 'createPhoto']);
+    $router->addRoute('/\/seller\/products\/photo\/update\/(\d+)/', [new SelProductController(), 'updatePhoto']);
+    $router->addRoute('/\/seller\/products\/photo\/delete\/(\d+)/', [new SelProductController(), 'deletePhoto']);
 
     $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
     $router->addRoute('/\/seller\/customers\/detail/', [new SelCustomerController(), 'detail']);
