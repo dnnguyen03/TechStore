@@ -13,6 +13,11 @@ $router = new Router();
 
 $sessionRoute = "seller";
 
+// Những router không cần quyền vẫn có thể truy cập
+$router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
+// $router->addRoute('/\/login/', [new SelHomeController(), 'index']);
+// $router->addRoute('/\/register/', [new SelProductController(), 'index']);
+
 if($sessionRoute == "seller") {
     $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);
     $router->addRoute('/\/seller\/home/', [new SelHomeController(), 'index']);
@@ -33,7 +38,6 @@ if($sessionRoute == "seller") {
 
     
     $router->addRoute('/\/seller\/shops/', [new SelShopController(), 'index']);
-    $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
     $router->addRoute('/\/seller\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
     
     $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
@@ -51,7 +55,4 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/products/', [new SelProductController(), 'index']);
     $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
     $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
-    
 } 
-// $router->addRoute('/\/login/', [new SelHomeController(), 'index']);
-// $router->addRoute('/\/register/', [new SelProductController(), 'index']);

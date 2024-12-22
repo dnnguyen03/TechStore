@@ -84,7 +84,7 @@ class SelProductController extends Controller
             $status = $_POST['status'];
             $seller_id = 1;
 
-            if (isset($_FILES['uploadPhoto'])) {
+            if (isset($_FILES['uploadPhoto']) && (basename($_FILES['uploadPhoto']['name']) != "")) {
                 $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
@@ -139,6 +139,12 @@ class SelProductController extends Controller
             $description = $_POST['description'];
             $display_order = $_POST['display_order'];
             $is_hidden = isset($_POST['is_hidden']) ? (int)$_POST['is_hidden'] : 0;
+
+            if (isset($_FILES['uploadPhoto']) && (basename($_FILES['uploadPhoto']['name']) != "")) {
+                $fileName = basename($_FILES['uploadPhoto']['name']);
+
+                $image = $fileName;
+            }
             
             $this->productModel->updateProductPhoto($photo_id, $product_id, $image, $description, $display_order, $is_hidden);
         }
