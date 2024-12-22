@@ -22,8 +22,8 @@ class Product
 
     public function getAllProductBySeller($seller_id)
     {
-        $seller_id = $this->connection->real_escape_string($seller_id);
-        $result = $this->connection->query("SELECT * FROM Products WHERE seller_id = $seller_id");
+        $seller_id = (int) $seller_id;
+        $result = $this->connection->query("SELECT * FROM products WHERE seller_id = $seller_id");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -36,7 +36,7 @@ class Product
 
     public function searchProductBySeller($seller_id, $searchValue = "", $category = 0, $status = 2, $page = 1, $pageSize = 10)
     {
-        $seller_id = $this->connection->real_escape_string($seller_id);
+        $seller_id = (int) $seller_id;
         $searchValue = '%' . $this->connection->real_escape_string($searchValue) . '%';
         $category = (int)$category;
         $status = (int)$status;
@@ -77,7 +77,7 @@ class Product
 
     public function count($seller_id, $searchValue = "", $category = 0, $status = 2)
     {
-        $seller_id = $this->connection->real_escape_string($seller_id);
+        $seller_id = (int) $seller_id;
         $searchValue = '%' . $this->connection->real_escape_string($searchValue) . '%';
         $category = (int)$category;
         $status = (int)$status;

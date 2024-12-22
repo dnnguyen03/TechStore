@@ -74,7 +74,7 @@
 </style>
 <div class="container-fluid">
     <div class="dashboard-header">
-        <h2>Dashboard</h2>
+        <h2>Tổng quan</h2>
     </div>
 
     <div class="row">
@@ -82,32 +82,32 @@
         <div class="col-md-3">
             <div class="stat-card">
                 <i class="fa fa-box"></i>
-                <h5>240</h5>
-                <p>Total Products</p>
+                <h5><?= $countProduct ?></h5>
+                <p>Tổng số sản phẩm</p>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="stat-card">
-                <i class="fa fa-cart-arrow-down"></i>
-                <h5>1200</h5>
-                <p>Total Sales</p>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="stat-card">
-                <i class="fa fa-cogs"></i>
-                <h5>240</h5>
-                <p>Pending Orders</p>
+                <i class="fa fa-dollar-sign"></i>
+                <h5><?= $totalRevenue ?></h5>
+                <p>Tổng doanh thu</p>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="stat-card">
                 <i class="fa fa-truck"></i>
-                <h5>240</h5>
-                <p>On Process to Delivery</p>
+                <h5><?= $countCustomer ?></h5>
+                <p>Đơn hàng mới</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-users"></i>
+                <h5><?= $countCustomer ?></h5>
+                <p>Số khách hàng</p>
             </div>
         </div>
     </div>
@@ -116,17 +116,17 @@
         <!-- Add Product Section -->
         <div class="col-md-6">
             <div class="dashboard-card">
-                <h5>Add New Product</h5>
-                <p>Introduce your new product to the market.</p>
-                <button class="btn btn-outline-warning">Add Product</button>
+                <h5>Thêm sản phẩm mới</h5>
+                <p>Giới thiệu sản phẩm mới của bạn ra thị trường.</p>
+                <a href="/seller/products/create" class="btn btn-outline-warning">Thêm sản phẩm</a>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="dashboard-card">
-                <h5>Increase Items</h5>
-                <p>Increase the product quantity in stock.</p>
-                <button class="btn btn-outline-warning">Increase</button>
+                <h5>Tăng vật phẩm</h5>
+                <p>Tăng số lượng sản phẩm trong kho.</p>
+                <a href="/seller/products" class="btn btn-outline-warning">Tới kho hàng</a>
             </div>
         </div>
     </div>
@@ -134,7 +134,7 @@
     <div class="row">
         <!-- New Orders Section -->
         <div class="col-md-12 order-list">
-            <h5>New Orders</h5>
+            <h5>Đơn đặt hàng mới</h5>
             <div class="order-item">
                 <span>#2312121315612</span>
                 <span>Ahinsa De Silva</span>

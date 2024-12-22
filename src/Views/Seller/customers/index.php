@@ -39,18 +39,18 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Example Row -->
+            <?php foreach ($CustomerBySellers as $customer): ?>
             <tr>
-                <td>Hoàng Thị Quỳnh Chí</td>
-                <td>htqc@gmail.com</td>
-                <td>0123456789</td>
-                <td>12</td>
-                <td>100,000.00</td>
+                <td><?= $customer['full_name'] ?></td>
+                <td><?= $customer['email'] ?></td>
+                <td><?= $customer['phone'] ?></td>
+                <td><?= $customer['total_orders'] ?></td>
+                <td><?= floor($customer['total_revenue']) ?></td>
                 <td class="text-center">
-                    <a href="/seller/customers/detail/1" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
+                    <a href="/seller/customers/detail/<?= $customer['user_id'] ?>" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
                 </td>
             </tr>
-            <!-- Repeat Rows for more products -->
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
