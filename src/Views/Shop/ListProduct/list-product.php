@@ -25,6 +25,8 @@
         border-radius: 10px;
         cursor: pointer;
         transition: linear 0.2s all;
+        display: flex;
+        flex-direction: column;
     }
 
     .cardProduct:hover {
@@ -47,53 +49,53 @@
         object-fit: cover;
     }
 
-    .cardProduct :hover .cardProduct .image img {
-        transform: translate(zoo);
+    .inforProduct {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .btn-secondary {
+        background-color: white;
+        border-color: orange;
+        border-radius: 100px;
+        width: 120px;
+        color: orange;
+    }
+
+    .btn-secondary:hover {
+        background-color: orange;
+        border-color: orange;
+    }
+
+    .cardProduct a {
+        color: white;
     }
 </style>
 <div class="list-product container" style="margin-bottom: 30px;">
-    <div class="cardProduct">
-        <div class="image">
-            <img src="/src/assets/images/product.png" alt="">
+    <?php
+    // Render danh sách sản phẩm
+    foreach ($products as $product) : ?>
+        <div class="cardProduct">
+            <div class="image">
+                <img src="<?= $product['image']; ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
+            </div>
+            <div class="inforProduct p-3">
+                <div>
+                    <h4 class="nameProduct"><?= htmlspecialchars($product['product_name']); ?></h4>
+                    <h5 class="price"><?= htmlspecialchars($product['price']); ?></h5>
+                    <div class="desc mb-3"><?= htmlspecialchars($product['product_decs']); ?></div>
+                </div>
+                <div>
+                    <a href="/Product/<?= $product['product_id'] ?>">
+                        <button class="btn btn-secondary">View detail</button>
+                    </a>
+                    <a href="">
+                        <button class="btn btn-primary">Add to cart</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="inforProduct p-3">
-            <h4 class="nameProduct">Product Name</h4>
-            <h5 class="price">100.000đ</h5>
-            <div class="desc mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, consequuntur culpa. Exercitationem ratione enim voluptas inventore iure! Natus enim, ea corrupti id consequatur iusto voluptatem, esse repudiandae pariatur nam exercitationem.</div>
-            <button class="btn btn-primary">Add to cart</button>
-        </div>
-    </div>
-    <div class="cardProduct">
-        <div class="image">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforProduct p-3">
-            <h4 class="nameProduct">Product Name</h4>
-            <h5 class="price">100.000đ</h5>
-            <div class="desc mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, consequuntur culpa. Exercitationem ratione enim voluptas inventore iure! Natus enim, ea corrupti id consequatur iusto voluptatem, esse repudiandae pariatur nam exercitationem.</div>
-            <button class="btn btn-primary">Add to cart</button>
-        </div>
-    </div>
-    <div class="cardProduct">
-        <div class="image">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforProduct p-3">
-            <h4 class="nameProduct">Product Name</h4>
-            <h5 class="price">100.000đ</h5>
-            <div class="desc mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, consequuntur culpa. Exercitationem ratione enim voluptas inventore iure! Natus enim, ea corrupti id consequatur iusto voluptatem, esse repudiandae pariatur nam exercitationem.</div>
-            <button class="btn btn-primary">Add to cart</button>
-        </div>
-    </div>
-    <div class="cardProduct">
-        <div class="image">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforProduct p-3">
-            <h4 class="nameProduct">Product Name</h4>
-            <h5 class="price">100.000đ</h5>
-            <div class="desc mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, consequuntur culpa. Exercitationem ratione enim voluptas inventore iure! Natus enim, ea corrupti id consequatur iusto voluptatem, esse repudiandae pariatur nam exercitationem.</div>
-            <button class="btn btn-primary">Add to cart</button>
-        </div>
-    </div>
+    <?php endforeach; ?>
 </div>

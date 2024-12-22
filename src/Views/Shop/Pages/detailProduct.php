@@ -18,7 +18,7 @@
             </div>
         </div>
         <div style="display: flex; flex-direction: column; justify-content: space-between;">
-            <h4>Product Name</h4>
+            <h4><?= $product['product_name'] ?></h4>
             <h5>Shop Name</h5>
             <h4>Giá: 100,000,000đ</h4>
             <div>
@@ -48,7 +48,9 @@
     </div>
 </div>
 <h1 class="container my-4">Best Deals for you</h1>
-<?php include(__DIR__ . '../../ListProduct/list-product.php'); ?>
+<?php
+$products = $bestDealProduct;
+include(__DIR__ . '../../ListProduct/list-product.php'); ?>
 <?php include(__DIR__ . '../../Tranding/tranding.php'); ?>
 
 

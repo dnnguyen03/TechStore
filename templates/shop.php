@@ -309,15 +309,15 @@
     }
 </style>
 <header class="py-3 mb-4 border-bottom" style="transition: all 0.3s ease;">
-    <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+    <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between" style="padding: 0;">
 
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none" style="height: 50px;">
-            <img width="100%" height="100%" src="/src/assets/images/logoTechStore.png" alt="" style="object-fit: none;">
+            <img width="65%" height="100%" src="/src/assets/images/logoTechStore.png" alt="" style="object-fit: none;">
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Features</a></li>
+            <li><a href="/" style="font-weight: bold;" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="/AllProduct" style="font-weight: bold;" class="nav-link px-2 link-dark">Product</a></li>
             <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Pricing</a></li>
             <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">About</a></li>
@@ -368,18 +368,15 @@
                                         min="1"
                                         max="100"
                                         step="1"
-                                        value="1"
-                                        readonly />
+                                        value="1" />
                                     <button id="increment">+</button>
                                 </div>
                                 <div class="deletePro" style="margin-left: 10px;">
                                     <i class="fa-solid fa-trash"></i>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
             <footer>

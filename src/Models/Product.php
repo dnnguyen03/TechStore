@@ -21,10 +21,102 @@ class Product
             die("Connection failed: " . $this->connection->connect_error);
         }
     }
-
     public function getAllProduct()
     {
         $result = $this->connection->query("SELECT * FROM Products");
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getBestDeal()
+    {
+        $result = $this->connection->query("SELECT product_id,product_name,product_decs,price,image 
+        FROM Products
+        WHERE status = 1 
+        ORDER BY price ASC LIMIT 4;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getPopularProduct()
+    {
+        $result = $this->connection->query("SELECT p.product_id, p.product_name,p.product_decs,p.price,p.image,SUM(d.quantity) AS ban_chay_nhat 
+        FROM DetailOrders d INNER JOIN Products p ON d.product_id = p.product_id
+        GROUP BY p.product_id, p.product_name, p.product_decs, p.price, p.image
+        ORDER BY ban_chay_nhat DESC LIMIT 4;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLimitedProducts($limit)
+    {
+        $query = "SELECT * FROM Products LIMIT ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function getAllProductBySeller($seller_id)
+    {
+        $seller_id = $this->connection->real_escape_string($seller_id);
+        $result = $this->connection->query("SELECT * FROM Products WHERE seller_id = $seller_id");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductById($product_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
+        $result = $this->connection->query("SELECT * FROM products WHERE product_id = $product_id");
+
+        return $result->fetch_assoc();
+    }
+
+    public function createProduct($product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id)
+    {
+        $product_name = $this->connection->real_escape_string($product_name);
+        $product_decs = $this->connection->real_escape_string($product_decs);
+        $category_id = $this->connection->real_escape_string($category_id);
+        $price = $this->connection->real_escape_string($price);
+        $image = $this->connection->real_escape_string($image);
+        $quantity = $this->connection->real_escape_string($quantity);
+        $status = $this->connection->real_escape_string($status);
+        $seller_id = $this->connection->real_escape_string($seller_id);
+
+        $this->connection->query("INSERT INTO products (product_name, product_decs, category_id, price, image, quantity, status, seller_id)
+                                 VALUES ('$product_name', '$product_decs', '$category_id','$price', '$image', '$quantity', '$status', '$seller_id')");
+
+        header('Location: /seller/products');
+    }
+
+    public function updateProduct($product_id, $product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
+        $product_name = $this->connection->real_escape_string($product_name);
+        $product_decs = $this->connection->real_escape_string($product_decs);
+        $category_id = $this->connection->real_escape_string($category_id);
+        $price = $this->connection->real_escape_string($price);
+        $image = $this->connection->real_escape_string($image);
+        $quantity = $this->connection->real_escape_string($quantity);
+        $status = $this->connection->real_escape_string($status);
+        $seller_id = $this->connection->real_escape_string($seller_id);
+
+
+        $this->connection->query("UPDATE products SET product_name='$product_name',
+                                                   product_decs='$product_decs', 
+                                                   category_id='$category_id', 
+                                                   price='$price', 
+                                                   image='$image', 
+                                                   quantity='$quantity', 
+                                                   status='$status', 
+                                                   seller_id='$seller_id' 
+                                 WHERE product_id=$product_id");
+
+        // Redirect to the index page after update
+        header('Location: /seller/products');
+    }
+
+    public function deleteProduct($product_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
+        $this->connection->query("DELETE FROM products WHERE product_id=$product_id");
     }
 }

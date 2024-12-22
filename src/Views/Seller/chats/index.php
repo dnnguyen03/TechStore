@@ -1,11 +1,6 @@
 <?php ob_start(); ?>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
-
     #chat-box {
         overflow-y: auto;
         background-color: #f8f9fa;
@@ -83,7 +78,6 @@
             </div>
         </div>
     </div>
-    </body>
 </div>
 
 <?php $content = ob_get_clean(); ?>

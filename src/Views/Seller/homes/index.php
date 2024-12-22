@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
 <style>
-    /* Custom Styles */
     .dashboard-card {
         background-color: #fff;
         border-radius: 10px;
@@ -77,7 +76,6 @@
     <div class="dashboard-header">
         <h2>Dashboard</h2>
     </div>
-    </body>
 
     <div class="row">
         <!-- Stats Section -->
