@@ -136,12 +136,13 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($currentPath == $router['link']) ? 'active' : ''; ?>">
-                                <a href="<?php echo $router['link']; ?>">
-                                    <?php echo $router['icon']; ?>
-                                    <?php echo $router['title']; ?>
-                                </a>
-                            </li>
+                            <li class="menu-item <?php echo $classRole ?> <?php echo (strpos($currentPath, $router['link']) !== false) ? 'active' : ''; ?>">
+                            <a href="<?php echo $router['link']; ?>">
+                                <?php echo $router['icon']; ?>
+                                <?php echo $router['title']; ?>
+                            </a>
+                        </li>
+
                         <?php } ?>
                     </ul>
 
