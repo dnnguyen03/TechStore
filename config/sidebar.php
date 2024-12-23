@@ -6,32 +6,32 @@ $RouterRolers = [
             [
                 'icon' => '<i class="fa-solid fa-house"></i>',
                 'title' => 'Tổng quan',
-                'link' => '/home'
+                'link' => '/seller/home'
             ],
             [
                 'icon' => '<i class="fa-brands fa-product-hunt"></i>',
                 'title' => 'Sản phẩm',
-                'link' => '/products'
+                'link' => '/seller/products'
             ],
             [
                 'icon' => '<i class="fa-solid fa-file-invoice"></i>',
                 'title' => 'Đơn hàng',
-                'link' => '/orders'
+                'link' => '/seller/orders'
             ],
             [
                 'icon' => '<i class="fa-solid fa-user"></i>',
                 'title' => 'Khách hàng',
-                'link' => '/customers'
+                'link' => '/seller/customers'
             ],
             [
-                'icon' => '<i class="fa-solid fa-shop"></i>',
+                'icon' => '<i class="fa-solid fa-store"></i>',
                 'title' => 'Shop của tôi',
-                'link' => '/shops'
+                'link' => '/seller/shops'
             ],
             [
                 'icon' => '<i class="fa-solid fa-comments"></i>',
                 'title' => 'Nhắn tin',
-                'link' => '/chats'
+                'link' => '/seller/chats'
             ],
         ],
     ],
@@ -39,18 +39,18 @@ $RouterRolers = [
         'role' => 'customer',
         'routers' => [
             [
-                'icon' => '<i class="fa-solid fa-house"></i>',
+                'icon' => '<i class="fa-solid fa-cart-shopping"></i>',
                 'title' => 'Đơn hàng',
                 'link' => '/orders'
             ],
             [
-                'icon' => '<i class="fa-brands fa-product-hunt"></i>',
+                'icon' => '<i class="fa-solid fa-comment-dots"></i>',
                 'title' => 'Phản hồi',
                 'link' => '/complaints'
             ],
             [
-                'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                'title' => 'Cus chat',
+                'icon' => '<i class="fa-solid fa-message"></i>',
+                'title' => 'Tin nhắn',
                 'link' => '/chats'
             ],
         ],
