@@ -5,6 +5,13 @@ use App\Controllers\Admin\AdHomeController;
 use App\Controllers\Admin\AdProductController;
 use App\Controllers\Admin\AdUserController;
 use App\Controllers\Auth\AuthController;
+use App\Controllers\Customers\CusChatController;
+use App\Controllers\Customers\CusComplaintController;
+
+use App\Controllers\Customers\CusOrderController;
+
+use App\Controllers\Customers\CusReportController;
+use App\Controllers\Customers\ProfileController;
 use App\Controllers\Sellers\SelChatController;
 use App\Controllers\Sellers\SelCustomerController;
 use App\Controllers\Sellers\SelHomeController;
@@ -22,6 +29,10 @@ $router->addRoute('/\/signin/', [new AuthController(), 'signin']);
 $router->addRoute('/\/register/', [new AuthController(), 'register']);
 $router->addRoute('/\/forgot/', [new AuthController(), 'forgot']);
 $router->addRoute('/\/logout/', [new AuthController(), 'logout']);
+
+
+
+// Những router không cần quyền vẫn có thể truy cập
 $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
 $router->addRoute('/\//', [new ShopController(), 'index']);
 $router->addRoute('/\/AllProduct/', [new ShopController(), 'allProduct']);
@@ -29,6 +40,18 @@ $router->addRoute('/\/Product\/(\d+)/', [new ShopController(), 'show']);
 
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
 
+// $router->addRoute('/\/login/', [new SelHomeController(), 'index']);
+// $router->addRoute('/\/register/', [new SelProductController(), 'index']);
+$sessionRoute = "customer";
+
+// // Add routes
+// $router->addRoute('/\//', [new PostController(), 'index']);
+// $router->addRoute('/\/post/', [new PostController(), 'index']);
+// $router->addRoute('/\/post\/index/', [new PostController(), 'index']);
+// $router->addRoute('/\/post\/show\/(\d+)/', [new PostController(), 'show']);
+// $router->addRoute('/\/post\/create/', [new PostController(), 'create']);
+// $router->addRoute('/\/post\/update\/(\d+)/', [new PostController(), 'update']);
+// $router->addRoute('/\/post\/delete\/(\d+)/', [new PostController(), 'delete']);
 
 if ($sessionRoute == "seller") {
     $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);
@@ -65,4 +88,22 @@ if ($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/products/', [new SelProductController(), 'index']);
     $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
     $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
+
+}
+
+if($sessionRoute == "customer") {
+   
+    $router->addRoute('/\/orders/', [new CusOrderController(), 'index']);
+    $router->addRoute('/\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
+    $router->addRoute('/\/customer\/orders\/cancel\/(\d+)/', [new CusOrderController(), 'Cancel']);
+
+    $router->addRoute('/\/complaints/', [new CusComplaintController(), 'index']);
+    $router->addRoute('/\/complaints\/detail/', [new CusComplaintController(), 'Details']);
+
+    $router->addRoute('/\/customer\/report\/create/', [new CusReportController(), 'create']);
+
+    $router->addRoute('/\/chats/', [new CusChatController(), 'index']);
+
+    $router->addRoute('/\/customer\/profile/', [new ProfileController(), 'index']);
+    
 }
