@@ -1,7 +1,6 @@
 <?php ob_start(); ?>
 
 <style>
-
     #chat-box {
         overflow-y: auto;
         background-color: #f8f9fa;

@@ -16,7 +16,7 @@ class SelOrderController extends Controller
 
     public function index()
     {
-        $seller_id = 1;
+        $seller_id = $_SESSION["seller_id"];
         $OrderBySellers = $this->orderModel->getAllOrderBySeller($seller_id);
 
         $this->render('Seller/orders/index', ['OrderBySellers' => $OrderBySellers]);

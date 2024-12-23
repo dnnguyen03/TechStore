@@ -19,6 +19,39 @@ class Product
             die("Connection failed: " . $this->connection->connect_error);
         }
     }
+    public function getAllProduct()
+    {
+        $result = $this->connection->query("SELECT * FROM Products");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getBestDeal()
+    {
+        $result = $this->connection->query("SELECT product_id,product_name,product_decs,price,image 
+        FROM Products
+        WHERE status = 1 
+        ORDER BY price ASC LIMIT 4;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getPopularProduct()
+    {
+        $result = $this->connection->query("SELECT p.product_id, p.product_name,p.product_decs,p.price,p.image,SUM(d.quantity) AS ban_chay_nhat 
+        FROM DetailOrders d INNER JOIN Products p ON d.product_id = p.product_id
+        GROUP BY p.product_id, p.product_name, p.product_decs, p.price, p.image
+        ORDER BY ban_chay_nhat DESC LIMIT 4;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLimitedProducts($limit)
+    {
+        $query = "SELECT * FROM Products LIMIT ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 
     public function getAllProductBySeller($seller_id)
     {
@@ -30,9 +63,47 @@ class Product
     public function getProductById($product_id)
     {
         $product_id = $this->connection->real_escape_string($product_id);
+        $result = $this->connection->query("SELECT 
+        p.product_name, 
+        s.shop_name, 
+        s.seller_id , 
+        p.product_id, 
+        p.price, 
+        p.image AS product_image, 
+        p.product_decs ,
+        GROUP_CONCAT(pp.image ORDER BY pp.display_order) AS product_photos
+    FROM 
+        Products p JOIN Seller s ON p.seller_id = s.seller_id
+    LEFT JOIN 
+        ProductPhotos pp ON p.product_id = pp.product_id
+    WHERE 
+        p.product_id = $product_id  
+    GROUP BY 
+        p.product_id;");
+
+        $product = $result->fetch_assoc();
+
+        // Chuyển chuỗi các ảnh thành mảng và thêm ảnh mặc định vào đầu mảng
+        if ($product['product_photos']) {
+            $product['product_photos'] = explode(',', $product['product_photos']);
+            // Thêm ảnh chính (product_image) vào đầu mảng ảnh
+            array_unshift($product['product_photos'], $product['product_image']);
+        } else {
+            // Nếu không có ảnh phụ, chỉ thêm ảnh chính vào mảng
+            $product['product_photos'] = [$product['product_image']];
+        }
+        $product['product_photos'] = array_merge(...array_fill(0, 6, $product['product_photos']));
+
+        return $product;
+    }
+
+    public function getProductByIdSeller($product_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
         $result = $this->connection->query("SELECT * FROM products WHERE product_id = $product_id");
         return $result->fetch_assoc();
     }
+
 
     public function searchProductBySeller($seller_id, $searchValue = "", $category = 0, $status = 2, $page = 1, $pageSize = 10)
     {
@@ -162,7 +233,69 @@ class Product
         $product_id = $this->connection->real_escape_string($product_id);
         $this->connection->query("DELETE FROM products WHERE product_id=$product_id");
     }
+    public function getTotalProducts()
+    {
+        $query = "SELECT COUNT(*) AS total FROM products";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['total'];
+    }
+    public function getAllProducts()
+    {
+        $query = "
+            SELECT 
+                p.product_id, 
+                p.product_name, 
+                p.price, 
+                p.quantity, 
+                p.status, 
+                c.category_name 
+            FROM 
+                products p 
+            LEFT JOIN 
+                category c 
+            ON 
+                p.category_id = c.category_id
+        ";
 
+        $result = $this->connection->query($query);
+
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        return [];
+    }
+    public function searchProductsByName($searchKeyword)
+    {
+        $searchKeyword = $this->connection->real_escape_string($searchKeyword);
+        $query = "
+            SELECT 
+                p.product_id, 
+                p.product_name, 
+                p.price, 
+                p.quantity, 
+                p.status, 
+                c.category_name 
+            FROM 
+                products p 
+            LEFT JOIN 
+                category c 
+            ON 
+                p.category_id = c.category_id
+            WHERE 
+                p.product_name LIKE '%$searchKeyword%'
+        ";
+
+        $result = $this->connection->query($query);
+
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        return [];
+    }
     public function createProductPhoto($product_id, $image, $description, $display_order, $is_hidden)
     {
         $product_id = (int)($product_id ?? 0);

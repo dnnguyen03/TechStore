@@ -16,7 +16,7 @@ class SelProductController extends Controller
 
     public function index()
     {
-        $seller_id = 1;
+        $seller_id = $_SESSION["seller_id"];
         $searchValue = "";
         $status = 2;
         $category = 0;
@@ -57,7 +57,7 @@ class SelProductController extends Controller
             $image = $_POST['image'];
             $quantity = $_POST['quantity'];
             $status = $_POST['status'];
-            $seller_id = 1;
+            $seller_id = $_SESSION["seller_id"];
 
             if (isset($_FILES['uploadPhoto'])) {
                 // $fileName = uniqid() . '-' . basename($_FILES['uploadPhoto']['name']);
@@ -82,7 +82,7 @@ class SelProductController extends Controller
             $image = $_POST['image'];
             $quantity = $_POST['quantity'];
             $status = $_POST['status'];
-            $seller_id = 1;
+            $seller_id = $_SESSION["seller_id"];
 
             if (isset($_FILES['uploadPhoto']) && (basename($_FILES['uploadPhoto']['name']) != "")) {
                 $fileName = basename($_FILES['uploadPhoto']['name']);
@@ -93,7 +93,7 @@ class SelProductController extends Controller
             $this->productModel->updateProduct($product_id, $product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id);
         }
 
-        $product = $this->productModel->getProductById($product_id);
+        $product = $this->productModel->getProductByIdSeller($product_id);
         $photos = $this->productModel->getProductPhotosByProductId($product_id);
         $this->render('Seller/products/edit', ['product' => $product, 'photos' => $photos]);
     }
@@ -115,13 +115,13 @@ class SelProductController extends Controller
             $description = $_POST['description'];
             $display_order = $_POST['display_order'];
             $is_hidden = isset($_POST['is_hidden']) ? (int)$_POST['is_hidden'] : 0;
-            
+
             if (isset($_FILES['uploadPhoto'])) {
                 $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
             }
-            
+
             $this->productModel->createProductPhoto($product_id, $image, $description, $display_order, $is_hidden);
         }
 
@@ -145,7 +145,7 @@ class SelProductController extends Controller
 
                 $image = $fileName;
             }
-            
+
             $this->productModel->updateProductPhoto($photo_id, $product_id, $image, $description, $display_order, $is_hidden);
         }
 
