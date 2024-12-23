@@ -49,17 +49,17 @@
         </thead>
         <tbody>
             <?php foreach ($OrderBySellers as $order): ?>
-            <tr>
-                <td><?= $order['order_id'] ?></td>
-                <td><?= $order['full_name'] ?></td>
-                <td><?= $order['date_order'] ?></td>
-                <td><?= floor($order['total_amount']) ?></td>
-                <td><?= $order['status'] ?></td>
+                <tr>
+                    <td><?= $order['order_id'] ?></td>
+                    <td><?= $order['full_name'] ?></td>
+                    <td><?= $order['date_order'] ?></td>
+                    <td><?= floor($order['total_amount']) ?></td>
+                    <td><?= $order['status'] ?></td>
 
-                <td class="text-center">
-                    <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
-                </td>
-            </tr>
+                    <td class="text-center">
+                        <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
