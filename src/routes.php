@@ -5,6 +5,13 @@ use App\Controllers\Admin\AdHomeController;
 use App\Controllers\Admin\AdProductController;
 use App\Controllers\Admin\AdUserController;
 use App\Controllers\Auth\AuthController;
+use App\Controllers\Customers\CusChatController;
+use App\Controllers\Customers\CusComplaintController;
+
+use App\Controllers\Customers\CusOrderController;
+
+use App\Controllers\Customers\CusReportController;
+use App\Controllers\Customers\ProfileController;
 use App\Controllers\Sellers\SelChatController;
 use App\Controllers\Sellers\SelCustomerController;
 use App\Controllers\Sellers\SelHomeController;
@@ -22,6 +29,10 @@ $router->addRoute('/\/signin/', [new AuthController(), 'signin']);
 $router->addRoute('/\/register/', [new AuthController(), 'register']);
 $router->addRoute('/\/forgot/', [new AuthController(), 'forgot']);
 $router->addRoute('/\/logout/', [new AuthController(), 'logout']);
+
+
+
+// Những router không cần quyền vẫn có thể truy cập
 $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
 $router->addRoute('/\//', [new ShopController(), 'index']);
 $router->addRoute('/\/AllProduct/', [new ShopController(), 'allProduct']);
@@ -59,4 +70,17 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
     $router->addRoute('/\/seller\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
 
     $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
+    
+    $router->addRoute('/\/orders/', [new CusOrderController(), 'index']);
+    $router->addRoute('/\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
+    $router->addRoute('/\/customer\/orders\/cancel\/(\d+)/', [new CusOrderController(), 'Cancel']);
+
+    $router->addRoute('/\/complaints/', [new CusComplaintController(), 'index']);
+    $router->addRoute('/\/complaints\/detail/', [new CusComplaintController(), 'Details']);
+
+    $router->addRoute('/\/customer\/report\/create/', [new CusReportController(), 'create']);
+
+    $router->addRoute('/\/chats/', [new CusChatController(), 'index']);
+
+    $router->addRoute('/\/customer\/profile/', [new ProfileController(), 'index']);
 }

@@ -152,10 +152,11 @@
                         <?php } ?>
                     </ul>
 
-                    <div class="sidebar-footer <?php echo $classRole ?>">
-                        <p>Thông tin cá nhân</p>
-                        <div>
-                        </div>
+                    <div class="sidebar-footer <?php echo $classRole ?> text-center">
+                        <!-- Button: Thông tin cá nhân -->
+                        <a href="/customer/profile" class="btn btn-primary w-100 mb-2 py-2 text-white fw-bold">
+                            <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
+                        </a>
 
                         <?php if ($sesionRole == 'admin') { ?>
                             <a class="btn btn-light" href="/logout">
@@ -177,7 +178,7 @@
             <?= $content ?>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

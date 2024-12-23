@@ -64,7 +64,7 @@ class SelProductController extends Controller
                 $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
-            }
+            }   
 
             $this->productModel->createProduct($product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id);
         }

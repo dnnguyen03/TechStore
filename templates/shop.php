@@ -333,7 +333,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="/seller-router">Cửa hàng của bạn</a></li>
-                        <li><a class="dropdown-item" href="/customer"> Quản lý tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/orders"> Quản lý tài khoản</a></li>
                         <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
                     </ul>
                 </div>
