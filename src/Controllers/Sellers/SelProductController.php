@@ -115,13 +115,13 @@ class SelProductController extends Controller
             $description = $_POST['description'];
             $display_order = $_POST['display_order'];
             $is_hidden = isset($_POST['is_hidden']) ? (int)$_POST['is_hidden'] : 0;
-            
+
             if (isset($_FILES['uploadPhoto'])) {
                 $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
             }
-            
+
             $this->productModel->createProductPhoto($product_id, $image, $description, $display_order, $is_hidden);
         }
 
@@ -145,7 +145,7 @@ class SelProductController extends Controller
 
                 $image = $fileName;
             }
-            
+
             $this->productModel->updateProductPhoto($photo_id, $product_id, $image, $description, $display_order, $is_hidden);
         }
 

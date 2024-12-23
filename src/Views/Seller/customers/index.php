@@ -40,16 +40,16 @@
         </thead>
         <tbody>
             <?php foreach ($CustomerBySellers as $customer): ?>
-            <tr>
-                <td><?= $customer['full_name'] ?></td>
-                <td><?= $customer['email'] ?></td>
-                <td><?= $customer['phone'] ?></td>
-                <td><?= $customer['total_orders'] ?></td>
-                <td><?= floor($customer['total_revenue']) ?></td>
-                <td class="text-center">
-                    <a href="/seller/customers/detail/<?= $customer['user_id'] ?>" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
-                </td>
-            </tr>
+                <tr>
+                    <td><?= $customer['full_name'] ?></td>
+                    <td><?= $customer['email'] ?></td>
+                    <td><?= $customer['phone'] ?></td>
+                    <td><?= $customer['total_orders'] ?></td>
+                    <td><?= floor($customer['total_revenue']) ?></td>
+                    <td class="text-center">
+                        <a href="/seller/customers/detail/<?= $customer['user_id'] ?>" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
