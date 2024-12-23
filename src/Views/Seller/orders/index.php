@@ -48,17 +48,19 @@
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($OrderBySellers as $order): ?>
             <tr>
-                <td>1</td>
-                <td>Nguyễn Thị Ngọc Nguyên</td>
-                <td>12/12/2024</td>
-                <td>200,000.00</td>
-                <td>Đơn hàng mới</td>
+                <td><?= $order['order_id'] ?></td>
+                <td><?= $order['full_name'] ?></td>
+                <td><?= $order['date_order'] ?></td>
+                <td><?= floor($order['total_amount']) ?></td>
+                <td><?= $order['status'] ?></td>
 
                 <td class="text-center">
-                    <a href="/seller/orders/detail/1"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                    <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
                 </td>
             </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>

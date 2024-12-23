@@ -19,15 +19,26 @@ class CusReportController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $customerID = 1;
             $title = $_POST['feedbackType'];
             $content = $_POST['feedbackDetails'];
-            echo $title;
-            echo $content;
-            $this->reportModel->createReport($title,$content,'2024-12-17 05:40:00',1);
+            $currentDateTime = $this->getCurrentDateTime();
+            if($_POST['rating'] != null)
+            {
+                $rating = $_POST['rating'];
+                $shopID = $_POST['sellerID'];
+                $this->reportModel->createRating($shopID,$customerID, $rating);
+            }
+            $this->reportModel->createReport($title,$content,$currentDateTime,$customerID);
         }
         header('Location: /orders');
     }
 
+    //Hàm lấy ngày giờ hiện tại
+    private function getCurrentDateTime()
+    {
+        return date('Y-m-d H:i:s');
+    }
 }
 
 ?>

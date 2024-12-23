@@ -3,12 +3,23 @@
 namespace App\Controllers\Sellers;
 
 use App\Controller;
+use App\Models\Customer;
 
 class SelCustomerController extends Controller
 {
+    private $customerModel;
+
+    public function __construct()
+    {
+        $this->customerModel = new Customer();
+    }
+
     public function index()
     {
-        $this->render('Seller/customers/index', []);
+        $seller_id = 1;
+        $CustomerBySellers = $this->customerModel->getAllCustomerBySeller($seller_id);
+
+        $this->render('Seller/customers/index', ['CustomerBySellers' => $CustomerBySellers]);
     }
     
     public function detail()

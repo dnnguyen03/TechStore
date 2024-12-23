@@ -35,6 +35,18 @@ class Report
         header('Location: /orders');
     }
 
+    public function createRating($seller_id, $customer_id, $rating)
+    {
+        $seller_id = $this->connection->real_escape_string($seller_id);
+        $rating = $this->connection->real_escape_string($rating);
+      
+        $customer_id = $this->connection->real_escape_string($customer_id);
+
+        $result = $this->connection->query("INSERT into ratingshop (seller_id, customer_id, rating) value ('$seller_id','$customer_id','$rating')");
+        return;
+    }
+
+
    
 
 }

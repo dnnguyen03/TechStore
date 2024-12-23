@@ -30,6 +30,7 @@
                     </div>
                 <?php
                     $status = $order['OrderStatus'];
+                    $shopID = $order['ShopID'];
                 endforeach; ?>
             </div>
         </div>
@@ -66,6 +67,7 @@
                                     <label for="star<?= $i ?>" class="star">★</label>
                                 <?php endfor; ?>
                             </div>
+                            <input type="hidden" name="sellerID" value="<?= $shopID ?>">
                         </div>
 
                         <!-- Phản hồi -->
@@ -105,7 +107,10 @@
                 <a href="/orders" style="text-decoration: none; color: black;">Quay lại</a>
             </button>
             <?php if ($status === 'Đang xử lý') { ?>
-                <button type="button" class="btn btn-warning">Hủy đơn hàng</button>
+
+                <button type="button" class="btn btn-warning"> <a href="/customer/orders/cancel/<?= $order['OrderID'] ?>">
+                        Hủy đơn hàng
+                    </a> </button>
             <?php } ?>
         </div>
     </div>

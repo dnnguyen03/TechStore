@@ -4,23 +4,49 @@
     .shop-create {
         margin-top: 12px;
         padding: 40px 80px;
+        padding-top: 20px;
         font-size: 36px;
         font-weight: 400;
         border: 2px dashed #ccc;
     }
 
     .shop-banner {
+        height: 340px;
         background-color: #f8f9fa;
         border-radius: 10px;
-        padding: 20px;
-        text-align: center;
+        overflow: hidden;
+        margin-bottom: 32px;
+    }
+
+    .shop-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .shop-logo {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .shop-logo-img {
+        position: absolute;
+        padding: 6px;
+        background-color: white;
+        top: -140px;
+        left: 140px;
+        width: 240px;
+        height: 240px;
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .shop-logo-img img {
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
+        object-fit: cover;
+        object-position: center;
     }
 
     .rating-stars {
@@ -40,33 +66,36 @@
 </style>
 <div class="container mt-5">
     <!-- Shop Banner -->
-    <div class="shop-banner p-4 shadow">
-        <div class="row align-items-center">
-            <!-- Shop Logo -->
-            <div class="col-md-3 text-center">
-                <img src="https://i.pinimg.com/736x/70/d9/a7/70d9a7ecf4628636bf3daf72a45f9990.jpg" alt="Shop Logo" class="shop-logo">
-                <h5 class="mt-2">Sanakin.lk Product</h5>
-            </div>
-
-            <!-- Shop Information -->
-            <div class="col-md-6 text-center">
-                <h2 class="mb-2">Shop Name</h2>
-                <div class="d-flex justify-content-center align-items-center mb-2">
-                    <span class="rating-stars">
-                        ★★★★☆
-                    </span>
-                    <span class="ms-2 rating-text">9.8/10</span>
-                </div>
+    <div class="shop-banner shadow">
+        <img src="<?= !isset($seller['banner']) ? $seller['banner'] : 'https://i.pinimg.com/736x/70/d9/a7/70d9a7ecf4628636bf3daf72a45f9990.jpg' ?>" alt="banner" />
+    </div>
+    <div class="row">
+        <!-- Shop Logo -->
+        <div class="col-sm-4 shop-logo">
+            <div class="shop-logo-img">
+                <img src="<?= !isset($seller['logo_shop']) ? $seller['logo_shop'] : 'https://i.pinimg.com/736x/70/d9/a7/70d9a7ecf4628636bf3daf72a45f9990.jpg' ?>" alt="Shop Logo">
             </div>
         </div>
 
-        <!-- Nature of Business -->
-        <div class="mt-4">
-            <h5>Nature of Business</h5>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-            </p>
+        <!-- Shop Information -->
+        <div class="col-sm-6">
+            <h2 class="mb-2"><?= $seller['shop_name'] ?></h2>
+            <a class="btn btn-outline-warning btn-sm" href="/seller/shops/update/<?= $_SESSION["seller_id"] ?>">Chỉnh sửa</a>
+        </div>
+    </div>
+
+    <!-- Nature of Business -->
+    <div class="mt-4">
+        <h3 class="mb-4">Thông tin shop</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <p><strong>Số điện thoại: </strong><?= $seller['phone'] ?></p>
+                <p><strong>Email: </strong><?= $seller['email'] ?></p>
+                <p><strong>Địa chỉ: </strong><?= $seller['address'] ?></p>
+            </div>
+            <div class="col-sm-6">
+                <p><strong>Mô tả: </strong><?= $seller['bio_seller'] ?></p>
+            </div>
         </div>
     </div>
 </div>

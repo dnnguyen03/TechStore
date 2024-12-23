@@ -29,6 +29,15 @@ class CusOrderController extends Controller
         $this->render('Customer/CusOrder/OrderDetail', ['orders' => $orders, 'orderDetails' => $orderDetails]);
     }
 
+    public function Cancel($order_id)
+    {
+        
+        $orders = $this->orderModel->cancelOrder($order_id);
+        header('Location: /orders');
+    }
+
+
+
 }
 
 ?>

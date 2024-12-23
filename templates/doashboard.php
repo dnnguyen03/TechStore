@@ -145,15 +145,15 @@
                         <?php } ?>
                     </ul>
 
-                    <div class="sidebar-footer <?php echo $classRole ?>">
-                        <p>Thông tin cá nhân</p>
-                        <div>
+                    <div class="sidebar-footer <?php echo $classRole ?> text-center">
+                        <!-- Button: Thông tin cá nhân -->
+                        <a href="/customer/profile" class="btn btn-primary w-100 mb-2 py-2 text-white fw-bold">
+                            <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
+                        </a>
 
-                        </div>
-
-                        <a class="btn btn-light" href="logout.php">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Đăng xuất
+                        <!-- Button: Đăng xuất -->
+                        <a class="btn btn-outline-danger w-100 py-2" href="logout.php">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất
                         </a>
                     </div>
             <?php }

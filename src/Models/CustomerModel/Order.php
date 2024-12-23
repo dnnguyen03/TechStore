@@ -44,4 +44,12 @@ class Order
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function cancelOrder($orderID)
+    {
+        $orderID = $this->connection->real_escape_string($orderID);
+        $result = $this->connection->query("UPDATE orders set status = 'Đã hủy' where order_id = '$orderID'");
+        return;
+    }
+
+
 }

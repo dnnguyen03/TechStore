@@ -25,7 +25,7 @@
                         
                        
                         <td class="text-end">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal">
+                            <a href="/chats">
                                 <i class="fas fa-chevron-right"></i>
                             </a>
                         </td>
@@ -37,6 +37,6 @@
     </div>
 </div>
 
-<?php include('ComplaintDetail.php') ?>
+
 <?php $content = ob_get_clean(); ?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>
