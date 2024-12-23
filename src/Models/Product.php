@@ -97,6 +97,13 @@ class Product
         return $product;
     }
 
+    public function getProductByIdSeller($product_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
+        $result = $this->connection->query("SELECT * FROM products WHERE product_id = $product_id");
+        return $result->fetch_assoc();
+    }
+
 
     public function searchProductBySeller($seller_id, $searchValue = "", $category = 0, $status = 2, $page = 1, $pageSize = 10)
     {

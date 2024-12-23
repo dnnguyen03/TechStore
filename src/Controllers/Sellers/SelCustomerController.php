@@ -16,7 +16,7 @@ class SelCustomerController extends Controller
 
     public function index()
     {
-        $seller_id = 1;
+        $seller_id = $_SESSION["seller_id"];
         $CustomerBySellers = $this->customerModel->getAllCustomerBySeller($seller_id);
 
         $this->render('Seller/customers/index', ['CustomerBySellers' => $CustomerBySellers]);

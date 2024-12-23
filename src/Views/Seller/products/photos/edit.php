@@ -32,7 +32,7 @@
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto" name="image" value="<?= isset($photo['image']) ? $photo['image'] : '' ?>">
                             <div style="width: 160px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo" src="<?= isset($photo['image']) ? $photo['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo" src="<?= isset($photo['image']) ? '/src/assets/images/'.$photo['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-thumbnail img-child ">
                             </div>
                         </div>

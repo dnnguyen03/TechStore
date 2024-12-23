@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Exception;
+
 class Seller
 {
     private $connection;
@@ -20,10 +22,46 @@ class Seller
         }
     }
 
+    public function checkSeller($user_id)
+    {
+        $user_id = (int) $user_id;
+    
+        $stmt = $this->connection->prepare("SELECT COUNT(*) AS seller_count FROM tech_store.seller WHERE user_id = ?");
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . $this->connection->error);
+        }
+    
+        $stmt->bind_param("i", $user_id);
+    
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to execute statement: " . $stmt->error);
+        }
+    
+        $result = $stmt->get_result();
+        if (!$result) {
+            throw new Exception("Failed to get result: " . $stmt->error);
+        }
+    
+        $row = $result->fetch_assoc();
+    
+        // Đóng statement
+        $stmt->close();
+    
+        return $row['seller_count'] > 0;
+    }
+    
+
     public function getSellerById($seller_id)
     {
         $seller_id = (int) $seller_id;
         $result = $this->connection->query("SELECT * FROM seller WHERE seller_id = $seller_id");
+        return $result->fetch_assoc();
+    }
+
+    public function getSellerByUserId($user_id)
+    {
+        $user_id = (int) $user_id;
+        $result = $this->connection->query("SELECT * FROM seller WHERE user_id = $user_id");
         return $result->fetch_assoc();
     }
 
@@ -44,6 +82,7 @@ class Seller
         if ($this->connection->query($query) === TRUE) {
             $newSellerId = $this->connection->insert_id;
             $_SESSION['seller_id'] = $newSellerId;
+            
             header('Location: /seller');
         } else {
             die("Error: " . $this->connection->error);

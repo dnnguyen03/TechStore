@@ -20,11 +20,11 @@ use App\Controllers\Sellers\SelProductController;
 use App\Controllers\Sellers\SelShopController;
 use App\Controllers\Shop\ShopController;
 use App\Router;
-// Usage:
-$router = new Router();
-$checkLogin = isset($_SESSION['currentUser']['role']);
 
-$sessionRoute = "admin";
+// Usage:
+session_start();
+$router = new Router();
+
 $router->addRoute('/\/signin/', [new AuthController(), 'signin']);
 $router->addRoute('/\/register/', [new AuthController(), 'register']);
 $router->addRoute('/\/forgot/', [new AuthController(), 'forgot']);
@@ -37,23 +37,17 @@ $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create
 $router->addRoute('/\//', [new ShopController(), 'index']);
 $router->addRoute('/\/AllProduct/', [new ShopController(), 'allProduct']);
 $router->addRoute('/\/Product\/(\d+)/', [new ShopController(), 'show']);
+$router->addRoute('/\/seller-router/', [new SelHomeController(), 'checkSeller']);
 
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
 
-// $router->addRoute('/\/login/', [new SelHomeController(), 'index']);
-// $router->addRoute('/\/register/', [new SelProductController(), 'index']);
-$sessionRoute = "customer";
+if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
+    $router->addRoute('/\/admin/', [new AdHomeController(), 'index']);
+    $router->addRoute('/\/admin\/home/', [new AdHomeController(), 'index']);
+    $router->addRoute('/\/admin\/products/', [new AdProductController(), 'index']);
+    $router->addRoute('/\/admin\/users/', [new AdUserController(), 'index']);
+    $router->addRoute('/\/admin\/categories/', [new AdCategoryController(), 'index']);
 
-// // Add routes
-// $router->addRoute('/\//', [new PostController(), 'index']);
-// $router->addRoute('/\/post/', [new PostController(), 'index']);
-// $router->addRoute('/\/post\/index/', [new PostController(), 'index']);
-// $router->addRoute('/\/post\/show\/(\d+)/', [new PostController(), 'show']);
-// $router->addRoute('/\/post\/create/', [new PostController(), 'create']);
-// $router->addRoute('/\/post\/update\/(\d+)/', [new PostController(), 'update']);
-// $router->addRoute('/\/post\/delete\/(\d+)/', [new PostController(), 'delete']);
-
-if ($sessionRoute == "seller") {
     $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);
     $router->addRoute('/\/seller\/home/', [new SelHomeController(), 'index']);
 
@@ -76,23 +70,7 @@ if ($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
 
     $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
-} else if ($checkLogin == 0) {
-    $router->addRoute('/\/admin/', [new AdHomeController(), 'index']);
-    $router->addRoute('/\/admin\/home/', [new AdHomeController(), 'index']);
-    $router->addRoute('/\/admin\/products/', [new AdProductController(), 'index']);
-    $router->addRoute('/\/admin\/users/', [new AdUserController(), 'index']);
-    $router->addRoute('/\/admin\/categories/', [new AdCategoryController(), 'index']);
-} else if ($checkLogin == 1) {
-    $router->addRoute('/\//', [new SelHomeController(), 'index']);
-    $router->addRoute('/\/home/', [new SelHomeController(), 'index']);
-    $router->addRoute('/\/seller\/products/', [new SelProductController(), 'index']);
-    $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
-    $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
-
-}
-
-if($sessionRoute == "customer") {
-   
+    
     $router->addRoute('/\/orders/', [new CusOrderController(), 'index']);
     $router->addRoute('/\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
     $router->addRoute('/\/customer\/orders\/cancel\/(\d+)/', [new CusOrderController(), 'Cancel']);
@@ -105,5 +83,4 @@ if($sessionRoute == "customer") {
     $router->addRoute('/\/chats/', [new CusChatController(), 'index']);
 
     $router->addRoute('/\/customer\/profile/', [new ProfileController(), 'index']);
-    
 }
