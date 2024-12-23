@@ -162,7 +162,6 @@ class Product
         $product_id = $this->connection->real_escape_string($product_id);
         $this->connection->query("DELETE FROM products WHERE product_id=$product_id");
     }
-<<<<<<< HEAD
     public function getTotalProducts()
     {
         $query = "SELECT COUNT(*) AS total FROM products";
@@ -225,7 +224,7 @@ class Product
         }
 
         return [];
-=======
+    }
 
     public function createProductPhoto($product_id, $image, $description, $display_order, $is_hidden)
     {
@@ -289,6 +288,5 @@ class Product
         $result = $this->connection->query("SELECT * FROM ProductPhotos WHERE photo_id = $photo_id");
 
         return $result->fetch_assoc();
->>>>>>> f6f6213dac39d0079ad454232cf257d2de99b071
     }
 }
