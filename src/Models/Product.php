@@ -226,7 +226,69 @@ class Product
         $product_id = $this->connection->real_escape_string($product_id);
         $this->connection->query("DELETE FROM products WHERE product_id=$product_id");
     }
+    public function getTotalProducts()
+    {
+        $query = "SELECT COUNT(*) AS total FROM products";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['total'];
+    }
+    public function getAllProducts()
+    {
+        $query = "
+            SELECT 
+                p.product_id, 
+                p.product_name, 
+                p.price, 
+                p.quantity, 
+                p.status, 
+                c.category_name 
+            FROM 
+                products p 
+            LEFT JOIN 
+                category c 
+            ON 
+                p.category_id = c.category_id
+        ";
 
+        $result = $this->connection->query($query);
+
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        return [];
+    }
+    public function searchProductsByName($searchKeyword)
+    {
+        $searchKeyword = $this->connection->real_escape_string($searchKeyword);
+        $query = "
+            SELECT 
+                p.product_id, 
+                p.product_name, 
+                p.price, 
+                p.quantity, 
+                p.status, 
+                c.category_name 
+            FROM 
+                products p 
+            LEFT JOIN 
+                category c 
+            ON 
+                p.category_id = c.category_id
+            WHERE 
+                p.product_name LIKE '%$searchKeyword%'
+        ";
+
+        $result = $this->connection->query($query);
+
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        return [];
+    }
     public function createProductPhoto($product_id, $image, $description, $display_order, $is_hidden)
     {
         $product_id = (int)($product_id ?? 0);

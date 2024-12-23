@@ -83,6 +83,7 @@
         position: relative;
     }
 
+
     .footer-col h4::before {
         content: "";
         position: absolute;
@@ -316,26 +317,35 @@
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" style="font-weight: bold;" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="/AllProduct" style="font-weight: bold;" class="nav-link px-2 link-dark">Product</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Pricing</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="/" style="font-weight: bold;" class="nav-link px-2 link-dark">Trang chủ</a></li>
+            <li><a href="/AllProduct" style="font-weight: bold;" class="nav-link px-2 link-dark">Sản phẩm</a></li>
+            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Cửa hàng</a></li>
+            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Về chúng tôi</a></li>
         </ul>
-        <?php if (isset($_SESSION['currentUser']) || !empty($_SESSION['currentUser']) == null) {
+        <?php if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser']) != null) {
         ?>
-            <div style="display: flex; align-items: center;">
-                <div>
-                    <i class="fa fa-user"></i>
+            <div style="display: flex; align-items: center; cursor: pointer;">
+                <div class="dropdown">
+                    <button id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; border: none;">
+                        <div style="border-radius: 100%; overflow: hidden; border: 1px solid orange; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
+                            <i class="fa fa-user" style="color: orange; font-size: 24px;"></i>
+                        </div>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="/seller">Cửa hàng của bạn</a></li>
+                        <li><a class="dropdown-item" href="/customer"> Quản lý tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                    </ul>
                 </div>
-                <form method="post" action="../user/logout">
-                    <input type="submit" name="logout" class="btn btn-outline" value="Logout">
-                </form>
             </div>
         <?php } else { ?>
             <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-primary">Login</button>
-                <button type="button" class="btn btn-outline">Sign-up</button>
+                <a href="/signin">
+                    <button type="button" class="btn btn-primary">Login</button>
+                </a>
+                <a href="/register">
+                    <button type="button" class="btn btn-outline">Sign-up</button>
+                </a>
             </div>
         <?php } ?>
     </div>

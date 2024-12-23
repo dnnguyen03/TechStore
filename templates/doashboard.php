@@ -118,7 +118,7 @@
 <body>
     <?php
     include '../TechStore/config/sidebar.php';
-    $sesionRole = 'seller';
+    $sesionRole = 'admin';
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
     $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -148,10 +148,9 @@
                     <div class="sidebar-footer <?php echo $classRole ?>">
                         <p>Thông tin cá nhân</p>
                         <div>
-
                         </div>
 
-                        <a class="btn btn-light" href="logout.php">
+                        <a class="btn btn-light" href="/logout">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Đăng xuất
                         </a>
