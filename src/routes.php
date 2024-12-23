@@ -16,12 +16,22 @@ session_start();
 // Usage:
 $router = new Router();
 
+<<<<<<< HEAD
 $sessionRoute = "admin";
 $router->addRoute('/\/signin/', [new AuthController(), 'signin']);
 $router->addRoute('/\/register/', [new AuthController(), 'register']);
 $router->addRoute('/\/forgot/', [new AuthController(), 'forgot']);
 $router->addRoute('/\/logout/', [new AuthController(), 'logout']);
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
+=======
+$sessionRoute = "seller";
+
+// Những router không cần quyền vẫn có thể truy cập
+$router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
+// $router->addRoute('/\/login/', [new SelHomeController(), 'index']);
+// $router->addRoute('/\/register/', [new SelProductController(), 'index']);
+
+>>>>>>> f6f6213dac39d0079ad454232cf257d2de99b071
 if($sessionRoute == "seller") {
     $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);
     $router->addRoute('/\/seller\/home/', [new SelHomeController(), 'index']);
@@ -30,6 +40,9 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/products\/create/', [new SelProductController(), 'create']);
     $router->addRoute('/\/seller\/products\/update\/(\d+)/', [new SelProductController(), 'update']);
     $router->addRoute('/\/seller\/products\/delete\/(\d+)/', [new SelProductController(), 'delete']);
+    $router->addRoute('/\/seller\/products\/photo\/create/', [new SelProductController(), 'createPhoto']);
+    $router->addRoute('/\/seller\/products\/photo\/update\/(\d+)/', [new SelProductController(), 'updatePhoto']);
+    $router->addRoute('/\/seller\/products\/photo\/delete\/(\d+)/', [new SelProductController(), 'deletePhoto']);
 
     $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
     $router->addRoute('/\/seller\/customers\/detail/', [new SelCustomerController(), 'detail']);
@@ -39,7 +52,6 @@ if($sessionRoute == "seller") {
 
     
     $router->addRoute('/\/seller\/shops/', [new SelShopController(), 'index']);
-    $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
     $router->addRoute('/\/seller\/shops\/update\/(\d+)/', [new SelShopController(), 'update']);
     
     $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
@@ -57,5 +69,4 @@ if($sessionRoute == "seller") {
     $router->addRoute('/\/seller\/products/', [new SelProductController(), 'index']);
     $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
     $router->addRoute('/\/orders/', [new SelOrderController(), 'index']);
-    
 } 
