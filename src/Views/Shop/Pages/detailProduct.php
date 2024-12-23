@@ -3,42 +3,31 @@
     <div style="display: flex; gap: 35px;">
         <div class="slide" style="width: 40%;">
             <div class="main-slider" style="border-radius: 12px; overflow: hidden; height: 350px;">
-                <div><img src="../../../assets/images/product.png" style="height: 100%; width: 100%; object-fit: cover;" alt="Image 1"></div>
-                <div><img src="../../../assets/images/product.png" style="height: 100%; width: 100%; object-fit: cover;" alt="Image 2"></div>
-                <div><img src="../../../assets/images/product.png" style="height: 100%; width: 100%; object-fit: cover;" alt="Image 3"></div>
-                <div><img src="../../../assets/images/product.png" style="height: 100%; width: 100%; object-fit: cover;" alt="Image 4"></div>
-                <div><img src="../../../assets/images/product.png" style="height: 100%; width: 100%; object-fit: cover;" alt="Image 5"></div>
+                <?php foreach ($product['product_photos'] as $photo): ?>
+                    <div>
+                        <img src="<?= $photo; ?>" style="width: 100%; height: 350px; object-fit: cover;" alt="Product Image">
+                    </div>
+                <?php endforeach; ?>
             </div>
             <div class="thumb-slider">
-                <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;"><img height="100%" width="100%" style="object-fit: cover;" src="../../../assets/images/product.png" alt="Thumb 1"></div>
-                <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;"><img height="100%" width="100%" style="object-fit: cover;" src="../../../assets/images/product.png" alt="Thumb 2"></div>
-                <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;"><img height="100%" width="100%" style="object-fit: cover;" src="../../../assets/images/product.png" alt="Thumb 3"></div>
-                <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;"><img height="100%" width="100%" style="object-fit: cover;" src="../../../assets/images/product.png" alt="Thumb 4"></div>
-                <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;"><img height="100%" width="100%" style="object-fit: cover;" src="../../../assets/images/product.png" alt="Thumb 5"></div>
+                <?php foreach ($product['product_photos'] as $photo): ?>
+                    <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;">
+                        <img height="100%" width="100%" style="object-fit: cover;" src="<?= $photo; ?>" alt="Thumb">
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
-        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; width: 100%;">
             <h4><?= $product['product_name'] ?></h4>
-            <h5>Shop Name</h5>
-            <h4>Giá: 100,000,000đ</h4>
-            <div>
-                <h6>Product rating</h6>
-                <div class="rating">
-                    <img src="../../../assets/images/star.png" alt="">
-                    <img src="../../../assets/images/star.png" alt="">
-                    <img src="../../../assets/images/star.png" alt="">
-                    <img src="../../../assets/images/non-star.png" alt="">
-                    <img src="../../../assets/images/non-star.png" alt="">
-                </div>
-            </div>
+            <h5><?= $product['shop_name']  ?></h5>
+            <h4>Giá: <?= $product['price']  ?>đ</h4>
             <div>
                 <h5>
                     Chi tiết sản phẩm
                 </h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi culpa voluptatum, hic architecto repellat tenetur? Et optio odio quos modi, illum animi sunt est? Ex sed sint delectus nemo assumenda.
-                    Necessitatibus facilis mollitia eius consequatur repellat omnis suscipit quae deleniti eos, dolores maxime dolorem quis ipsum consectetur. Ipsa nam quaerat hic rerum molestiae reprehenderit architecto possimus. Animi distinctio ratione suscipit?</p>
+                <p><?= $product['product_decs']  ?></p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; ">
                 <Button style="padding: 10px 45px; background-color: orange; color: white; font-size: 1.5rem; border-radius: 12px; border: none;">
                     <p style="margin: 0;">Add to Cart</p>
                 </Button>

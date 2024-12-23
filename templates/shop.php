@@ -322,11 +322,22 @@
             <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">About</a></li>
         </ul>
-
-        <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-primary">Login</button>
-            <button type="button" class="btn btn-outline">Sign-up</button>
-        </div>
+        <?php if (isset($_SESSION['currentUser']) || !empty($_SESSION['currentUser']) == null) {
+        ?>
+            <div style="display: flex; align-items: center;">
+                <div>
+                    <i class="fa fa-user"></i>
+                </div>
+                <form method="post" action="../user/logout">
+                    <input type="submit" name="logout" class="btn btn-outline" value="Logout">
+                </form>
+            </div>
+        <?php } else { ?>
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-outline">Sign-up</button>
+            </div>
+        <?php } ?>
     </div>
 </header>
 
