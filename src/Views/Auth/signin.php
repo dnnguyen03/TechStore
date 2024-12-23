@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <h1>Sign In</h1>
         <p>Sign in with your username and password</p>
-        <form action="/" method="POST">
+        <form action="/signin" method="POST">
             <div class="form-group">
                 <input type="username" name="username" placeholder="Username" required>
             </div>
@@ -140,7 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <!-- Include Bootstrap JS and Popper.js via CDN (required for Bootstrap JavaScript features) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

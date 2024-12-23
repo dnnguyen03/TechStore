@@ -1,16 +1,4 @@
 <?php
-$products = [
-    ['id' => '#231212135612', 'name' => 'Adidas slippers', 'category' => "Men's Cloth", 'quantity' => '20', 'price' => '100,000.00VND', 'status' => 'Live'],
-    ['id' => '#231212135613', 'name' => 'Nike T-shirt', 'category' => "Men's Cloth", 'quantity' => '15', 'price' => '200,000.00VND', 'status' => 'Unavailable'],
-    ['id' => '#231212135614', 'name' => 'Home Cooker', 'category' => "Home Appliances", 'quantity' => '10', 'price' => '500,000.00VND', 'status' => 'No-Stock'],
-    ['id' => '#231212135615', 'name' => 'Silk Dress', 'category' => "Women's Cloth", 'quantity' => '30', 'price' => '300,000.00VND', 'status' => 'Live'],
-];
-
-$searchKeyword = $_GET['search'] ?? ''; // Lấy từ khóa tìm kiếm
-$filteredProducts = array_filter($products, function ($product) use ($searchKeyword) {
-    return stripos($product['category'], $searchKeyword) !== false; // Lọc theo Category Name
-});
-
 ob_start();
 ?>
 
@@ -72,8 +60,8 @@ ob_start();
 
         <!-- Search Form -->
         <form method="GET" class="d-flex mb-3">
-            <input type="text" name="search" class="form-control me-2" placeholder="Search by Category Name"
-                value="<?= htmlspecialchars($searchKeyword) ?>">
+            <input type="text" name="search" class="form-control me-2" placeholder="Search by Product Name"
+                value="<?= htmlspecialchars($searchKeyword ?? '') ?>">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
@@ -87,20 +75,19 @@ ob_start();
                     <th>Quantity</th>
                     <th>Per.Price</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($filteredProducts)): ?>
+                <?php if (empty($products)): ?>
                     <tr>
                         <td colspan="7" class="text-center">No products found.</td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($filteredProducts as $product): ?>
+                    <?php foreach ($products as $product): ?>
                         <tr>
-                            <td><?= htmlspecialchars($product['id']); ?></td>
-                            <td><?= htmlspecialchars($product['name']); ?></td>
-                            <td><?= htmlspecialchars($product['category']); ?></td>
+                            <td><?= htmlspecialchars($product['product_id']); ?></td>
+                            <td><?= htmlspecialchars($product['product_name']); ?></td>
+                            <td><?= htmlspecialchars($product['category_name'] ?? 'N/A'); ?></td>
                             <td><?= htmlspecialchars($product['quantity']); ?></td>
                             <td><?= htmlspecialchars($product['price']); ?></td>
                             <td>
@@ -111,12 +98,6 @@ ob_start();
                                 <?php else: ?>
                                     <span class="badge no-stock">No-Stock</span>
                                 <?php endif; ?>
-                            </td>
-                            <td>
-                                <!-- Action Button -->
-                                <a href="edit_product.php?id=<?= urlencode($product['id']); ?>" class="btn btn-light btn-sm text-warning">
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

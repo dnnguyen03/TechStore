@@ -106,15 +106,6 @@
             z-index: -1;
         }
     </style>
-    <input type="hidden" name="account_type" id="account_type" value="customer">
-    <script>
-        function switchTab(tab, type) {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById('account_type').value = type;
-        }
-    </script>
 </head>
 
 <body>
@@ -123,10 +114,6 @@
             <img src="/src/assets/images/logoTechStore.png" alt="Logo">
         </div>
         <h1>Create Account</h1>
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab(this)">Customer Account</div>
-            <div class="tab" onclick="switchTab(this)">Seller Account</div>
-        </div>
 
         <!-- Hiển thị lỗi hoặc thông báo flash -->
         <?php if (isset($_SESSION['flash_error'])): ?>
@@ -143,7 +130,7 @@
         <?php endif; ?>
 
         <!-- Form đăng ký -->
-        <form action="/user/create" method="POST">
+        <form action="/register" method="POST">
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required class="form-control">
             </div>

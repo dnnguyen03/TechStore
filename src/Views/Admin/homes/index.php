@@ -1,16 +1,4 @@
 <?php
-$totalShoppers = 240;
-$totalCustomers = 1200;
-$totalOrdersToday = 240;
-
-$newAccounts = [
-    ['id' => '#1', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
-    ['id' => '#2', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'New', 'type' => 'Shopper'],
-    ['id' => '#3', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
-    ['id' => '#4', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Shopper'],
-    ['id' => '#5', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Verified', 'type' => 'Customer'],
-    ['id' => '#6', 'name' => 'Ahinsa De Silva', 'date' => '12/12/23', 'verification' => 'Rejected', 'type' => 'Customer'],
-];
 ob_start();
 ?>
 
@@ -58,27 +46,29 @@ ob_start();
     <div class="container-fluid p-4">
         <h1 class="mb-4">Dashboard</h1>
 
+        <!-- Thống kê tổng quan -->
         <div class="row g-4 mb-4">
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
-                    <h4 class="stat-number"><?= $totalShoppers; ?></h4>
-                    <p>Total Shoppers</p>
+                    <h4 class="stat-number"><?= $totalSellers ?? 0; ?></h4>
+                    <p>Total Sellers</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
-                    <h4 class="stat-number"><?= $totalCustomers; ?></h4>
+                    <h4 class="stat-number"><?= $totalCustomers ?? 0; ?></h4>
                     <p>Total Customers</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
-                    <h4 class="stat-number"><?= $totalOrdersToday; ?></h4>
-                    <p>Today Total Orders</p>
+                    <h4 class="stat-number"><?= $totalProducts ?? 0; ?></h4>
+                    <p>Total Products</p>
                 </div>
             </div>
         </div>
 
+        <!-- Bảng quản lý tài khoản người dùng -->
         <div class="card shadow-sm">
             <div class="card-header bg-white">
                 <h5>Users Management</h5>
@@ -89,29 +79,33 @@ ob_start();
                         <tr>
                             <th>Account ID</th>
                             <th>Customer Name</th>
-                            <th>Registered Date</th>
+                            <th>Created At</th>
                             <th>AC. Verification</th>
                             <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($newAccounts as $account): ?>
+                        <?php if (!empty($newAccounts)): ?>
+                            <?php foreach ($newAccounts as $account): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($account['id']); ?></td>
+                                    <td><?= htmlspecialchars($account['name']); ?></td>
+                                    <td><?= htmlspecialchars($account['date']); ?></td>
+                                    <td>
+                                        <?php if ($account['verification'] === 'Verified'): ?>
+                                            <span class="badge bg-success"><?= $account['verification']; ?></span>
+                                        <?php elseif ($account['verification'] === 'New'): ?>
+                                            <span class="badge bg-primary"><?= $account['verification']; ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($account['type']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <tr>
-                                <td><?= htmlspecialchars($account['id']); ?></td>
-                                <td><?= htmlspecialchars($account['name']); ?></td>
-                                <td><?= htmlspecialchars($account['date']); ?></td>
-                                <td>
-                                    <?php if ($account['verification'] == 'Verified'): ?>
-                                        <span class="badge bg-success"><?= $account['verification']; ?></span>
-                                    <?php elseif ($account['verification'] == 'New'): ?>
-                                        <span class="badge bg-primary"><?= $account['verification']; ?></span>
-                                    <?php else: ?>
-                                        <span class="badge bg-danger"><?= $account['verification']; ?></span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($account['type']); ?></td>
+                                <td colspan="5" class="text-center">No account data available</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -120,6 +114,7 @@ ob_start();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 <?php $content = ob_get_clean(); ?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

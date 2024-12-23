@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Models;
 
-class user
+use Exception;
+
+class User
 {
-    private $mysqli;
+    private $connection;
 
     public function __construct()
     {
@@ -12,22 +15,28 @@ class user
         $password = DB_PASSWORD;
         $database = DB_NAME;
 
-        $this->mysqli = new \mysqli($host, $username, $password, $database);
+        $this->connection = new \mysqli($host, $username, $password, $database);
 
-        if ($this->mysqli->connect_error) {
-            die("Connection failed: " . $this->mysqli->connect_error);
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
         }
     }
 
     public function getAllUsers()
     {
-        $result = $this->mysqli->query("SELECT * FROM users");
+        $stmt = $this->connection->prepare("SELECT * FROM users");
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->connection->error);
+            return false;
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getUserById($userId)
     {
-        $stmt = $this->mysqli->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt = $this->connection->prepare("SELECT * FROM users WHERE user_id = ?");
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -36,7 +45,7 @@ class user
 
     public function getUserByUsername($username)
     {
-        $stmt = $this->mysqli->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $this->connection->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -45,39 +54,111 @@ class user
 
     public function createUser($username, $password, $role)
     {
-        $username = $this->mysqli->real_escape_string($username);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $role = $this->mysqli->real_escape_string($role);
-    
-        $stmt = $this->mysqli->prepare("INSERT INTO users (username, password_input, role) VALUES (?, ?, ?)");
+
+        $stmt = $this->connection->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
         $stmt->bind_param('sss', $username, $hashedPassword, $role);
-    
+
         $result = $stmt->execute();
         $stmt->close();
-    
+
         return $result;
     }
 
     public function verifyUser($username, $password)
     {
-        $stmt = $this->mysqli->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
+        try {
+            // Chuẩn bị câu truy vấn để kiểm tra username
+            $stmt = $this->connection->prepare("SELECT user_id, username, password, role FROM users WHERE username = ?");
+            if (!$stmt) {
+                throw new Exception("Prepare statement failed: " . $this->connection->error);
+            }
 
-        if ($user && password_verify($password, $user['password_input'])) {
-            return $user;
+            // Gắn giá trị và thực thi truy vấn
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+
+            // Lấy kết quả truy vấn
+            $result = $stmt->get_result();
+
+            // Kiểm tra nếu tồn tại username
+            if ($result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+
+                // Xác thực mật khẩu bằng cách so sánh hash
+                if (password_verify($password, $user['password'])) {
+                    // Trả về thông tin người dùng nếu xác thực thành công
+                    return [
+                        'user_id' => $user['user_id'],
+                        'username' => $user['username'],
+                        'role' => $user['role']
+                    ];
+                } else {
+                    // Mật khẩu không chính xác
+                    return false;
+                }
+            } else {
+                // Không tìm thấy username
+                return false;
+            }
+        } catch (Exception $e) {
+            // Ghi log lỗi khi gặp vấn đề
+            error_log("Error in verifyUser: " . $e->getMessage());
+            return false;
+        } finally {
+            // Đảm bảo đóng statement sau khi thực hiện
+            $stmt->close();
         }
-        return false;
     }
+
+
 
     public function updateUser($userId, $username, $password, $role)
     {
-        $stmt = $this->mysqli->prepare("UPDATE users SET username = ?, password_input = ?, role = ? WHERE id = ?");
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $this->connection->prepare("UPDATE users SET username = ?, password = ?, role = ? WHERE user_id = ?");
         $stmt->bind_param("sssi", $username, $hashedPassword, $role, $userId);
-        return $stmt->execute();
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function getTotalSellers()
+    {
+        $stmt = $this->connection->prepare("SELECT COUNT(*) AS total_sellers FROM users WHERE role = 'Người Bán'");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+        return $data['total_sellers'];
+    }
+
+    public function getTotalCustomers()
+    {
+        $stmt = $this->connection->prepare("SELECT COUNT(*) AS total_customers FROM users WHERE role = 'Khách Hàng'");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+        return $data['total_customers'];
+    }
+    public function getUsers($search = '')
+    {
+        $searchParam = '%' . $search . '%';
+
+        $stmt = $this->connection->prepare(
+            "SELECT * FROM users 
+             WHERE username LIKE ?"
+        );
+
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->connection->error);
+            return false;
+        }
+
+        $stmt->bind_param('s', $searchParam);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
-?>

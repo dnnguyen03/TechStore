@@ -1,14 +1,4 @@
 <?php
-$categories = [
-    ['id' => '#001', 'name' => 'Electronics', 'description' => 'All kinds of electronic gadgets', 'products' => 120],
-    ['id' => '#002', 'name' => 'Fashion', 'description' => 'Clothing and accessories', 'products' => 340],
-    ['id' => '#003', 'name' => 'Home Appliances', 'description' => 'Appliances for home use', 'products' => 56],
-    ['id' => '#004', 'name' => 'Books', 'description' => 'Books of various genres', 'products' => 230],
-];
-$searchKeyword = $_GET['search'] ?? ''; // Lấy từ khóa tìm kiếm từ query string
-$filteredCategories = array_filter($categories, function ($category) use ($searchKeyword) {
-    return stripos($category['name'], $searchKeyword) !== false;
-});
 ob_start();
 ?>
 
@@ -54,34 +44,48 @@ ob_start();
 
 <body>
     <div class="content">
-    <h1>Product Categories</h1>
+        <h1>Product Categories</h1>
         <div class="d-flex mb-3">
-            
+            <!-- Form tìm kiếm -->
             <form method="GET" class="d-flex">
                 <input type="text" name="search" class="form-control me-2" placeholder="Search by Category Name"
-                    value="<?= htmlspecialchars($searchKeyword) ?>">
+                    value="<?= htmlspecialchars($searchKeyword ?? '') ?>">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
+
+        <!-- Bảng hiển thị danh mục -->
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th>Photo</th>
                     <th>Category ID</th>
                     <th>Category Name</th>
                     <th>Description</th>
-
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categories as $category): ?>
+                <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $category): ?>
+                        <tr>
+                            <td>
+                                <?php if (!empty($category['photo_url'])): ?>
+                                    <img src="<?= htmlspecialchars($category['photo_url']) ?>" alt="Photo" style="width: 100px; height: auto;">
+                                <?php else: ?>
+                                    <span>No photo</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($category['category_id'] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($category['category_name'] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($category['category_decs'] ?? ''); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?= htmlspecialchars($category['id']); ?></td>
-                        <td><?= htmlspecialchars($category['name']); ?></td>
-                        <td><?= htmlspecialchars($category['description']); ?></td>
-
-
+                        <td colspan="4" class="text-center">No categories found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
@@ -91,5 +95,7 @@ ob_start();
 
 </html>
 
-<?php $content = ob_get_clean(); ?>
+<?php
+$content = ob_get_clean();
+?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

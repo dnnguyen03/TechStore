@@ -1,40 +1,46 @@
 <?php
 namespace App\Controllers\Auth;
 
-require_once '../TechStore/src/Models/user.php';
+use App\Controller;
+use App\Models\User;
 
-use App\Models\user;
-
-class AuthController
+class AuthController extends Controller
 {
     private $userModel;
 
     public function __construct()
     {
-        $this->userModel = new user();
+        $this->userModel = new User();
     }
 
     // Xử lý đăng nhập
     public function signin()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = htmlspecialchars(trim($_POST['username']));
-            $password = trim($_POST['password']);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-            $result = $this->userModel->getUserByUsername($username);
+            $user = $this->userModel->getUserByUsername($username);
 
-            if ($result && password_verify($password, $result['password_input'])) {
-                $_SESSION['user_id'] = $result['id'];
-                $_SESSION['user_role'] = $result['role'];
-                header('Location: /dashboard');
+            if ($user && password_verify($password, $user['password'])) {
+                // Lưu thông tin người dùng vào session
+                $_SESSION['currentUser'] = $user;
+
+
+                // Điều hướng đến dashboard
+                if($user['role'] == 0){
+                    header('Location: /admin/home');
+                }
+                else if($user['role']== 1){
+                    include '../TechStore/src/Views/Shop/Pages/home.php';
+                }
                 exit();
             } else {
-                $_SESSION['flash_error'] = "Invalid username or password.";
-                header('Location: /signin');
-                exit();
+                echo "Invalid username or password";
             }
         } else {
-            include '../TechStore/src/Views/Auth/signin.php';
+            // Hiển thị form đăng nhập
+            $this->render('Auth/signin', []);
         }
     }
 
@@ -42,41 +48,39 @@ class AuthController
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = htmlspecialchars(trim($_POST['username']));
-            $password = trim($_POST['password']);
-            $confirmPassword = trim($_POST['confirm_password']);
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
 
+            // Kiểm tra mật khẩu có khớp không
             if ($password !== $confirmPassword) {
-                $_SESSION['flash_error'] = "Passwords do not match.";
-                header('Location: /register');
-                exit();
+                echo "Passwords do not match!";
+                return;
             }
 
-            if ($this->userModel->createUser($username, $password, 'customer' or 'seller')) {
-                $_SESSION['flash_success'] = "Account created successfully! Please sign in.";
+            // Tạo user mới
+            if ($this->userModel->createUser($username, $password, '1')) {
+                // Chuyển hướng đến trang đăng nhập
                 header('Location: /signin');
+                exit();
             } else {
-                $_SESSION['flash_error'] = "Error creating account.";
-                header('Location: /register');
+                echo "Error creating account.";
             }
-            exit();
         } else {
-            include '../TechStore/src/Views/Auth/register.php';
+            // Hiển thị form đăng ký
+            $this->render('Auth/register', []);
         }
     }
 
     // Xử lý đăng xuất
     public function logout()
     {
-        session_unset();
-        session_destroy();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_unset();
+            session_destroy();
+        }
         header('Location: /signin');
         exit();
     }
-
-    // Xử lý quên mật khẩu
-    public function forgot()
-    {
-
-    }
 }
+?>
