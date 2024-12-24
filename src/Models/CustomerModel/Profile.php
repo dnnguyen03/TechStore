@@ -23,10 +23,32 @@ class Profile
 
     }
 
-    public function index($customer_id)
+    public function getProfile($customer_id)
     {
         $customer_id = $this->connection->real_escape_string($customer_id);
-        $result = $this->connection->query("SELECT * FROM report WHERE customer_id = $customer_id");
+        $result = $this->connection->query("SELECT * FROM profiles where user_id  = '$customer_id';");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function update($customer_id, $full_name, $phone, $address, $email, $avata, $gender)
+    {
+        $customer_id = $this->connection->real_escape_string($customer_id);
+        $full_name = $this->connection->real_escape_string($full_name ?? '');
+        $phone = $this->connection->real_escape_string($phone ?? '');
+        $address = $this->connection->real_escape_string($address ?? '');
+        $email = $this->connection->real_escape_string($email ?? '');
+        $avata = $this->connection->real_escape_string($avata ?? '');
+        $gender = $this->connection->real_escape_string($gender ?? '');
+
+        $this->connection->query("UPDATE profiles SET full_name='$full_name',
+                                                   phone='$phone', 
+                                                   address='$address', 
+                                                   email='$email', 
+                                                   avata='$avata', 
+                                                   gender='$gender' 
+                                 WHERE user_id = '$customer_id'");
+
+        header('Location: /profile');
+    }
+
 }

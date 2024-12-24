@@ -170,7 +170,7 @@
                             </a>
                         <?php } else { ?>
                             <!-- Button: Thông tin cá nhân -->
-                            <a href="/customer/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
+                            <a href="/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
                                 <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
                             </a>
                             <a class="btn btn-light w-100" href="/">

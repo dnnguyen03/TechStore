@@ -26,7 +26,7 @@ class Order
     public function getOrderByCustomer($customer_id)
     {
         $customer_id = $this->connection->real_escape_string($customer_id);
-        $result = $this->connection->query("SELECT * FROM orderdetails WHERE CustomerID = $customer_id");
+        $result = $this->connection->query("SELECT * FROM orderdetails WHERE CustomerID = '$customer_id'");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
