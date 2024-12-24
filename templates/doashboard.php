@@ -68,10 +68,14 @@
         }
 
         .sidebar {
-            height: 100vh;
+            position: fixed; /* Cố định sidebar */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Chiều cao toàn màn hình */
+            width: 16.66%; /* Chiều rộng bằng 2 cột (Bootstrap) */
             padding: 18px 20px 18px 28px;
-            position: relative;
             z-index: 1;
+           
         }
 
         .sidebar.seller {
@@ -111,6 +115,9 @@
 
         .sidebar-footer.notSeller p {
             color: #ffffff;
+        }
+        .col-sm-10 {
+            margin-left: 16.66%; /* Đẩy nội dung sang phải bằng chiều rộng của sidebar (2 cột = ~16.66%) */
         }
     </style>
 </head>
@@ -157,7 +164,7 @@
 
                         <?php if ($sesionRole == 'admin') { ?>
                             <h3 style="color: #FF9C00;">Tech ADMIN</h3>
-                            <a class="btn btn-light" href="/logout">
+                            <a class="btn btn-light w-100" href="/logout" onclick="return confirm('Xác nhận đăng xuất')">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Đăng xuất
                             </a>
@@ -166,7 +173,7 @@
                             <a href="/customer/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
                                 <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
                             </a>
-                            <a class="btn btn-light" href="/">
+                            <a class="btn btn-light w-100" href="/">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Quay lại
                             </a>

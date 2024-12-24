@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-<div class="container mt-3 d-flex flex-column" style="min-height: 100vh;">
+<div class="container mt-3" style="min-height: 100vh;">
     <div class="row flex-grow-1">
         <!-- Header thông tin đơn hàng -->
         <div class="col-12">
@@ -53,7 +53,7 @@
         </div>
 
         <!-- Phần đánh giá -->
-        <?php if ($status === 'Đã giao') { ?>
+        <?php if ($status == 1) { ?>
             <div class="col-12">
                 <div class="rating-section p-3 rounded shadow-sm">
                     <h6 class="fw-bold mb-3">Đánh giá đơn hàng</h6>
@@ -106,7 +106,7 @@
             <button type="button" class="btn btn-secondary">
                 <a href="/orders" style="text-decoration: none; color: black;">Quay lại</a>
             </button>
-            <?php if ($status === 'Đang xử lý') { ?>
+            <?php if ($status == 0) { ?>
 
                 <button type="button" class="btn btn-warning"> <a href="/customer/orders/cancel/<?= $order['OrderID'] ?>">
                         Hủy đơn hàng
