@@ -153,18 +153,19 @@
                     </ul>
 
                     <div class="sidebar-footer <?php echo $classRole ?> text-center">
-                        <!-- Button: Thông tin cá nhân -->
-                        <a href="/customer/profile" class="btn btn-primary w-100 mb-2 py-2 text-white fw-bold">
-                            <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
-                        </a>
+
 
                         <?php if ($sesionRole == 'admin') { ?>
+                            <h3 style="color: #FF9C00;">Tech ADMIN</h3>
                             <a class="btn btn-light" href="/logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Đăng xuất
                             </a>
                         <?php } else { ?>
-
+                            <!-- Button: Thông tin cá nhân -->
+                            <a href="/customer/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
+                                <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
+                            </a>
                             <a class="btn btn-light" href="/">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Quay lại

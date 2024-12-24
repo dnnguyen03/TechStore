@@ -77,7 +77,7 @@
         <h2>Tổng quan</h2>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <!-- Stats Section -->
         <div class="col-md-3">
             <div class="stat-card">
@@ -134,31 +134,18 @@
     <div class="row">
         <!-- New Orders Section -->
         <div class="col-md-12 order-list">
+        <?php if (!empty($newOrders)): ?>
             <h5>Đơn đặt hàng mới</h5>
+            <?php foreach($newOrders as $order): ?>
             <div class="order-item">
-                <span>#2312121315612</span>
-                <span>Ahinsa De Silva</span>
-                <span>12/12/23</span>
+                <span>#<?= $order['order_id'] ?></span>
+                <span><?= $order['full_name'] ?></span>
+                <span><?= $order['date_order'] ?></span>
                 <span class="status-new">New</span>
             </div>
-            <div class="order-item">
-                <span>#2312121315612</span>
-                <span>Ahinsa De Silva</span>
-                <span>12/12/23</span>
-                <span class="status-on-process">On Process</span>
-            </div>
-            <div class="order-item">
-                <span>#2312121315612</span>
-                <span>Ahinsa De Silva</span>
-                <span>12/12/23</span>
-                <span class="status-new">New</span>
-            </div>
-            <div class="order-item">
-                <span>#2312121315612</span>
-                <span>Ahinsa De Silva</span>
-                <span>12/12/23</span>
-                <span class="status-on-process">On Process</span>
-            </div>
+            <?php endforeach; ?><?php else: ?>
+                <h5>Không có đơn đặt hàng mới</h5>
+            <?php endif; ?>
         </div>
     </div>
 

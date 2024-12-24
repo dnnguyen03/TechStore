@@ -69,7 +69,7 @@ class Statistical
         $result = $this->connection->query("SELECT 
                                                 COUNT(DISTINCT o.customer_id) AS total_customers
                                             FROM 
-                                                tech_store.orders o
+                                                orders o
                                             WHERE 
                                                 o.seller_id = $seller_id;");
         if ($result) {

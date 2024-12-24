@@ -61,6 +61,7 @@
             </tr>
         </thead>
         <tbody>
+        <?php if (!empty($products)): ?>
             <?php foreach ($products as $product): ?>
                 <tr>
                     <td>
@@ -88,6 +89,11 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td class="text-center" colspan="6">Không có dữ liệu</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
     <div style="display: flex; flex-direction: column; align-items: center;">

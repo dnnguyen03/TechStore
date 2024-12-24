@@ -31,7 +31,7 @@ class SelProductController extends Controller
             $page = isset($_GET['page']) ? max((int)$_GET['page'], 1) : 1;
         }
 
-        $count = $this->productModel->count($seller_id, $searchValue, $category, $status);
+        $count = $this->productModel->countProductsBySeller($seller_id, $searchValue, $category, $status);
 
         $pageCount = ceil($count / $pageSize);
         $products = $this->productModel->searchProductBySeller($seller_id, $searchValue, $category, $status, $page, $pageSize);
