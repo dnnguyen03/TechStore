@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-<div class="container-fluid mt-4 d-flex flex-column" style="min-height: 100vh;">
+<div class="container mt-3 d-flex flex-column" style="min-height: 100vh;">
     <div class="row flex-grow-1">
         <!-- Header thông tin đơn hàng -->
         <div class="col-12">

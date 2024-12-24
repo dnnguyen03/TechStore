@@ -1,5 +1,5 @@
 <?php ob_start(); ?>
-<div class="container mt-4 bg-white p-4 rounded shadow-sm">
+<div class="container mt-3 bg-white p-4 rounded shadow-sm">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">My Profile</h2>

@@ -303,6 +303,15 @@
         padding: 1px 3px;
     }
 
+    .cart-quantity {
+        background-color: #fb730f;
+        padding: 4px 6px;
+        color: #fff;
+        border-radius: 2px;
+        line-height: 1;
+        display: inline-block;
+    }
+
     .deletePro {
         display: flex;
         align-items: center;

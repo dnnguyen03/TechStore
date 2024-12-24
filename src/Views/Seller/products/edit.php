@@ -62,7 +62,7 @@
                         <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*"
                             onchange="document.getElementById('Photo').src = window.URL.createObjectURL(this.files[0])">
                         <div class="mt-4">
-                            <input type="hidden" id="inputPhoto" name="image" value="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : '' ?>">
+                            <input type="hidden" id="inputPhoto" name="image" value="<?= isset($product['image']) ? $product['image'] : '' ?>">
                             <div style="width: 160px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
                                 <img id="Photo" src="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-thumbnail img-child ">

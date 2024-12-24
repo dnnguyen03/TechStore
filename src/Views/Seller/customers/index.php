@@ -17,9 +17,9 @@
         <h2>Quản lý khách hàng</h2>
     </div>
     <div class="d-flex mb-3 ">
-        <form class="form-search">
+        <form class="form-search" action="/seller/customers" method="get">
             <div class="flex-1">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="searchValue" value="<?= $searchValue ?>">
             </div>
 
             <div>
@@ -39,20 +39,41 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($CustomerBySellers as $customer): ?>
+            <?php if (!empty($CustomerBySellers)): ?>
+                <?php foreach ($CustomerBySellers as $customer): ?>
+                    <tr>
+                        <td><?= $customer['full_name'] ?></td>
+                        <td><?= $customer['email'] ?></td>
+                        <td><?= $customer['phone'] ?></td>
+                        <td><?= $customer['total_orders'] ?></td>
+                        <td><?= floor($customer['total_revenue']) ?></td>
+                        <td class="text-center">
+                            <a href="/seller/customers/detail/<?= $customer['user_id'] ?>" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?> <?php else: ?>
                 <tr>
-                    <td><?= $customer['full_name'] ?></td>
-                    <td><?= $customer['email'] ?></td>
-                    <td><?= $customer['phone'] ?></td>
-                    <td><?= $customer['total_orders'] ?></td>
-                    <td><?= floor($customer['total_revenue']) ?></td>
-                    <td class="text-center">
-                        <a href="/seller/customers/detail/<?= $customer['user_id'] ?>" class="btn btn-warning btn-sm"><i style="color: white " class="fa-regular fa-eye"></i></a>
-                    </td>
+                    <td class="text-center" colspan="6">Không có dữ liệu</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <?php if ($pageCount > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <?php for ($p = 1; $p <= $pageCount; $p++): ?>
+                        <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
+                            <a class="page-link"
+                                href="<?= ($p != $page) ? "/seller/customers?page=$p&category=" . $category . "&status=" . $status . "&searchValue=" . $searchValue : '#' ?>">
+                                <?= $p ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
+        <?php endif; ?>
+    </div>
 </div>
 
 <?php $content = ob_get_clean(); ?>

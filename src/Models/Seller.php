@@ -25,28 +25,9 @@ class Seller
     public function checkSeller($user_id)
     {
         $user_id = (int) $user_id;
-    
-        $stmt = $this->connection->prepare("SELECT COUNT(*) AS seller_count FROM tech_store.seller WHERE user_id = ?");
-        if (!$stmt) {
-            throw new Exception("Failed to prepare statement: " . $this->connection->error);
-        }
-    
-        $stmt->bind_param("i", $user_id);
-    
-        if (!$stmt->execute()) {
-            throw new Exception("Failed to execute statement: " . $stmt->error);
-        }
-    
-        $result = $stmt->get_result();
-        if (!$result) {
-            throw new Exception("Failed to get result: " . $stmt->error);
-        }
+        $result = $this->connection->query("SELECT COUNT(*) AS seller_count FROM seller WHERE user_id = $user_id");
     
         $row = $result->fetch_assoc();
-    
-        // Đóng statement
-        $stmt->close();
-    
         return $row['seller_count'] > 0;
     }
     
@@ -89,7 +70,7 @@ class Seller
         }
     }
 
-    public function updateProduct($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller)
+    public function updateSeller($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller)
     {
 
         $shop_name = $this->connection->real_escape_string($shop_name ?? '');
