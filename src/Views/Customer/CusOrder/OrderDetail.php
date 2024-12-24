@@ -106,7 +106,7 @@
             <button type="button" class="btn btn-secondary">
                 <a href="/orders" style="text-decoration: none; color: black;">Quay lại</a>
             </button>
-            <?php if ($status === 'Đang xử lý') { ?>
+            <?php if ($status === '0') { ?>
 
                 <button type="button" class="btn btn-warning"> <a href="/customer/orders/cancel/<?= $order['OrderID'] ?>">
                         Hủy đơn hàng

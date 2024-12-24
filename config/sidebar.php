@@ -41,17 +41,17 @@ $RouterRolers = [
             [
                 'icon' => '<i class="fa-solid fa-cart-shopping"></i>',
                 'title' => 'Đơn hàng',
-                'link' => '/orders'
+                'link' => '/customer/orders'
             ],
             [
                 'icon' => '<i class="fa-solid fa-comment-dots"></i>',
                 'title' => 'Phản hồi',
-                'link' => '/complaints'
+                'link' => '/customer/complaints'
             ],
             [
                 'icon' => '<i class="fa-solid fa-message"></i>',
                 'title' => 'Tin nhắn',
-                'link' => '/chats'
+                'link' => '/customer/chats'
             ],
         ],
     ],

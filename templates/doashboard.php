@@ -68,10 +68,14 @@
         }
 
         .sidebar {
-            height: 100vh;
+            position: fixed; /* Cố định sidebar */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Chiều cao toàn màn hình */
+            width: 16.66%; /* Chiều rộng bằng 2 cột (Bootstrap) */
             padding: 18px 20px 18px 28px;
-            position: relative;
             z-index: 1;
+           
         }
 
         .sidebar.seller {
@@ -111,6 +115,9 @@
 
         .sidebar-footer.notSeller p {
             color: #ffffff;
+        }
+        .col-sm-10 {
+            margin-left: 16.66%; /* Đẩy nội dung sang phải bằng chiều rộng của sidebar (2 cột = ~16.66%) */
         }
     </style>
 </head>
@@ -163,7 +170,7 @@
                             </a>
                         <?php } else { ?>
                             <!-- Button: Thông tin cá nhân -->
-                            <a href="/customer/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
+                            <a href="/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
                                 <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
                             </a>
                             <a class="btn btn-light" href="/">

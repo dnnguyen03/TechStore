@@ -16,7 +16,9 @@ class CusOrderController extends Controller
     
     public function index()
     {
-        $customer_id = 1;
+        $customer_id = $_SESSION['currentUser']['user_id'];
+    
+
         $orders = $this->orderModel->getOrderByCustomer($customer_id);
         $this->render('Customer/CusOrder/Order', ['orders' => $orders]);
     }

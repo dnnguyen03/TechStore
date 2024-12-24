@@ -71,17 +71,18 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
 
         $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
 
-        $router->addRoute('/\/orders/', [new CusOrderController(), 'index']);
-        $router->addRoute('/\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
+        $router->addRoute('/\/customer\/orders/', [new CusOrderController(), 'index']);
+        $router->addRoute('/\/customer\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
         $router->addRoute('/\/customer\/orders\/cancel\/(\d+)/', [new CusOrderController(), 'Cancel']);
 
-        $router->addRoute('/\/complaints/', [new CusComplaintController(), 'index']);
-        $router->addRoute('/\/complaints\/detail/', [new CusComplaintController(), 'Details']);
+        $router->addRoute('/\/customer\/complaints/', [new CusComplaintController(), 'index']);
+        $router->addRoute('/\/customer\/complaints\/detail/', [new CusComplaintController(), 'Details']);
 
         $router->addRoute('/\/customer\/report\/create/', [new CusReportController(), 'create']);
 
-        $router->addRoute('/\/chats/', [new CusChatController(), 'index']);
+        $router->addRoute('/\/customer\/chats/', [new CusChatController(), 'index']);
 
-        $router->addRoute('/\/customer\/profile/', [new ProfileController(), 'index']);
+        $router->addRoute('/\/profile/', [new ProfileController(), 'index']);
+        $router->addRoute('/\/profile\/edit/', [new ProfileController(), 'update']);
     }
 }
