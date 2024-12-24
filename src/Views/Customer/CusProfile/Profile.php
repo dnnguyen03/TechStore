@@ -1,5 +1,5 @@
 <?php ob_start(); ?>
-<div class="container mt-4 bg-white p-4 rounded shadow-sm">
+<div class="container mt-3 bg-white p-4 rounded shadow-sm">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">Tài khoản của tôi</h2>
@@ -31,7 +31,7 @@
 
     <!-- Settings Button -->
     <div class="text-center mt-4">
-    <a href="/customer/profile/edit" class="btn btn-primary w-20 mb-2 py-2 text-white fw-bold">
+    <a href="/profile/edit" class="btn btn-primary w-20 mb-2 py-2 text-white fw-bold">
                             <i class="fa-solid fa-user me-2"></i> Chỉnh sửa thông tin
                         </a>
     </div>

@@ -35,23 +35,25 @@ class Statistical
     public function totalRevenueBySeller($seller_id)
     {
         $seller_id = (int) $seller_id;
-        $result = $this->connection->query("SELECT 
-                                                p.seller_id,
-                                                SUM(d.quantity * p.price) AS total_revenue
-                                            FROM 
-                                                detailorders d
-                                            JOIN 
-                                                products p ON d.product_id = p.product_id
-                                            where p.seller_id = $seller_id
-                                            GROUP BY 
-                                                p.seller_id;");
-        if ($result) {
+    
+        $query = "
+            SELECT  SUM(d.quantity * p.price) AS total_revenue
+            FROM  detailorders d
+            JOIN  products p ON d.product_id = p.product_id
+            WHERE  p.seller_id = $seller_id
+            GROUP BY  p.seller_id;
+        ";
+    
+        $result = $this->connection->query($query);
+    
+        if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return $row['total_revenue'];
+            return isset($row['total_revenue']) ? (float)$row['total_revenue'] : 0;
         } else {
             return 0;
         }
     }
+    
 
     public function countNewOrderBySeller($seller_id)
     {
@@ -67,7 +69,7 @@ class Statistical
         $result = $this->connection->query("SELECT 
                                                 COUNT(DISTINCT o.customer_id) AS total_customers
                                             FROM 
-                                                tech_store.orders o
+                                                orders o
                                             WHERE 
                                                 o.seller_id = $seller_id;");
         if ($result) {

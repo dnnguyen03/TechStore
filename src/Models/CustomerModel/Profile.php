@@ -48,7 +48,7 @@ class Profile
                                                    gender='$gender' 
                                  WHERE user_id = '$customer_id'");
 
-        header('Location: /customer/profile');
+        header('Location: /profile');
     }
 
 }

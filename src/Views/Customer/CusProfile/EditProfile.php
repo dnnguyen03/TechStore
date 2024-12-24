@@ -4,7 +4,7 @@
         <h2 class="text-center mb-4">Chỉnh sửa hồ sơ của bạn</h2>
 
         <!-- Form -->
-        <form action="/customer/profile/edit" enctype="multipart/form-data" method="POST">
+        <form action="/profile/edit" enctype="multipart/form-data" method="POST">
             <h5 class="mb-3">Hồ sơ của bạn</h5>
   
             <?php foreach($profiles as $profile): ?>

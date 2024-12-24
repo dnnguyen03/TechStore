@@ -303,6 +303,15 @@
         padding: 1px 3px;
     }
 
+    .cart-quantity {
+        background-color: #fb730f;
+        padding: 4px 6px;
+        color: #fff;
+        border-radius: 2px;
+        line-height: 1;
+        display: inline-block;
+    }
+
     .deletePro {
         display: flex;
         align-items: center;
@@ -332,7 +341,7 @@
                         </div>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="/seller">Cửa hàng của bạn</a></li>
+                        <li><a class="dropdown-item" href="/seller-router">Cửa hàng của bạn</a></li>
                         <li><a class="dropdown-item" href="/customer/orders"> Quản lý tài khoản</a></li>
                         <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
                     </ul>

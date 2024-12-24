@@ -125,7 +125,13 @@
 <body>
     <?php
     include '../TechStore/config/sidebar.php';
-    $sesionRole = 'customer';
+    if ($_SESSION['currentUser']['role'] == 0) {
+        $sesionRole = 'admin';
+    } else if (isset($_SESSION['seller_id'])) {
+        $sesionRole = 'seller';
+    } else {
+        $sesionRole = 'customer';
+    }
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
     $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -143,25 +149,35 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($currentPath == $router['link']) ? 'active' : ''; ?>">
+                            <li class="menu-item <?php echo $classRole ?> <?php echo (strpos($currentPath, $router['link']) !== false) ? 'active' : ''; ?>">
                                 <a href="<?php echo $router['link']; ?>">
                                     <?php echo $router['icon']; ?>
                                     <?php echo $router['title']; ?>
                                 </a>
                             </li>
+
                         <?php } ?>
                     </ul>
 
                     <div class="sidebar-footer <?php echo $classRole ?> text-center">
-                        <!-- Button: Thông tin cá nhân -->
-                        <a href="/customer/profile" class="btn btn-primary w-100 mb-2 py-2 text-white fw-bold">
-                            <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
-                        </a>
 
-                        <!-- Button: Đăng xuất -->
-                        <a class="btn btn-outline-danger w-100 py-2" href="logout.php">
-                            <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất
-                        </a>
+
+                        <?php if ($sesionRole == 'admin') { ?>
+                            <h3 style="color: #FF9C00;">Tech ADMIN</h3>
+                            <a class="btn btn-light" href="/logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Đăng xuất
+                            </a>
+                        <?php } else { ?>
+                            <!-- Button: Thông tin cá nhân -->
+                            <a href="/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
+                                <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
+                            </a>
+                            <a class="btn btn-light" href="/">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Quay lại
+                            </a>
+                        <?php } ?>
                     </div>
             <?php }
             } ?>

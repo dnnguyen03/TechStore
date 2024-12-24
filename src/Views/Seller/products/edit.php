@@ -64,7 +64,7 @@
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto" name="image" value="<?= isset($product['image']) ? $product['image'] : '' ?>">
                             <div style="width: 160px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo" src="<?= isset($product['image']) ? $product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo" src="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-thumbnail img-child ">
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                             <tr>
                                 <td>
                                     <div style="width: 60px; height: 60px; overflow: hidden;">
-                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($photo['image']) ? $photo['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="photo">
+                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($photo['image']) ? '/src/assets/images/'.$photo['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="photo">
                                     </div>
                                 </td>
                                 <td><?= $photo['description'] ?></td>

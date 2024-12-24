@@ -14,6 +14,7 @@ class ShopController extends Controller
     }
     public function index()
     {
+        unset($_SESSION['seller_id']);
         $popularProduct = $this->productModel->getPopularProduct();
         $bestDealProduct = $this->productModel->getBestDeal();
 
