@@ -2,8 +2,8 @@
 <div class="container mt-4 bg-white p-4 rounded shadow-sm">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">My Profile</h2>
-        <p class="text-muted">12th January of 2023, 12:00 pm</p>
+        <h2 class="fw-bold">Tài khoản của tôi</h2>
+       
     </div>
 
     <!-- Profile Content -->
@@ -16,21 +16,24 @@
 
         <!-- Profile Details -->
         <div class="col-md-9">
-            <h4>Name: Amishka Dissanayake</h4>
-            <p><strong>Full Name:</strong> Amishka Janith Dissanayake</p>
-            <p><strong>NIC:</strong> 200028702523</p>
-            <p><strong>Birthday:</strong> 2000/10/13</p>
-            <p><strong>Gender:</strong> Male</p>
-            <p><strong>Contact Number:</strong> 076 3 133 646</p>
-            <p><strong>Address:</strong> 42B/3, Buddhaloka Mawatha, Suwarapola, Piliyandala</p>
-            <p><strong>City:</strong> Piliyandala</p>
-            <p><strong>Zip Code:</strong> 10300</p>
+            <?php foreach($profiles as $profile): ?>
+            <h4>Thông tin tài khoản </h4>
+            <p><strong>Họ tên:</strong> <?= $profile['full_name'] ?></p>
+            <p><strong>Email:</strong> <?= $profile['email'] ?></p>
+            
+            <p><strong>Giới tính:</strong> <?= $profile['gender'] ?></p>
+            <p><strong>Số điện thoại:</strong> <?= $profile['phone'] ?></p>
+            <p><strong>Địa chỉ:</strong> <?= $profile['address'] ?></p>
+           
+            <?php endforeach; ?>
         </div>
     </div>
 
     <!-- Settings Button -->
     <div class="text-center mt-4">
-        <button class="btn btn-warning px-4 py-2 fw-bold">Settings</button>
+    <a href="/customer/profile/edit" class="btn btn-primary w-20 mb-2 py-2 text-white fw-bold">
+                            <i class="fa-solid fa-user me-2"></i> Chỉnh sửa thông tin
+                        </a>
     </div>
 </div>
 

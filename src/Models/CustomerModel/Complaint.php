@@ -26,7 +26,7 @@ class Complaint
     public function getComplaintByCustomer($customer_id)
     {
         $customer_id = $this->connection->real_escape_string($customer_id);
-        $result = $this->connection->query("SELECT * FROM report WHERE customer_id = $customer_id");
+        $result = $this->connection->query("SELECT * FROM report WHERE customer_id = '$customer_id'");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

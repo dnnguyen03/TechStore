@@ -19,7 +19,7 @@ class CusComplaintController extends Controller
 
     public function index()
     {
-        $customer_id = 1;
+        $customer_id = $_SESSION['currentUser']['user_id'];
         $complaints = $this->complaintModel->getComplaintByCustomer($customer_id);
        
         $this->render('Customer/CusComplaint/Complaint', ['complaints' => $complaints]);

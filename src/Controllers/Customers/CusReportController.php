@@ -19,7 +19,7 @@ class CusReportController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $customerID = 1;
+            $customerID = $_SESSION['currentUser']['user_id'];
             $title = $_POST['feedbackType'];
             $content = $_POST['feedbackDetails'];
             $currentDateTime = $this->getCurrentDateTime();
@@ -31,7 +31,7 @@ class CusReportController extends Controller
             }
             $this->reportModel->createReport($title,$content,$currentDateTime,$customerID);
         }
-        header('Location: /orders');
+        header('Location: /customer/orders');
     }
 
     //Hàm lấy ngày giờ hiện tại

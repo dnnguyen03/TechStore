@@ -32,7 +32,7 @@ class Report
 
         $result = $this->connection->query("INSERT INTO report (title, content, date_report, customer_id) VALUE ('$title', '$content', '$date_report', '$customer_id')");
         
-        header('Location: /orders');
+        header('Location: /customer/orders');
     }
 
     public function createRating($seller_id, $customer_id, $rating)
