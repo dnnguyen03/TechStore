@@ -52,10 +52,6 @@
         margin-bottom: 10px;
     }
 
-    .order-item span {
-        font-weight: bold;
-    }
-
     .status-new {
         color: green;
     }
@@ -72,7 +68,7 @@
         text-align: center;
     }
 </style>
-<div class="container-fluid">
+<div class="container mt-3">
     <div class="dashboard-header">
         <h2>Tổng quan</h2>
     </div>
