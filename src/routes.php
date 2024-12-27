@@ -40,8 +40,9 @@ $router->addRoute('/\/seller-router/', [new SelHomeController(), 'checkSeller'])
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
 
 if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
+    $router->addRoute('/\/updateCart/', [new ShopController(), 'handleCartAction']);
+    $router->addRoute('/\/checkout/', [new ShopController(), 'checkout']);
     if ($_SESSION['currentUser']['role'] == 0) {
-
         $router->addRoute('/\/admin/', [new AdHomeController(), 'index']);
         $router->addRoute('/\/admin\/home/', [new AdHomeController(), 'index']);
         $router->addRoute('/\/admin\/products/', [new AdProductController(), 'index']);
