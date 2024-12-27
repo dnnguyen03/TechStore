@@ -44,8 +44,32 @@ class SelOrderController extends Controller
         ]);
     }
 
-    public function detail()
+    public function detail($order_id)
     {
-        $this->render('Seller/orders/detail', []);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $customer = isset($_GET['customer']) ? trim($_GET['customer']) : null;
+        }
+        $detailOrders = $this->orderModel->getDetailOrderById($order_id);
+        $order = $this->orderModel->getOrderById($order_id);
+        $this->render('Seller/orders/detail', ['detailOrders' => $detailOrders, 'order' => $order, 'customer' => $customer]);
+    }
+
+    public function confirm($order_id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $customer = isset($_GET['customer']) ? trim($_GET['customer']) : null;
+        }
+        $detailOrders = $this->orderModel->updateStatusOrder($order_id, 1);
+        if($detailOrders) {
+            if($customer != null) {
+                header('Location: /seller/customers/detail/'.$customer);
+                return;
+            } else {
+                header('Location: /seller/orders');
+                return;
+            }
+        }
+        
+        header('Location: /seller/orders/detail/'.$order_id);
     }
 }

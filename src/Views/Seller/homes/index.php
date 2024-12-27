@@ -53,11 +53,7 @@
     }
 
     .status-new {
-        color: green;
-    }
-
-    .status-on-process {
-        color: orange;
+        color: #FF9C00;
     }
 
     .footer {
@@ -130,18 +126,22 @@
     <div class="row">
         <!-- New Orders Section -->
         <div class="col-md-12 order-list">
-        <?php if (!empty($newOrders)): ?>
-            <h5>Đơn đặt hàng mới</h5>
-            <?php foreach($newOrders as $order): ?>
-            <div class="order-item">
-                <span>#<?= $order['order_id'] ?></span>
-                <span><?= $order['full_name'] ?></span>
-                <span><?= $order['date_order'] ?></span>
-                <span class="status-new">New</span>
-            </div>
-            <?php endforeach; ?><?php else: ?>
-                <h5>Không có đơn đặt hàng mới</h5>
-            <?php endif; ?>
+            <?php if (!empty($newOrders)): ?>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h5>Đơn đặt hàng mới</h5>
+
+                    <a href="/seller/orders" class="btn btn-link" style="color: gray;">Xem đơn hàng</a>
+                </div>
+                <?php foreach ($newOrders as $order): ?>
+                    <div class="order-item">
+                        <span>#<?= $order['order_id'] ?></span>
+                        <span><?= $order['full_name'] ?></span>
+                        <span><?= $order['date_order'] ?></span>
+                        <span class="status-new">Đơn hàng mới</span>
+                    </div>
+                    <?php endforeach; ?><?php else: ?>
+                    <h5>Không có đơn đặt hàng mới</h5>
+                <?php endif; ?>
         </div>
     </div>
 
