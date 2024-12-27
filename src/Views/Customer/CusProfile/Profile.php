@@ -10,13 +10,16 @@
     <div class="row">
         <!-- Profile Avatar -->
         <div class="col-md-3 text-center">
-            <div class="bg-secondary rounded-circle mx-auto" style="width: 120px; height: 120px;"></div>
-            <p class="mt-2 text-success fw-bold">✔ Verified Account</p>
+            <div class="bg-secondary rounded-circle mx-auto" style="width: 120px; height: 120px; overflow: hidden;">
+
+                <img src=<?= "/src/assets/images/" . $profile['avata'] ?> alt="Product"  style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+            </div>
+           
         </div>
 
         <!-- Profile Details -->
         <div class="col-md-9">
-            <?php foreach($profiles as $profile): ?>
+           
             <h4>Thông tin tài khoản </h4>
             <p><strong>Họ tên:</strong> <?= $profile['full_name'] ?></p>
             <p><strong>Email:</strong> <?= $profile['email'] ?></p>
@@ -25,7 +28,7 @@
             <p><strong>Số điện thoại:</strong> <?= $profile['phone'] ?></p>
             <p><strong>Địa chỉ:</strong> <?= $profile['address'] ?></p>
            
-            <?php endforeach; ?>
+            
         </div>
     </div>
 
