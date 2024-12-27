@@ -140,6 +140,7 @@
             <div class="form-group">
                 <input type="password" name="confirm_password" placeholder="Confirm Password" required class="form-control">
             </div>
+            <?= isset($message)? $message : "" ?>
             <button type="submit" class="btn btn-primary">Continue</button>
         </form>
     </div>

@@ -9,8 +9,6 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,17 +52,15 @@ ob_start();
 <body>
     <div class="content">
         <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Products</h1>
-        </div>
-
         <!-- Search Form -->
         <form method="GET" class="d-flex mb-3">
-            <input type="text" name="search" class="form-control me-2" placeholder="Search by Product Name"
+            <input type="text" name="search" class="form-control me-2" placeholder="Search Product Name"
                 value="<?= htmlspecialchars($searchKeyword ?? '') ?>">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-outline-success">Search</button>
         </form>
-
+        </div>
         <!-- Products Table -->
         <table class="table table-bordered table-hover">
             <thead>

@@ -54,7 +54,7 @@ class AuthController extends Controller
 
             // Kiểm tra mật khẩu có khớp không
             if ($password !== $confirmPassword) {
-                echo "Passwords do not match!";
+                $this->render('Auth/register', ["message" =>"mật khẩu k khớp"]);
                 return;
             }
 

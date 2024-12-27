@@ -9,7 +9,6 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounts Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +16,7 @@ ob_start();
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Accounts Management</h1>
             <form class="d-flex" method="GET" action="">
-                <input class="form-control me-2" type="search" name="search" placeholder="Search by Customer Name" value="<?= htmlspecialchars($search); ?>">
+                <input class="form-control me-2" type="search" name="search" placeholder="Search Customer Name" value="<?= htmlspecialchars($search); ?>">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>

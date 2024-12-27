@@ -59,6 +59,9 @@ if ($sessionRoute == "seller") {
     $router->addRoute('/\/admin\/products/', [new AdProductController(), 'index']);
     $router->addRoute('/\/admin\/users/', [new AdUserController(), 'index']);
     $router->addRoute('/\/admin\/categories/', [new AdCategoryController(), 'index']);
+    $router->addRoute('/\/admin\/categories\/create/', [new AdCategoryController(), 'create']);
+    $router->addRoute('/\/admin\/categories\/update\/(\d+)/', [new AdCategoryController(), 'update']);
+    $router->addRoute('/\/admin\/categories\/delete\/(\d+)/', [new AdCategoryController(), 'delete']);
 } else if ($checkLogin == 1) {
     $router->addRoute('/\//', [new SelHomeController(), 'index']);
     $router->addRoute('/\/home/', [new SelHomeController(), 'index']);

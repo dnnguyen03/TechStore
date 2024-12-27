@@ -44,53 +44,63 @@ ob_start();
 
 <body>
     <div class="content">
-        <h1>Product Categories</h1>
-        <div class="d-flex mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Product Categories</h1>
             <!-- Form tìm kiếm -->
             <form method="GET" class="d-flex">
-                <input type="text" name="search" class="form-control me-2" placeholder="Search by Category Name"
+                <input type="text" name="search" class="form-control me-2" placeholder="Search Category Name"
                     value="<?= htmlspecialchars($searchKeyword ?? '') ?>">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-outline-success">Search</button>
             </form>
+
+        </div>
+        <!-- Nút thêm danh mục -->
+        <div class="d-flex mb-3">
+            <a href="/admin/categories/create" class="btn btn-add-category">Add New Category</a>
+        </div>
+            <!-- Bảng hiển thị danh mục -->
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">Photo</th>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th style="width: 150px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($categories)): ?>
+                        <?php foreach ($categories as $category): ?>
+                            <tr>
+                                <td>
+                                    <?php if (!empty($category['photo_url'])): ?>
+                                        <img src="<?= htmlspecialchars($category['photo_url']) ?>" alt="Photo" style="width: 100px; height: auto;">
+                                    <?php else: ?>
+                                        <span>No photo</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= htmlspecialchars($category['category_id'] ?? ''); ?></td>
+                                <td><?= htmlspecialchars($category['category_name'] ?? ''); ?></td>
+                                <td><?= htmlspecialchars($category['category_decs'] ?? ''); ?></td>
+                                <td>
+                                    <a href="/path/to/edit/category?id=<?= htmlspecialchars($category['category_id']); ?>" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="/path/to/delete/category?id=<?= htmlspecialchars($category['category_id']); ?>"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5" class="text-center">No categories found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Bảng hiển thị danh mục -->
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Photo</th>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($categories)): ?>
-                    <?php foreach ($categories as $category): ?>
-                        <tr>
-                            <td>
-                                <?php if (!empty($category['photo_url'])): ?>
-                                    <img src="<?= htmlspecialchars($category['photo_url']) ?>" alt="Photo" style="width: 100px; height: auto;">
-                                <?php else: ?>
-                                    <span>No photo</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= htmlspecialchars($category['category_id'] ?? ''); ?></td>
-                            <td><?= htmlspecialchars($category['category_name'] ?? ''); ?></td>
-                            <td><?= htmlspecialchars($category['category_decs'] ?? ''); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4" class="text-center">No categories found.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
