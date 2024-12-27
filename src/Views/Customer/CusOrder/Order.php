@@ -6,10 +6,11 @@
         <h2 class="fw">Đơn hàng của tôi</h2>
     </div>
 
-    <!-- Bảng đơn hàng -->
-    <div class="card">
-        <div class="card-body p-0">
-            <table class="table table-striped mb-0">
+    <!-- Kiểm tra và hiển thị đơn hàng -->
+    <?php if (!empty($orders) && count($orders) > 0): ?>
+        <!-- Bảng đơn hàng -->
+        <div class="p-0">
+            <table class="table table-striped table-bordered">
                 <thead class="table-light">
                     <tr>
                         <th style="width: 15%;">Mã đơn hàng</th>
@@ -29,9 +30,9 @@
                             <td><?= number_format($order['TotalAmount'], 0, ',', '.') ?> ₫</td>
                             <td>
                                 <span class="badge 
-                                    <?= $order['OrderStatus'] === 'Completed' ? 'bg-success' : 
-                                        ($order['OrderStatus'] === 'Pending' ? 'bg-warning text-dark' : 'bg-danger') ?>">
-                                    <?= htmlspecialchars($order['OrderStatus']) ?>
+                                    <?= $order['OrderStatus'] == '1' ? 'bg-success' : 
+                                        ($order['OrderStatus'] == '0' ? 'bg-warning text-dark' : 'bg-danger') ?>">
+                                    <?= htmlspecialchars($order['OrderStatus'] == '1' ? 'Đã giao' : ($order['OrderStatus'] == '0' ? 'Đơn hàng mới' : 'Đã hủy' )) ?>
                                 </span>
                             </td>
                             <td class="text-end">
@@ -44,10 +45,14 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
+    <?php else: ?>
+        <!-- Thông báo không có đơn hàng -->
+        <div class="alert alert-info text-center" role="alert">
+            <h4 class="fw-bold">Bạn chưa có đơn hàng nào</h4>
+            <p>Hãy khám phá các sản phẩm tuyệt vời và tạo đơn hàng ngay!</p>
+            <a href="/shop" class="btn btn-primary">Khám phá sản phẩm</a>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
 
 <?php $content = ob_get_clean(); ?>
