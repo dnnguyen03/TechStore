@@ -17,18 +17,17 @@
         <h2>Quản lý đơn hàng</h2>
     </div>
     <div class="d-flex mb-3 ">
-        <form class="form-search">
+        <form class="form-search" action="/seller/orders" method="get">
             <div>
-                <select class="form-select" aria-label="Select Status">
-                    <option selected>Chọn trạng thái</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="pending">Pending</option>
+                <select class="form-select" aria-label="Select trạng thái" name="status">
+                    <option value="2" selected>Chọn trạng thái</option>
+                    <option value="0">Đơn hàng mới</option>
+                    <option value="1">Đã duyệt</option>
                 </select>
             </div>
 
             <div class="flex-1">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="searchValue" value="<?= $searchValue ?>">
             </div>
 
             <div>
@@ -48,21 +47,49 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($OrderBySellers as $order): ?>
-                <tr>
-                    <td><?= $order['order_id'] ?></td>
-                    <td><?= $order['full_name'] ?></td>
-                    <td><?= $order['date_order'] ?></td>
-                    <td><?= floor($order['total_amount']) ?></td>
-                    <td><?= $order['status'] ?></td>
+            <?php if (!empty($OrderBySellers)): ?>
+                <?php foreach ($OrderBySellers as $order): ?>
+                    <tr>
+                        <td><?= $order['order_id'] ?></td>
+                        <td><?= $order['full_name'] ?></td>
+                        <td><?= $order['date_order'] ?></td>
+                        <td><?= floor($order['total_amount']) ?></td>
+                        <td>
+                            <?php
+                            if ($order['status'] == 0) { ?>
+                                <p style="color: #FF9C00;">Đơn hàng mới</p>
+                            <?php } else { ?>
+                                <p style="color: green;">Đã duyệt</p>
+                            <?php } ?>
+                        </td>
 
-                    <td class="text-center">
-                        <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
-                    </td>
+                        <td class="text-center">
+                            <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?> <?php else: ?>
+                <tr>
+                    <td class="text-center" colspan="6">Không có dữ liệu</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <?php if ($pageCount > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <?php for ($p = 1; $p <= $pageCount; $p++): ?>
+                        <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
+                            <a class="page-link"
+                                href="<?= ($p != $page) ? "/seller/orders?page=$p&category=" . $category . "&status=" . $status . "&searchValue=" . $searchValue : '#' ?>">
+                                <?= $p ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
+        <?php endif; ?>
+    </div>
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

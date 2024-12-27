@@ -52,12 +52,12 @@
 
                     <div class="col-md-6">
                         <label for="uploadPhoto" class="form-label">Shop logo:</label>
-                        <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*" required
+                        <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*" 
                             onchange="document.getElementById('Photo').src = window.URL.createObjectURL(this.files[0])">
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto" name="logo_shop" value="<?= isset($seller['logo_shop']) ? $seller['logo_shop'] : '' ?>">
                             <div style="width: 160px; height: 160px; border-radius: 999px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo" src="<?= isset($seller['logo_shop']) ? $seller['logo_shop'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo" src="<?= isset($seller['logo_shop']) ? '/src/assets/images/'.$seller['logo_shop'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-child ">
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto2" name="banner" value="<?= isset($seller['banner']) ? $seller['banner'] : '' ?>">
                             <div style="width: 400px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo2" src="<?= isset($seller['banner']) ? $seller['banner'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo2" src="<?= isset($seller['banner']) ? '/src/assets/images/'.$seller['banner'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-child ">
                             </div>
                         </div>

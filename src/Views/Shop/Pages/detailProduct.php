@@ -5,6 +5,7 @@
             <div class="main-slider" style="border-radius: 12px; overflow: hidden; height: 350px;">
                 <?php foreach ($product['product_photos'] as $photo): ?>
                     <div>
+                        <img src="<?= '/src/assets/images/' . $photo; ?>" style="width: 100%; height: 350px; object-fit: cover;" alt="Product Image">
                         <img src="/src/assets/images/<?= $photo; ?>" style="width: 100%; height: 350px; object-fit: cover;" alt="Product Image">
                     </div>
                 <?php endforeach; ?>
@@ -12,6 +13,7 @@
             <div class="thumb-slider">
                 <?php foreach ($product['product_photos'] as $photo): ?>
                     <div style="margin: 15px 5px 0px; overflow: hidden; border-radius: 12px; height: 80px; width: 80px;">
+                        <img height="100%" width="100%" style="object-fit: cover;" src="<?= '/src/assets/images/' . $photo; ?>" alt="Thumb">
                         <img height="100%" width="100%" style="object-fit: cover;" src="/src/assets/images/<?= $photo; ?>" alt="Thumb">
                     </div>
                 <?php endforeach; ?>

@@ -27,7 +27,7 @@ class SelShopController extends Controller
             $phone = $_POST['phone'];
             $email = $_POST['email'];
             $address = $_POST['address'];
-            $user_id = 1;
+            $user_id = $_SESSION["currentUser"]["user_id"];
             $logo_shop = $_POST['logo_shop'];
             $banner = $_POST['banner'];
             $bio_seller = $_POST['bio_seller'];
@@ -75,7 +75,7 @@ class SelShopController extends Controller
                 $banner = $fileName;
             }
 
-            $this->sellerModel->updateProduct($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller);
+            $this->sellerModel->updateSeller($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller);
         }
 
         $seller = $this->sellerModel->getSellerById(($seller_id));

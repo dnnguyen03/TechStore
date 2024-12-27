@@ -16,7 +16,7 @@ class SelProductController extends Controller
 
     public function index()
     {
-        $seller_id = 1;
+        $seller_id = $_SESSION["seller_id"];
         $searchValue = "";
         $status = 2;
         $category = 0;
@@ -31,7 +31,7 @@ class SelProductController extends Controller
             $page = isset($_GET['page']) ? max((int)$_GET['page'], 1) : 1;
         }
 
-        $count = $this->productModel->count($seller_id, $searchValue, $category, $status);
+        $count = $this->productModel->countProductsBySeller($seller_id, $searchValue, $category, $status);
 
         $pageCount = ceil($count / $pageSize);
         $products = $this->productModel->searchProductBySeller($seller_id, $searchValue, $category, $status, $page, $pageSize);
@@ -57,14 +57,14 @@ class SelProductController extends Controller
             $image = $_POST['image'];
             $quantity = $_POST['quantity'];
             $status = $_POST['status'];
-            $seller_id = 1;
+            $seller_id = $_SESSION["seller_id"];
 
             if (isset($_FILES['uploadPhoto'])) {
                 // $fileName = uniqid() . '-' . basename($_FILES['uploadPhoto']['name']);
                 $fileName = basename($_FILES['uploadPhoto']['name']);
 
                 $image = $fileName;
-            }
+            }   
 
             $this->productModel->createProduct($product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id);
         }
@@ -82,7 +82,7 @@ class SelProductController extends Controller
             $image = $_POST['image'];
             $quantity = $_POST['quantity'];
             $status = $_POST['status'];
-            $seller_id = 1;
+            $seller_id = $_SESSION["seller_id"];
 
             if (isset($_FILES['uploadPhoto']) && (basename($_FILES['uploadPhoto']['name']) != "")) {
                 $fileName = basename($_FILES['uploadPhoto']['name']);
@@ -93,7 +93,7 @@ class SelProductController extends Controller
             $this->productModel->updateProduct($product_id, $product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id);
         }
 
-        $product = $this->productModel->getProductById($product_id);
+        $product = $this->productModel->getProductByIdSeller($product_id);
         $photos = $this->productModel->getProductPhotosByProductId($product_id);
         $this->render('Seller/products/edit', ['product' => $product, 'photos' => $photos]);
     }

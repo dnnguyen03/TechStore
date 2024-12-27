@@ -89,7 +89,7 @@
                     <div class="desc mb-3"><?= htmlspecialchars($product['product_decs']); ?></div>
                 </div>
                 <div>
-                    <a href="/Product/<?= $product['product_id'] ?>">
+                    <a href="/products/<?= $product['product_id'] ?>">
                         <button class="btn btn-secondary">View detail</button>
                     </a>
                     <button class="btn btn-primary addProduct"

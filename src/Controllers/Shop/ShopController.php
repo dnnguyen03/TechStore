@@ -14,6 +14,7 @@ class ShopController extends Controller
     }
     public function index()
     {
+        unset($_SESSION['seller_id']);
         $popularProduct = $this->productModel->getPopularProduct();
         $bestDealProduct = $this->productModel->getBestDeal();
 
@@ -38,7 +39,6 @@ class ShopController extends Controller
         // Lấy dữ liệu từ yêu cầu POST
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);
-
         if (isset($data['product_id'], $data['shop_id'], $data['action'])) {
             $productId = $data['product_id'];
             $shop_id = $data['shop_id'];
