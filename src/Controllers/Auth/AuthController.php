@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Auth;
 
 use App\Controller;
@@ -28,11 +29,10 @@ class AuthController extends Controller
 
 
                 // Điều hướng đến dashboard
-                if($user['role'] == 0){
+                if ($user['role'] == 0) {
                     header('Location: /admin/home');
-                }
-                else if($user['role']== 1){
-                    include '../TechStore/src/Views/Shop/Pages/home.php';
+                } else if ($user['role'] == 1) {
+                    header('Location: /');
                 }
                 exit();
             } else {
@@ -83,4 +83,3 @@ class AuthController extends Controller
         exit();
     }
 }
-?>

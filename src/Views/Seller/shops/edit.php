@@ -52,7 +52,7 @@
 
                     <div class="col-md-6">
                         <label for="uploadPhoto" class="form-label">Shop logo:</label>
-                        <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*"
+                        <input type="file" id="uploadPhoto" name="uploadPhoto" class="form-control" accept="image/*" required
                             onchange="document.getElementById('Photo').src = window.URL.createObjectURL(this.files[0])">
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto" name="logo_shop" value="<?= isset($seller['logo_shop']) ? $seller['logo_shop'] : '' ?>">

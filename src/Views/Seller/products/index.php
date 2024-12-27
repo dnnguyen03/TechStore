@@ -29,14 +29,14 @@
 
             <div>
                 <select class="form-select" aria-label="Select Status" name="status">
-                    <option value="2"  <?= $status == 2 ? 'selected' : '' ?>>Chọn trạng thái</option>
+                    <option value="2" <?= $status == 2 ? 'selected' : '' ?>>Chọn trạng thái</option>
                     <option value="1" <?= $status == 1 ? 'selected' : '' ?>>Đang bán</option>
                     <option value="0" <?= $status == 0 ? 'selected' : '' ?>>Hết hàng</option>
                 </select>
             </div>
 
             <div class="flex-1">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="searchValue" value="<?= $searchValue?>">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="searchValue" value="<?= $searchValue ?>">
             </div>
 
             <div>
@@ -91,21 +91,21 @@
         </tbody>
     </table>
     <div style="display: flex; flex-direction: column; align-items: center;">
-    <?php if ($pageCount > 1): ?>
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <?php for ($p = 1; $p <= $pageCount; $p++): ?>
-                    <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
-                        <a class="page-link" 
-                           href="<?= ($p != $page) ? "/seller/products?page=$p&category=".$category."&status=".$status."&searchValue=" . $searchValue : '#' ?>">
-                            <?= $p ?>
-                        </a>
-                    </li>
-                <?php endfor; ?>
-            </ul>
-        </nav>
-    <?php endif; ?>
-</div>
+        <?php if ($pageCount > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <?php for ($p = 1; $p <= $pageCount; $p++): ?>
+                        <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
+                            <a class="page-link"
+                                href="<?= ($p != $page) ? "/seller/products?page=$p&category=" . $category . "&status=" . $status . "&searchValue=" . $searchValue : '#' ?>">
+                                <?= $p ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
+        <?php endif; ?>
+    </div>
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

@@ -41,7 +41,7 @@
 <div class="listShop container" style="margin-bottom: 50px; margin-top: 20px;">
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -54,7 +54,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -67,7 +67,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -80,7 +80,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -93,7 +93,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -106,7 +106,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -119,7 +119,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
@@ -132,7 +132,7 @@
     </div>
     <div class="cardShop">
         <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="../../../assets/images/product.png" alt="">
+            <img src="/src/assets/images/product.png" alt="">
         </div>
         <div class="inforShop">
             <div class="shopName">
