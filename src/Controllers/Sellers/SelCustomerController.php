@@ -4,14 +4,17 @@ namespace App\Controllers\Sellers;
 
 use App\Controller;
 use App\Models\Customer;
+use App\Models\Order;
 
 class SelCustomerController extends Controller
 {
     private $customerModel;
+    private $orderModel;
 
     public function __construct()
     {
         $this->customerModel = new Customer();
+        $this->orderModel = new Order();
     }
 
     public function index()
@@ -42,8 +45,12 @@ class SelCustomerController extends Controller
         ]);
     }
 
-    public function detail()
+    public function detail($customer_id)
     {
-        $this->render('Seller/customers/detail', []);
+        $seller_id = $_SESSION["seller_id"];
+
+        $customer = $this->customerModel->getCustomerById($customer_id);
+        $orderByCustomers = $this->orderModel->getAllOrderSellerByCustomer($seller_id, $customer_id);
+        $this->render('Seller/customers/detail', ['customer' => $customer, 'orderByCustomers' => $orderByCustomers]);
     }
 }

@@ -12,58 +12,6 @@
     .profile-header .details {
         text-align: right;
     }
-
-    .order-status-btn {
-        margin-left: 10px;
-    }
-
-    .order-status-btn.new {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .order-status-btn.on-process {
-        background-color: #fd7e14;
-        color: white;
-    }
-
-    .order-status-btn.on-delivery {
-        background-color: #6f42c1;
-        color: white;
-    }
-
-    .order-status-btn.done {
-        background-color: #28a745;
-        color: white;
-    }
-
-    .order-list {
-        margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .order-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .order-item:last-child {
-        border-bottom: none;
-    }
-
-    .order-item .order-id {
-        font-weight: bold;
-    }
-
-    .order-item .order-date {
-        color: #6c757d;
-    }
 </style>
 
 <div class="container">
@@ -71,50 +19,53 @@
     <div class="profile-header">
         <h2 style="margin-bottom: 16px;">Chi tiết khách hàng</h2>
         <div>
-            <p>Họ tên: <strong>Trần Mạnh Mẽ</strong></p>
-            <p>Địa chỉ: 77 Nguyễn Huệ, TP Huế</p>
-            <p>Telephone / Mobile: 076 1 234 567</p>
+            <p>Họ tên: <strong><?= $customer['full_name']?></strong></p>
+            <p>Email: <?= $customer['email']?></p>
+            <p>Số điện thoại: <?= $customer['phone']?></p>
+            <p>Địa chỉ: <?= $customer['address']?></p>
         </div>
         <div class="details">
-            <h2>Total Earning - Rs. <span style="color: #fd7e14;">500,000.00</span> VNĐ</h2>
+            <h2>Danh sách đơn hàng</h2>
         </div>
     </div>
 
-    <!-- Orders List -->
-    <div class="order-list">
-        <div class="order-item">
-            <div>
-                <div class="order-id">#231212135612</div>
-                <div class="order-date">12/12/23</div>
-            </div>
-            <div>Rs. 100,000.00</div>
-            <button class="btn order-status-btn new">New</button>
-        </div>
-        <div class="order-item">
-            <div>
-                <div class="order-id">#231212135612</div>
-                <div class="order-date">12/12/23</div>
-            </div>
-            <div>Rs. 100,000.00</div>
-            <button class="btn order-status-btn on-process">On Process</button>
-        </div>
-        <div class="order-item">
-            <div>
-                <div class="order-id">#231212135612</div>
-                <div class="order-date">12/12/23</div>
-            </div>
-            <div>Rs. 100,000.00</div>
-            <button class="btn order-status-btn on-delivery">On Delivery</button>
-        </div>
-        <div class="order-item">
-            <div>
-                <div class="order-id">#231212135612</div>
-                <div class="order-date">12/12/23</div>
-            </div>
-            <div>Rs. 100,000.00</div>
-            <button class="btn order-status-btn done">Done</button>
-        </div>
-    </div>
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($orderByCustomers)): ?>
+                <?php foreach ($orderByCustomers as $order): ?>
+                    <tr>
+                        <td><?= $order['order_id'] ?></td>
+                        <td><?= $order['date_order'] ?></td>
+                        <td><?= floor($order['total_amount']) ?></td>
+                        <td>
+                            <?php
+                            if ($order['status'] == 0) { ?>
+                                <p style="color: #FF9C00;">Đơn hàng mới</p>
+                            <?php } else { ?>
+                                <p style="color: green;">Đã duyệt</p>
+                            <?php } ?>
+                        </td>
+
+                        <td class="text-center">
+                            <a href="/seller/orders/detail/<?= $order['order_id'] ?>?customer=<?= $customer['user_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?> <?php else: ?>
+                <tr>
+                    <td class="text-center" colspan="5">Không có dữ liệu</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 
 <?php $content = ob_get_clean(); ?>

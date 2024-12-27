@@ -182,7 +182,7 @@
             <?php }
             } ?>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10 " style="padding-left: 24px;">
             <?= $content ?>
         </div>
     </div>

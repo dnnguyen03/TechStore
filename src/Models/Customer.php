@@ -76,4 +76,11 @@ class Customer
         $count = $result ? $result->fetch_row()[0] : 0;
         return $count;
     }
+
+    public function getCustomerById($customer_id) {
+        $customer_id = (int) $customer_id;
+        $result = $this->connection->query("SELECT * FROM profiles where user_id = $customer_id;");        
+
+        return $result->fetch_assoc();
+    }
 }

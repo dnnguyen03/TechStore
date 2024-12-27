@@ -209,7 +209,7 @@ class Product
         $row = $result->fetch_assoc();
         return $row['total'];
     }
-    
+
     public function createProductPhoto($product_id, $image, $description, $display_order, $is_hidden)
     {
         $product_id = (int)($product_id ?? 0);
@@ -330,5 +330,4 @@ class Product
 
         return [];
     }
-
 }
