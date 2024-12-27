@@ -54,6 +54,8 @@ if ($sessionRoute == "seller") {
 
     $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
 } else if ($checkLogin == 0) {
+    $router->addRoute('/\/updateCart/', [new ShopController(), 'handleCartAction']);
+    $router->addRoute('/\/checkout/', [new ShopController(), 'checkout']);
     $router->addRoute('/\/admin/', [new AdHomeController(), 'index']);
     $router->addRoute('/\/admin\/home/', [new AdHomeController(), 'index']);
     $router->addRoute('/\/admin\/products/', [new AdProductController(), 'index']);

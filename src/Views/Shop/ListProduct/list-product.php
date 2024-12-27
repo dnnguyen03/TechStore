@@ -34,7 +34,8 @@
     }
 
 
-    .cardProduct .desc {
+    .cardProduct .desc,
+    .nameProduct {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -79,21 +80,35 @@
     foreach ($products as $product) : ?>
         <div class="cardProduct">
             <div class="image">
-                <img src="<?= $product['image']; ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
+                <img src="/src/assets/images/<?= $product['image']; ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
             </div>
             <div class="inforProduct p-3">
                 <div>
                     <h4 class="nameProduct"><?= htmlspecialchars($product['product_name']); ?></h4>
-                    <h5 class="price"><?= htmlspecialchars($product['price']); ?></h5>
+                    <h5 class="price"><?= number_format($product['price'], 0, ',', '.') ?>đ</h5>
                     <div class="desc mb-3"><?= htmlspecialchars($product['product_decs']); ?></div>
                 </div>
                 <div>
                     <a href="/Product/<?= $product['product_id'] ?>">
                         <button class="btn btn-secondary">View detail</button>
                     </a>
-                    <a href="">
-                        <button class="btn btn-primary">Add to cart</button>
-                    </a>
+                    <button class="btn btn-primary addProduct"
+                        data-shop-id="<?= $product['seller_id']; ?>"
+                        data-product-id="<?= $product['product_id']; ?>"
+                        data-product-name="<?= htmlspecialchars($product['product_name']); ?>"
+                        data-price="<?= $product['price']; ?>"
+                        data-image="<?= $product['image']; ?>">
+                        Add to cart
+                    </button>
+                    <!-- <form action="/addToCart" method="POST" style="display: inline;">
+                        <input type="hidden" name="shop_id" value="<?= $product['seller_id']; ?>">
+                        <input type="hidden" name="image" value="<?= $product['image']; ?>">
+                        <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
+                        <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']); ?>">
+                        <input type="hidden" name="price" value="<?= $product['price']; ?>">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                    </form> -->
                 </div>
             </div>
         </div>

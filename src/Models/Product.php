@@ -25,17 +25,29 @@ class Product
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getNameShop($seller_id)
+    {
+        $query = "SELECT shop_name FROM seller WHERE seller_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("i", $seller_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            return $row['shop_name'];
+        }
+        return null;
+    }
+
     public function getBestDeal()
     {
-        $result = $this->connection->query("SELECT product_id,product_name,product_decs,price,image 
-        FROM Products
+        $result = $this->connection->query("SELECT * FROM Products
         WHERE status = 1 
         ORDER BY price ASC LIMIT 4;");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function getPopularProduct()
     {
-        $result = $this->connection->query("SELECT p.product_id, p.product_name,p.product_decs,p.price,p.image,SUM(d.quantity) AS ban_chay_nhat 
+        $result = $this->connection->query("SELECT  p.seller_id,p.product_id, p.product_name,p.product_decs,p.price,p.image,SUM(d.quantity) AS ban_chay_nhat 
         FROM DetailOrders d INNER JOIN Products p ON d.product_id = p.product_id
         GROUP BY p.product_id, p.product_name, p.product_decs, p.price, p.image
         ORDER BY ban_chay_nhat DESC LIMIT 4;");
@@ -52,13 +64,59 @@ class Product
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function createOrder($userId, $sellerId, $products)
+    {
+        $totalPrice = array_reduce($products, function ($sum, $product) {
+            return $sum + ($product['price'] * $product['quantity']);
+        }, 0);
+        $totalPrice = (float)$totalPrice;
+        $sql = "INSERT INTO Orders (user_id, seller_id, status, total_price) VALUES (?, ?, '0', ?)";
 
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param("iii", $userId, $sellerId, $totalPrice);
+        $stmt->execute();
+
+        return $this->connection->insert_id;
+    }
+    public function createOrderDetail($orderId, $productId, $quantity, $price)
+    {
+        $sql = "INSERT INTO DetailOrders (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $this->connection->prepare($sql)->execute([$orderId, $productId, $quantity, $price]);
+    }
     public function getAllProductBySeller($seller_id)
     {
         $seller_id = (int) $seller_id;
         $result = $this->connection->query("SELECT * FROM products WHERE seller_id = $seller_id");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function updateProductStock($productId, $quantity)
+    {
+        // Kiểm tra tồn kho hiện tại của sản phẩm
+        $query = "SELECT quantity FROM products WHERE product_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $stmt->bind_result($currentStock);
+        $stmt->fetch();
+
+        $stmt->close();
+
+        if ($currentStock >= $quantity) {
+            $newStock = $currentStock - $quantity;
+            $updateQuery = "UPDATE products SET quantity = ? WHERE product_id = ?";
+            $updateStmt = $this->connection->prepare($updateQuery);
+            $updateStmt->bind_param("ii", $newStock, $productId);
+            $updateStmt->execute();
+
+            $updateStmt->close();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
     public function getProductById($product_id)
     {
@@ -82,14 +140,10 @@ class Product
         p.product_id;");
 
         $product = $result->fetch_assoc();
-
-        // Chuyển chuỗi các ảnh thành mảng và thêm ảnh mặc định vào đầu mảng
         if ($product['product_photos']) {
             $product['product_photos'] = explode(',', $product['product_photos']);
-            // Thêm ảnh chính (product_image) vào đầu mảng ảnh
             array_unshift($product['product_photos'], $product['product_image']);
         } else {
-            // Nếu không có ảnh phụ, chỉ thêm ảnh chính vào mảng
             $product['product_photos'] = [$product['product_image']];
         }
         $product['product_photos'] = array_merge(...array_fill(0, 6, $product['product_photos']));
