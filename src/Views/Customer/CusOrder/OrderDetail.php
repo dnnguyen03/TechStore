@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 
 <div class="container mt-3" style="min-height: 100vh;">
+<div class="container mt-3" style="min-height: 100vh;">
     <div class="row flex-grow-1">
         <!-- Header thông tin đơn hàng -->
         <div class="col-12">

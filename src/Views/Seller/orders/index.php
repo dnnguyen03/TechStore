@@ -20,7 +20,7 @@
         <form class="form-search" action="/seller/orders" method="get">
             <div>
                 <select class="form-select" aria-label="Select trạng thái" name="status">
-                    <option value="2" selected>Chọn loại</option>
+                    <option value="2" selected>Chọn trạng thái</option>
                     <option value="0">Đơn hàng mới</option>
                     <option value="1">Đã duyệt</option>
                 </select>
@@ -54,7 +54,14 @@
                         <td><?= $order['full_name'] ?></td>
                         <td><?= $order['date_order'] ?></td>
                         <td><?= floor($order['total_amount']) ?></td>
-                        <td><?= $order['status'] ?></td>
+                        <td>
+                            <?php
+                            if ($order['status'] == 0) { ?>
+                                <p style="color: #FF9C00;">Đơn hàng mới</p>
+                            <?php } else { ?>
+                                <p style="color: green;">Đã duyệt</p>
+                            <?php } ?>
+                        </td>
 
                         <td class="text-center">
                             <a href="/seller/orders/detail/<?= $order['order_id'] ?>"><i style="font-size: 24px; color: #FF9C00" class="fa-solid fa-rectangle-list"></i></a>

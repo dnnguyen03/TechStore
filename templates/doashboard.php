@@ -164,7 +164,7 @@
 
                         <?php if ($sesionRole == 'admin') { ?>
                             <h3 style="color: #FF9C00;">Tech ADMIN</h3>
-                            <a class="btn btn-light" href="/logout">
+                            <a class="btn btn-light w-100" href="/logout" onclick="return confirm('Xác nhận đăng xuất')">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Đăng xuất
                             </a>
@@ -173,7 +173,7 @@
                             <a href="/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
                                 <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
                             </a>
-                            <a class="btn btn-light" href="/">
+                            <a class="btn btn-light w-100" href="/">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Quay lại
                             </a>
@@ -182,7 +182,7 @@
             <?php }
             } ?>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10 " style="padding-left: 24px;">
             <?= $content ?>
         </div>
     </div>

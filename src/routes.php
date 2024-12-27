@@ -33,8 +33,8 @@ $router->addRoute('/\/logout/', [new AuthController(), 'logout']);
 
 $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
 $router->addRoute('/\//', [new ShopController(), 'index']);
-$router->addRoute('/\/AllProduct/', [new ShopController(), 'allProduct']);
-$router->addRoute('/\/Product\/(\d+)/', [new ShopController(), 'show']);
+$router->addRoute('/\/products/', [new ShopController(), 'allProduct']);
+$router->addRoute('/\/products\/(\d+)/', [new ShopController(), 'show']);
 $router->addRoute('/\/seller-router/', [new SelHomeController(), 'checkSeller']);
 
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
@@ -48,6 +48,7 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
         $router->addRoute('/\/admin\/users/', [new AdUserController(), 'index']);
         $router->addRoute('/\/admin\/categories/', [new AdCategoryController(), 'index']);
     } else {
+        // Seller
         $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);
         $router->addRoute('/\/seller\/home/', [new SelHomeController(), 'index']);
 
@@ -60,10 +61,11 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
         $router->addRoute('/\/seller\/products\/photo\/delete\/(\d+)/', [new SelProductController(), 'deletePhoto']);
 
         $router->addRoute('/\/seller\/customers/', [new SelCustomerController(), 'index']);
-        $router->addRoute('/\/seller\/customers\/detail/', [new SelCustomerController(), 'detail']);
+        $router->addRoute('/\/seller\/customers\/detail\/(\d+)/', [new SelCustomerController(), 'detail']);
 
         $router->addRoute('/\/seller\/orders/', [new SelOrderController(), 'index']);
-        $router->addRoute('/\/seller\/orders\/detail/', [new SelOrderController(), 'detail']);
+        $router->addRoute('/\/seller\/orders\/detail\/(\d+)/', [new SelOrderController(), 'detail']);
+        $router->addRoute('/\/seller\/orders\/confirm\/(\d+)/', [new SelOrderController(), 'confirm']);
 
 
         $router->addRoute('/\/seller\/shops/', [new SelShopController(), 'index']);
@@ -71,6 +73,7 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
 
         $router->addRoute('/\/seller\/chats/', [new SelChatController(), 'index']);
 
+        // Customer
         $router->addRoute('/\/customer\/orders/', [new CusOrderController(), 'index']);
         $router->addRoute('/\/customer\/orders\/detail\/(\d+)/', [new CusOrderController(), 'Details']);
         $router->addRoute('/\/customer\/orders\/cancel\/(\d+)/', [new CusOrderController(), 'Cancel']);

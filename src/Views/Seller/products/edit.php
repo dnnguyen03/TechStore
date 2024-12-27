@@ -7,7 +7,7 @@
         object-position: center;
     }
 </style>
-<div class="container">
+<div class="container pb-4">
     <!-- Content Header (Page header) -->
     <section style="margin: 12px 0;">
         <h2>
@@ -64,7 +64,7 @@
                         <div class="mt-4">
                             <input type="hidden" id="inputPhoto" name="image" value="<?= isset($product['image']) ? $product['image'] : '' ?>">
                             <div style="width: 160px; height: 160px; overflow: hidden; border: 2px dashed #ccc;">
-                                <img id="Photo" src="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
+                                <img id="Photo" src="<?= isset($product['image']) ? '/src/assets/images/' . $product['image'] : 'https://i.pinimg.com/736x/44/3b/27/443b2736feb97a61f590095129a25f15.jpg' ?>"
                                     class="img-thumbnail img-child ">
                             </div>
                         </div>
@@ -90,25 +90,25 @@
     <?php if (isset($product['product_id'])) { ?>
         <section style="margin-top: 24px;">
             <h3>Danh sách ảnh</h3>
-            <div class="card">
-                <table class="table table-bordered align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="width: 60px;">Ảnh</th>
-                            <th>Mô tả</th>
-                            <th style="width: 200px;">Thứ tự</th>
-                            <th style="width: 200px;">Ẩn ảnh</th>
-                            <th style="width: 100px; text-align: center;">
-                                <a href="/seller/products/photo/create?product_id=<?= $product['product_id'] ?>" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 60px;">Ảnh</th>
+                        <th>Mô tả</th>
+                        <th style="width: 200px;">Thứ tự</th>
+                        <th style="width: 200px;">Ẩn ảnh</th>
+                        <th style="width: 100px; text-align: center;">
+                            <a href="/seller/products/photo/create?product_id=<?= $product['product_id'] ?>" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($photos)): ?>
                         <?php foreach ($photos as $photo): ?>
                             <tr>
                                 <td>
                                     <div style="width: 60px; height: 60px; overflow: hidden;">
-                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($photo['image']) ? '/src/assets/images/'.$photo['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="photo">
+                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($photo['image']) ? '/src/assets/images/' . $photo['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="photo">
                                     </div>
                                 </td>
                                 <td><?= $photo['description'] ?></td>
@@ -129,9 +129,13 @@
                                 </td>
                             </tr>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php else: ?>
+                        <tr>
+                            <td class="text-center" colspan="5">Không có dữ liệu</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </section>
     <?php } ?>
 </div>

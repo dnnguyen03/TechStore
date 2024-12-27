@@ -50,7 +50,7 @@ class SelHomeController extends Controller
             $seller = $this->sellerModel->getSellerByUserId($user_id);
             if ($seller) {
                 $_SESSION["seller_id"] = $seller["seller_id"];
-                header('Location: /seller');
+                header('Location: /seller/home');
             } else {
                 echo "Error: Seller information not found.";
             }
