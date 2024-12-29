@@ -50,7 +50,7 @@
         <div class="alert alert-info text-center" role="alert">
             <h4 class="fw-bold">Bạn chưa có đơn hàng nào</h4>
             <p>Hãy khám phá các sản phẩm tuyệt vời và tạo đơn hàng ngay!</p>
-            <a href="/shop" class="btn btn-primary">Khám phá sản phẩm</a>
+            <a href="/products" class="btn btn-primary">Khám phá sản phẩm</a>
         </div>
     <?php endif; ?>
 </div>
