@@ -66,7 +66,7 @@
             <?php
             $imagePath = "/src/assets/images/" . $shop['logo_shop'];
             $defaultImage = "/src/assets/images/no_img.png";
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath) || empty($shop['logo_shop'])) {
                 $displayImage = $imagePath;
             } else {
                 $displayImage = $defaultImage;
