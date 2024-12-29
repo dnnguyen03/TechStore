@@ -74,7 +74,7 @@ $RouterRolers = [
                 'link' => '/admin/products'
             ],
             [
-                'icon' => '<i class="fa-solid fa-c"></i>',
+                'icon' => '<i class="fa-brands fa-uncharted"></i>',
                 'title' => 'Loại sản phẩm',
                 'link' => '/admin/categories'
             ],

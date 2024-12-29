@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controller;
+use App\Models\Category;
 use App\Models\user;
 use App\Models\Product;
 
@@ -12,8 +13,9 @@ class AdHomeController extends Controller
     {
         $userModel = new user();
         $ProductModel = new Product();
+        $CategoryModel = new Category();
 
-        $totalSellers = $userModel->getTotalSellers();
+        $totalCategories = $CategoryModel->getTotalCategories();
 
         $totalCustomers = $userModel->getTotalCustomers();
 
@@ -22,7 +24,7 @@ class AdHomeController extends Controller
         $newAccounts = $this->getNewAccounts();
 
         $this->render('Admin/homes/index', [
-            'totalSellers' => $totalSellers,
+            'totalCategories' => $totalCategories,
             'totalCustomers' => $totalCustomers,
             'totalProducts' => $totalProducts,
             'newAccounts' => $newAccounts,
