@@ -317,12 +317,13 @@ class Product
         $offset = ($page - 1) * $pageSize;
 
         $sql = "SELECT * 
-            FROM Products
-            WHERE seller_id = $seller_id
-              AND ('$searchValue' = '%%' OR product_name LIKE '$searchValue')
-              AND ($category = 0 OR category_id = $category)
-              AND ($status = 2 OR status = $status)
-            ORDER BY product_name
+            FROM Products p 
+            JOIN category c ON p.category_id = c.category_id
+            WHERE p.seller_id = $seller_id
+              AND ('$searchValue' = '%%' OR p.product_name LIKE '$searchValue')
+              AND ($category = 0 OR p.category_id = $category)
+              AND ($status = 2 OR p.status = $status)
+            ORDER BY p.product_name
             LIMIT $offset, $pageSize";
 
         $result = $this->connection->query($sql);

@@ -35,6 +35,7 @@ class SelProductController extends Controller
 
         $pageCount = ceil($count / $pageSize);
         $products = $this->productModel->searchProductBySeller($seller_id, $searchValue, $category, $status, $page, $pageSize);
+        $categories = $this->productModel->getAllCategory();
 
         $this->render('Seller/products/index', [
             'products' => $products,
@@ -43,7 +44,8 @@ class SelProductController extends Controller
             'searchValue' => $searchValue,
             'status' => $status,
             'category' => $category,
-            'pageCount' => $pageCount
+            'pageCount' => $pageCount,
+            'categories' => $categories
         ]);
     }
 
@@ -69,7 +71,8 @@ class SelProductController extends Controller
             $this->productModel->createProduct($product_name, $product_decs, $category_id, $price, $image, $quantity, $status, $seller_id);
         }
 
-        $this->render('Seller/products/edit', []);
+        $categories = $this->productModel->getAllCategory();
+        $this->render('Seller/products/edit', ['categories' => $categories]);
     }
 
     public function update($product_id)
@@ -95,7 +98,8 @@ class SelProductController extends Controller
 
         $product = $this->productModel->getProductByIdSeller($product_id);
         $photos = $this->productModel->getProductPhotosByProductId($product_id);
-        $this->render('Seller/products/edit', ['product' => $product, 'photos' => $photos]);
+        $categories = $this->productModel->getAllCategory();
+        $this->render('Seller/products/edit', ['product' => $product, 'photos' => $photos, 'categories' => $categories]);
     }
 
     public function delete($product_id)
