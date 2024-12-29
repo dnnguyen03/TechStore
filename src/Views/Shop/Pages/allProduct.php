@@ -281,7 +281,7 @@
                     </li>
                     <li class="item-side size">
                         <label class="select" for="A">
-                            <div class="item-side-title">Size</div>
+                            <div class="item-side-title">Loại</div>
                             <div class="icon-down">
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
