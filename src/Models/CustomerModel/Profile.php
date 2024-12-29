@@ -27,7 +27,7 @@ class Profile
     {
         $customer_id = $this->connection->real_escape_string($customer_id);
         $result = $this->connection->query("SELECT * FROM profiles where user_id  = '$customer_id';");
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $result->fetch_assoc();
     }
 
     public function update($customer_id, $full_name, $phone, $address, $email, $avata, $gender)

@@ -357,6 +357,10 @@ if (isset($_SESSION['alert_message'])) {
         border: none;
         background-color: white;
     }
+
+    .inforUser p {
+        margin-bottom: 5px;
+    }
 </style>
 <?php
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -480,14 +484,15 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <div class="inforUser" style="display: none;">
-                <?php echo print_r($profile) ?>
-                <h5> Xác nhận thông tin</h5>
-                <p class="mt-3">Tên đầy đủ</p>
+            <div class="inforUser mt-4" style="display: none;">
+                <button onclick="hiddenCheckoutForm()">
+                    <span>&larr;</span>
+                </button>
+                <p class="mt-3">Tên đầy đủ:</p>
                 <b><?= $profile['full_name'] ?></b>
-                <p class="mt-3">Địa chỉ</p>
+                <p class="mt-3">Địa chỉ:</p>
                 <b><?= $profile['address'] ?></b>
-                <p class="mt-3">Số điện thoại</p>
+                <p class="mt-3">Số điện thoại:</p>
                 <b><?= $profile['phone'] ?></b>
             </div>
             <footer>
@@ -558,6 +563,13 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         document.querySelector(".cart-items").style.display = "none";
         document.querySelector(".inforUser").style.display = "block";
         document.getElementById("checkoutForm").style.display = "block";
+    }
+
+    function hiddenCheckoutForm() {
+        document.getElementById("orderButton").style.display = "block";
+        document.querySelector(".cart-items").style.display = "block";
+        document.querySelector(".inforUser").style.display = "none";
+        document.getElementById("checkoutForm").style.display = "none";
     }
 
     const nav = document.querySelector("header");
