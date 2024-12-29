@@ -43,12 +43,12 @@
         <img style="width: 100%;" src="\src\assets\images\bannerHome.png" alt="">
     </div>
     <div style="width: 50%; position: absolute; transform: translate(-70%,-50%); top: 50%;left: 50%;">
-        <h1>Tìm sản phẩm tất nhất với <p style="color: orange;">TechStore</p>
+        <h1>Tìm sản phẩm tốt nhất với <p style="color: orange;">TechStore</p>
         </h1>
         <div class="">
-            <form action="">
-                <input class="search" type="text" placeholder="Tìm kiếm sản phẩm">
-                <button type="button" class="btn btn-primary">Search</button>
+            <form action="products">
+                <input class="search" name="search" type="text" placeholder="Tìm kiếm sản phẩm">
+                <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
     </div>

@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
@@ -222,7 +223,7 @@ if (isset($_SESSION['alert_message'])) {
         right: 0;
         width: 100%;
         height: 100%;
-        max-width: 600px;
+        max-width: 500px;
         background: white;
         padding: 25px 20px;
         display: grid;
@@ -231,6 +232,11 @@ if (isset($_SESSION['alert_message'])) {
         transform: translateX(100%);
         border-top-left-radius: 12px;
         border-bottom-left-radius: 12px;
+    }
+
+    .element::-webkit-scrollbar {
+        display: none;
+        /* Ẩn thanh cuộn trong trình duyệt WebKit (Chrome, Safari, Edge) */
     }
 
     .cart-items {
@@ -277,7 +283,6 @@ if (isset($_SESSION['alert_message'])) {
     .quantityProd {
         display: flex;
         align-items: center;
-        margin-right: 30px;
     }
 
     input::-webkit-outer-spin-button,
@@ -352,6 +357,10 @@ if (isset($_SESSION['alert_message'])) {
         border: none;
         background-color: white;
     }
+
+    .inforUser p {
+        margin-bottom: 5px;
+    }
 </style>
 <?php
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -366,7 +375,7 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" style="font-size: 20px;">
             <li><a href="/" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo ($currentPath == '/') ? 'navbar-active' : ''; ?>">Trang chủ</a></li>
             <li><a href="/products" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/products') !== false) ? 'navbar-active' : ''; ?>">Sản phẩm</a></li>
-            <li><a href="#" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/shops') !== false) ? 'navbar-active' : ''; ?>">Cửa hàng</a></li>
+            <li><a href="shop" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/shop') !== false) ? 'navbar-active' : ''; ?>">Cửa hàng</a></li>
             <li><a href="#" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/about') !== false) ? 'navbar-active' : ''; ?>">Về chúng tôi</a></li>
             <span style="width: 100px;"></span>
         </ul>
@@ -416,11 +425,10 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </button>
             </div>
             <!-- cart items -->
-            <div class="cart-items">
+            <div class="cart-items element">
                 <?php
                 $cartData = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
                 $totalPrice = 0;
-                // Kiểm tra nếu giỏ hàng rỗng
                 if (empty($cartData)): ?>
                     <div class="empty-cart">
                         <p>Giỏ hàng của bạn đang trống!</p>
@@ -432,11 +440,18 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                         </div>
                         <?php foreach ($products as $product): ?>
                             <?php
+                            $imagePath = "/src/assets/images/" . $product['image'];
+                            $defaultImage = "/src/assets/images/no_imgProduct.png";
+                            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+                                $displayImage = $imagePath;
+                            } else {
+                                $displayImage = $defaultImage;
+                            }
                             $itemTotal = $product['price'] * $product['quantity'];
                             $totalPrice += $itemTotal; ?>
                             <div class="item-product" style="height: 130px; display: flex; align-items: center;">
                                 <div class="imgPro" style="height: 100px; width: 90px;">
-                                    <img height="100%" src="/src/assets/images/<?= ($product['image']) ?>" />
+                                    <img height="100%" src="<?= $displayImage ?>" />
                                 </div>
                                 <div class="inforPro" style="display: flex; flex-direction: column; justify-content: space-around; width: 100%;">
                                     <div class="namePro">
@@ -469,10 +484,21 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-
+            <div class="inforUser mt-4" style="display: none;">
+                <button onclick="hiddenCheckoutForm()">
+                    <span>&larr;</span>
+                </button>
+                <p class="mt-3">Tên đầy đủ:</p>
+                <b><?= $profile['full_name'] ?></b>
+                <p class="mt-3">Địa chỉ:</p>
+                <b><?= $profile['address'] ?></b>
+                <p class="mt-3">Số điện thoại:</p>
+                <b><?= $profile['phone'] ?></b>
+            </div>
             <footer>
                 <h3 class="cart-total" style="text-align: center;"><?= number_format($totalPrice, 0, ',', '.') ?>đ</h3>
-                <form action="/checkout">
+                <button id="orderButton" onclick="showCheckoutForm()" style="width: 100%; padding: 8px 0; border-radius: 8px; background-color: orange; color: white; border: none; font-size: 24px; font-weight: bold;">Đặt hàng</button>
+                <form action="/checkout" id="checkoutForm" style="display: none;">
                     <button class="cart-checkout" style="width: 100%; padding: 8px 0; border-radius: 8px; background-color: orange; color: white; border: none; font-size: 24px; font-weight: bold;">Thanh toán</button>
                 </form>
             </footer>
@@ -532,17 +558,36 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     </div>
 </footer>
 <script>
+    function showCheckoutForm() {
+        document.getElementById("orderButton").style.display = "none";
+        document.querySelector(".cart-items").style.display = "none";
+        document.querySelector(".inforUser").style.display = "block";
+        document.getElementById("checkoutForm").style.display = "block";
+    }
+
+    function hiddenCheckoutForm() {
+        document.getElementById("orderButton").style.display = "block";
+        document.querySelector(".cart-items").style.display = "block";
+        document.querySelector(".inforUser").style.display = "none";
+        document.getElementById("checkoutForm").style.display = "none";
+    }
+
     const nav = document.querySelector("header");
     const cart = document.querySelector(".fa-cart-shopping");
     const showCart = document.querySelector(".cart-overlay");
     const closeCart = document.querySelector(".cart-close");
-
-    cart.addEventListener("click", () => {
-        showCart.classList.add("show");
-    })
-    closeCart.addEventListener("click", () => {
-        showCart.classList.remove("show");
-    })
+    <?php
+    if (
+        isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])
+    ) {
+    ?>
+        cart.addEventListener("click", () => {
+            showCart.classList.add("show");
+        })
+        closeCart.addEventListener("click", () => {
+            showCart.classList.remove("show");
+        })
+    <?php } ?>
 
     function formatPrice(price) {
         return new Intl.NumberFormat('vi-VN', {
@@ -610,15 +655,23 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         updateTongTien(cartData);
     }
 
-
+    function handleButtonClickWithAuth(e) {
+        if (!<?php echo isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser']) ? 'true' : 'false'; ?>) {
+            alert("Đăng nhập để sử dụng tính năng này!");
+            window.location.href = "/signin";
+        } else {
+            handleButtonClick(e);
+        }
+    }
 
     function handleCart() {
         document.querySelectorAll('.increment, .decrement, .deleteProduct, .addProduct').forEach(button => {
-            button.removeEventListener('click', handleButtonClick);
+            button.removeEventListener('click', handleButtonClickWithAuth);
         });
         document.querySelectorAll('.increment, .decrement, .deleteProduct, .addProduct').forEach(button => {
-            button.addEventListener('click', handleButtonClick);
+            button.addEventListener('click', handleButtonClickWithAuth);
         });
+
         document.querySelectorAll('.quantity').forEach(input => {
             input.removeEventListener('keydown', (e) => {
                 value = e.target
@@ -680,6 +733,7 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
     function handleButtonClick(event) {
+
         const button = event.target;
 
         const productId = button.dataset.productId;
@@ -728,8 +782,13 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 console.error('Lỗi khi cập nhật giỏ hàng:', error);
             });
     }
-    QuantityInput();
-    handleCart();
+
+    (function() {
+        QuantityInput();
+        handleCart();
+    })();
+
+
 
 
 

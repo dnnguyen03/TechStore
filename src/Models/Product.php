@@ -66,28 +66,24 @@ class Product
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createOrder($userId, $sellerId, $products)
+    public function createOrder($userId, $sellerId)
     {
-        $totalPrice = array_reduce($products, function ($sum, $product) {
-            return $sum + ($product['price'] * $product['quantity']);
-        }, 0);
-        $totalPrice = (float)$totalPrice;
-        $sql = "INSERT INTO Orders (customer_id, seller_id, status, total_price) VALUES (?, ?, '0', ?)";
-
+        $sql = "INSERT INTO orders (customer_id, seller_id) VALUES (?, ?)";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param("iii", $userId, $sellerId, $totalPrice);
+        $stmt->bind_param("ii", $userId, $sellerId);
         $stmt->execute();
-
         return $this->connection->insert_id;
     }
-    public function createOrderDetail($orderId, $productId, $quantity, $price)
+    public function createOrderDetail($orderId, $productId, $quantity)
     {
-        $sql = "INSERT INTO DetailOrders (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
-        $this->connection->prepare($sql)->execute([$orderId, $productId, $quantity, $price]);
+        $sql = "INSERT INTO detailorders (order_id, product_id, quantity) VALUES (?, ?, ?)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param("iii", $orderId, $productId, $quantity);
+        $stmt->execute();
     }
+
     public function updateProductStock($productId, $quantity)
     {
-        // Kiểm tra tồn kho hiện tại của sản phẩm
         $query = "SELECT quantity FROM products WHERE product_id = ?";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("i", $productId);
@@ -112,40 +108,187 @@ class Product
         }
     }
 
+    public function getAllCategory()
+    {
+        $query = "SELECT * FROM Category";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
+    public function getMinPriceProduct()
+    {
+        $query = "SELECT price FROM Products ORDER BY price ASC LIMIT 1";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['price'];
+    }
+
+    public function getMaxPriceProduct()
+    {
+        $query = "SELECT price FROM Products ORDER BY price DESC LIMIT 1";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['price'];
+    }
+
+    public function getTotalProductsFilter($minPrice, $maxPrice, $categories, $search)
+    {
+        $query = "SELECT COUNT(*) FROM products WHERE price BETWEEN ? AND ?";
+
+        if (!empty($categories)) {
+            $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
+            $query .= " AND category_id IN ($categoryPlaceholders)";
+        }
+
+        if (!empty($search)) {
+            $query .= " AND product_name LIKE ?";
+        }
+
+        if ($stmt = $this->connection->prepare($query)) {
+            $types = 'ii';
+
+            if (!empty($categories)) {
+                $types .= str_repeat('i', count($categories));
+            }
+
+            if (!empty($search)) {
+                $types .= 's';
+            }
+
+            $params = [$minPrice, $maxPrice];
+
+            if (!empty($categories)) {
+                $params = array_merge($params, $categories);
+            }
+
+            if (!empty($search)) {
+                $params[] = '%' . $search . '%';
+            }
+
+            $stmt->bind_param($types, ...$params);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $count = $result->fetch_row()[0];
+
+            return $count;
+        } else {
+            return 0;
+        }
+    }
+
+
+    public function getFilteredPaginatedProducts($limit, $offset, $minPrice, $maxPrice, $categories, $search)
+    {
+        $conditions = [];
+        $params = [];
+
+        if ($minPrice !== null) {
+            $conditions[] = "price >= ?";
+            $params[] = $minPrice;
+        }
+
+        if ($maxPrice !== null) {
+            $conditions[] = "price <= ?";
+            $params[] = $maxPrice;
+        }
+        if (!is_array($categories)) {
+            $categories = [];
+        }
+
+        if (!empty($categories)) {
+            $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
+            $conditions[] = "category_id IN ($categoryPlaceholders)";
+            $params = array_merge($params, $categories);
+        }
+
+        if (!empty($search)) {
+            $conditions[] = "product_name LIKE ?";
+            $params[] = "%" . $search . "%";
+        }
+
+        $query = "SELECT * FROM Products";
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(' AND ', $conditions);
+        }
+
+        $query .= " ORDER BY product_id ASC";
+        $query .= " LIMIT ? OFFSET ?";
+
+        $params[] = $limit;
+        $params[] = $offset;
+
+        $paramTypes = '';
+        foreach ($params as $param) {
+            if (is_int($param)) {
+                $paramTypes .= 'i';
+            } elseif (is_float($param)) {
+                $paramTypes .= 'd';
+            } elseif (is_string($param)) {
+                $paramTypes .= 's';
+            }
+        }
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bind_param($paramTypes, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function getProductById($product_id)
     {
         $product_id = $this->connection->real_escape_string($product_id);
-        $result = $this->connection->query("SELECT 
-        p.product_name, 
-        s.shop_name, 
-        s.seller_id , 
-        p.product_id, 
-        p.price, 
-        p.image AS product_image, 
-        p.product_decs ,
-        GROUP_CONCAT(pp.image ORDER BY pp.display_order) AS product_photos
-    FROM 
-        Products p JOIN Seller s ON p.seller_id = s.seller_id
-    LEFT JOIN 
-        ProductPhotos pp ON p.product_id = pp.product_id
-    WHERE 
-        p.product_id = $product_id  
-    GROUP BY 
-        p.product_id;");
+
+        $result = $this->connection->query("
+        SELECT 
+            p.product_name, 
+            s.shop_name, 
+            s.seller_id, 
+            p.product_id, 
+            p.price, 
+            p.image AS product_image, 
+            p.product_decs,
+            GROUP_CONCAT(pp.image ORDER BY pp.display_order) AS product_photos,
+            COALESCE(AVG(r.rating), 0) AS avg_rating
+        FROM 
+            Products p 
+        JOIN 
+            Seller s ON p.seller_id = s.seller_id
+        LEFT JOIN 
+            ProductPhotos pp ON p.product_id = pp.product_id
+        LEFT JOIN 
+            ratingshop r ON s.seller_id = r.seller_id
+        WHERE 
+            p.product_id = $product_id
+        GROUP BY 
+            p.product_id;
+    ");
 
         $product = $result->fetch_assoc();
+
         if ($product['product_photos']) {
             $product['product_photos'] = explode(',', $product['product_photos']);
             array_unshift($product['product_photos'], $product['product_image']);
         } else {
             $product['product_photos'] = [$product['product_image']];
         }
+
+        // Tạo danh sách ảnh với 6 phần tử
         $product['product_photos'] = array_merge(...array_fill(0, 6, $product['product_photos']));
 
         return $product;
     }
+
 
     // Đô
     public function getAllProductBySeller($seller_id)
