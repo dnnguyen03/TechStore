@@ -29,7 +29,7 @@
         border-radius: 100%;
         width: 100%;
         object-fit: cover;
-        width: 60px;
+        width: 70px;
     }
 
     .shopName {
@@ -37,110 +37,76 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .ProdRating {
+        color: orange;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .ProdRating p {
+        color: #212529;
+        margin: 0;
+        margin-left: 10px;
+    }
+
+    .listShop a {
+        text-decoration: none;
+        color: #212529;
+    }
 </style>
 <div class="listShop container" style="margin-bottom: 50px; margin-top: 20px;">
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
-    <div class="cardShop">
-        <div class="avataShop" style="display: grid; place-content: center;">
-            <img src="/src/assets/images/product.png" alt="">
-        </div>
-        <div class="inforShop">
-            <div class="shopName">
-                <b>Shop Name</b>
-            </div>
-            <div class="qunality">
-                <b>24 Product</b>
-            </div>
-        </div>
-    </div>
+    <?php if (empty($listShop)): ?>
+        <p>Không cửa hàng nào!</p>
+    <?php else: ?>
+        <?php
+        foreach ($listShop as $shop) : ?>
+            <?php
+            $imagePath = "/src/assets/images/" . $shop['logo_shop'];
+            $defaultImage = "/src/assets/images/no_img.png";
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+                $displayImage = $imagePath;
+            } else {
+                $displayImage = $defaultImage;
+            }
+            ?>
+            <a href="shop/<?= $shop['seller_id'] ?>">
+
+                <div class="cardShop">
+                    <div class="avataShop" style="display: grid; place-content: center;">
+                        <img src="<?= $displayImage ?>" alt="">
+                    </div>
+                    <div class="inforShop">
+                        <div class="shopName">
+                            <b><?= $shop['shop_name'] ?></b>
+                        </div>
+                        <div class="ProdRating">
+                            <?php
+                            $fullStars = floor($shop['avg_rating']);
+                            $halfStar = ($shop['avg_rating']  - $fullStars > 0) ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+
+                            for ($i = 0; $i < $fullStars; $i++) {
+                                echo '<i class="bi bi-star-fill"></i>';
+                            }
+
+                            if ($halfStar) {
+                                echo '<i class="bi bi-star-half"></i>';
+                            }
+
+                            for ($i = 0; $i < $emptyStars; $i++) {
+                                echo '<i class="bi bi-star"></i>';
+                            }
+                            ?>
+                        </div>
+                        <div class="qunality">
+                            <b><?= $shop['total_products'] ?> Sản phẩm</b>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>

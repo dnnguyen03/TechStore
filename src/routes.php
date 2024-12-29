@@ -33,8 +33,10 @@ $router->addRoute('/\/logout/', [new AuthController(), 'logout']);
 
 $router->addRoute('/\/seller\/shops\/create/', [new SelShopController(), 'create']);
 $router->addRoute('/\//', [new ShopController(), 'index']);
-$router->addRoute('/\/products/', [new ShopController(), 'allProduct']);
+$router->addRoute('/\/products/', [new ShopController(), 'productPagination']);
 $router->addRoute('/\/products\/(\d+)/', [new ShopController(), 'show']);
+$router->addRoute('/\/shop/', [new ShopController(), 'shop']);
+$router->addRoute('/\/shop\/(\d+)/', [new ShopController(), 'detailShop']);
 $router->addRoute('/\/seller-router/', [new SelHomeController(), 'checkSeller']);
 
 // $router->addRoute('/\//', [new AuthController(), 'forgot']);
