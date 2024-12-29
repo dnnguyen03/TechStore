@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Exception;
+
 class Seller
 {
     private $connection;
@@ -20,10 +22,27 @@ class Seller
         }
     }
 
+    public function checkSeller($user_id)
+    {
+        $user_id = (int) $user_id;
+        $result = $this->connection->query("SELECT COUNT(*) AS seller_count FROM seller WHERE user_id = $user_id");
+    
+        $row = $result->fetch_assoc();
+        return $row['seller_count'] > 0;
+    }
+    
+
     public function getSellerById($seller_id)
     {
         $seller_id = (int) $seller_id;
         $result = $this->connection->query("SELECT * FROM seller WHERE seller_id = $seller_id");
+        return $result->fetch_assoc();
+    }
+
+    public function getSellerByUserId($user_id)
+    {
+        $user_id = (int) $user_id;
+        $result = $this->connection->query("SELECT * FROM seller WHERE user_id = $user_id");
         return $result->fetch_assoc();
     }
 
@@ -44,13 +63,14 @@ class Seller
         if ($this->connection->query($query) === TRUE) {
             $newSellerId = $this->connection->insert_id;
             $_SESSION['seller_id'] = $newSellerId;
+            
             header('Location: /seller');
         } else {
             die("Error: " . $this->connection->error);
         }
     }
 
-    public function updateProduct($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller)
+    public function updateSeller($seller_id, $shop_name, $phone, $email, $address, $logo_shop, $banner, $bio_seller)
     {
 
         $shop_name = $this->connection->real_escape_string($shop_name ?? '');

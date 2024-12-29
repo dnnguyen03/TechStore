@@ -5,5 +5,5 @@ class Controller {
         extract($data);
 
         include __DIR__ . "\Views\\$view_name.php";
-    }
+    } 
 }

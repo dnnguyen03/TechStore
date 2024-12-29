@@ -79,7 +79,7 @@
     foreach ($products as $product) : ?>
         <div class="cardProduct">
             <div class="image">
-                <img src="<?= $product['image']; ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
+                <img src="<?= '/src/assets/images/'.$product['image']; ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
             </div>
             <div class="inforProduct p-3">
                 <div>
@@ -88,7 +88,7 @@
                     <div class="desc mb-3"><?= htmlspecialchars($product['product_decs']); ?></div>
                 </div>
                 <div>
-                    <a href="/Product/<?= $product['product_id'] ?>">
+                    <a href="/products/<?= $product['product_id'] ?>">
                         <button class="btn btn-secondary">View detail</button>
                     </a>
                     <a href="">

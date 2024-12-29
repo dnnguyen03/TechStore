@@ -13,7 +13,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <title>CRUD App</title>
+    <title>Tech Store</title>
 </head>
 <style>
     header .btn {
@@ -303,12 +303,31 @@
         padding: 1px 3px;
     }
 
+    .cart-quantity {
+        background-color: #fb730f;
+        padding: 4px 6px;
+        color: #fff;
+        border-radius: 2px;
+        line-height: 1;
+        display: inline-block;
+    }
+
     .deletePro {
         display: flex;
         align-items: center;
         font-size: 24px;
     }
+
+    .navbar-active {
+        color: #fb730f;
+    }
+    .navbar-hover:hover {
+        color: #fb730f;
+    }
 </style>
+<?php 
+    $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+?>
 <header class="py-3 mb-4 border-bottom" style="transition: all 0.3s ease;">
     <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between" style="padding: 0;">
 
@@ -316,11 +335,12 @@
             <img width="65%" height="100%" src="/src/assets/images/logoTechStore.png" alt="" style="object-fit: none;">
         </a>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" style="font-weight: bold;" class="nav-link px-2 link-dark">Trang chủ</a></li>
-            <li><a href="/AllProduct" style="font-weight: bold;" class="nav-link px-2 link-dark">Sản phẩm</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Cửa hàng</a></li>
-            <li><a href="#" style="font-weight: bold;" class="nav-link px-2 link-dark">Về chúng tôi</a></li>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" style="font-size: 20px;">
+            <li><a href="/" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo ($currentPath== '/') ? 'navbar-active' : ''; ?>">Trang chủ</a></li>
+            <li><a href="/products" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/products') !== false) ? 'navbar-active' : ''; ?>">Sản phẩm</a></li>
+            <li><a href="#" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/shops') !== false) ? 'navbar-active' : ''; ?>">Cửa hàng</a></li>
+            <li><a href="#" style="font-weight: 500;" class="nav-link px-2 navbar-hover link-dark <?php echo (strpos($currentPath, '/about') !== false) ? 'navbar-active' : ''; ?>">Về chúng tôi</a></li>
+            <span style="width: 100px;"></span>
         </ul>
         <?php if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser']) != null) {
         ?>
@@ -332,9 +352,9 @@
                         </div>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="/seller">Cửa hàng của bạn</a></li>
-                        <li><a class="dropdown-item" href="/customer"> Quản lý tài khoản</a></li>
-                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="/seller-router">Cửa hàng của bạn</a></li>
+                        <li><a class="dropdown-item" href="/customer/orders"> Quản lý tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/logout" onclick="return confirm('Xác nhận đăng xuất')">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>

@@ -68,10 +68,14 @@
         }
 
         .sidebar {
-            height: 100vh;
+            position: fixed; /* Cố định sidebar */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Chiều cao toàn màn hình */
+            width: 16.66%; /* Chiều rộng bằng 2 cột (Bootstrap) */
             padding: 18px 20px 18px 28px;
-            position: relative;
             z-index: 1;
+           
         }
 
         .sidebar.seller {
@@ -112,13 +116,22 @@
         .sidebar-footer.notSeller p {
             color: #ffffff;
         }
+        .col-sm-10 {
+            margin-left: 16.66%; /* Đẩy nội dung sang phải bằng chiều rộng của sidebar (2 cột = ~16.66%) */
+        }
     </style>
 </head>
 
 <body>
     <?php
     include '../TechStore/config/sidebar.php';
-    $sesionRole = 'admin';
+    if ($_SESSION['currentUser']['role'] == 0) {
+        $sesionRole = 'admin';
+    } else if (isset($_SESSION['seller_id'])) {
+        $sesionRole = 'seller';
+    } else {
+        $sesionRole = 'customer';
+    }
     $classRole = ('seller' === $sesionRole) ? 'seller' : 'notSeller';
     $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -136,33 +149,44 @@
 
                     <ul>
                         <?php foreach ($RouterRoler['routers'] as $router) { ?>
-                            <li class="menu-item <?php echo $classRole ?>  <?php echo ($currentPath == $router['link']) ? 'active' : ''; ?>">
+                            <li class="menu-item <?php echo $classRole ?> <?php echo (strpos($currentPath, $router['link']) !== false) ? 'active' : ''; ?>">
                                 <a href="<?php echo $router['link']; ?>">
                                     <?php echo $router['icon']; ?>
                                     <?php echo $router['title']; ?>
                                 </a>
                             </li>
+
                         <?php } ?>
                     </ul>
 
-                    <div class="sidebar-footer <?php echo $classRole ?>">
-                        <p>Thông tin cá nhân</p>
-                        <div>
-                        </div>
+                    <div class="sidebar-footer <?php echo $classRole ?> text-center">
 
-                        <a class="btn btn-light" href="/logout">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Đăng xuất
-                        </a>
+
+                        <?php if ($sesionRole == 'admin') { ?>
+                            <h3 style="color: #FF9C00;">Tech ADMIN</h3>
+                            <a class="btn btn-light w-100" href="/logout" onclick="return confirm('Xác nhận đăng xuất')">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Đăng xuất
+                            </a>
+                        <?php } else { ?>
+                            <!-- Button: Thông tin cá nhân -->
+                            <a href="/profile" class="btn btn-outline-warning w-100 mb-2 py-2 fw-bold">
+                                <i class="fa-solid fa-user me-2"></i> Thông tin cá nhân
+                            </a>
+                            <a class="btn btn-light w-100" href="/">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Quay lại
+                            </a>
+                        <?php } ?>
                     </div>
             <?php }
             } ?>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10 " style="padding-left: 24px;">
             <?= $content ?>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

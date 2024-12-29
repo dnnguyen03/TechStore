@@ -11,89 +11,106 @@ class AdCategoryController extends Controller
 
     public function __construct()
     {
-        // Khởi tạo model Categories
+        // Khởi tạo model Category
         $this->categoryModel = new Category();
     }
 
     public function index()
     {
-        // Lấy từ khóa tìm kiếm từ request (nếu có)
         $searchKeyword = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-        // Lấy danh sách các danh mục từ model
         try {
             $categories = $this->categoryModel->getAllCategories($searchKeyword);
         } catch (\Exception $e) {
             $categories = [];
-            error_log('Error fetching categories: ' . $e->getMessage());
+            $error = 'Error fetching categories: ' . $e->getMessage();
         }
 
-        // Truyền dữ liệu sang view
-        $this->render('Admin/categories/index', [
+        $this->render('/admin/categories/index', [
             'categories' => $categories,
             'searchKeyword' => $searchKeyword,
+            'error' => $error ?? null,
         ]);
     }
+
     public function create()
     {
-        $this->render('Admin/categories/create');
-    }
-
-    public function store()
-    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $photoUrl = $_POST['photo_url'] ?? null;
+            $name = trim($_POST['category_name'] ?? '');
+            $description = trim($_POST['category_decs'] ?? '');
+            $photoUrl = $_POST['existing_photo'] ?? null;
+
+          
+
+            if (isset($_FILES['photo_url']) && (basename($_FILES['photo_url']['name']) != "")) {
+                $fileName = basename($_FILES['photo_url']['name']);
+
+                $photoUrl = $fileName;
+            }
 
             try {
-                $this->categoryModel->addCategory($name, $description, $photoUrl);
+                $this->categoryModel->createCategory($name, $description, $photoUrl);
                 header('Location: /admin/categories');
                 exit;
             } catch (\Exception $e) {
-                error_log('Error adding category: ' . $e->getMessage());
+                $error = 'Error creating category: ' . $e->getMessage();
             }
         }
-        $this->render('Admin/categories/create', ['error' => 'Failed to add category.']);
-    }
-    public function edit($id)
-    {
-        try {
-            $category = $this->categoryModel->getCategoryById($id);
-        } catch (\Exception $e) {
-            error_log('Error fetching category: ' . $e->getMessage());
-            $category = null;
-        }
 
-        $this->render('Admin/categories/edit', ['category' => $category]);
+        $this->render('/admin/categories/create', ['error' => $error ?? null]);
     }
+
 
     public function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $photoUrl = $_POST['photo_url'] ?? null;
+            $name = trim($_POST['category_name'] ?? '');
+            $description = trim($_POST['category_decs'] ?? '');
+            $photoUrl = $_POST['existing_photo'] ?? null;
+
+          
+
+            if (isset($_FILES['photo_url']) && (basename($_FILES['photo_url']['name']) != "")) {
+                $fileName = basename($_FILES['photo_url']['name']);
+
+                $photoUrl = $fileName;
+            }
 
             try {
                 $this->categoryModel->updateCategory($id, $name, $description, $photoUrl);
                 header('Location: /admin/categories');
                 exit;
             } catch (\Exception $e) {
-                error_log('Error updating category: ' . $e->getMessage());
+                $error = 'Error updating category: ' . $e->getMessage();
             }
         }
 
-        $this->render('Admin/categories/edit', ['error' => 'Failed to update category.']);
+        $this->render('/admin/categories/edit', [
+            'category' => $this->categoryModel->getCategoryById($id),
+            'error' => $error ?? null,
+        ]);
     }
+
     public function delete($id)
-{
-    try {
-        $this->categoryModel->deleteCategory($id);
-        header('Location: /admin/categories');
-        exit;
-    } catch (\Exception $e) {
-        error_log('Error deleting category: ' . $e->getMessage());
+    {
+        try {
+            // Kiểm tra nếu danh mục đang được sử dụng
+            if ($this->categoryModel->InUsed($id)) {
+                header('Location: /admin/categories?error=Category is in use and cannot be deleted.');
+                exit;
+            }
+
+            // Xóa danh mục nếu không được tham chiếu
+            if ($this->categoryModel->deleteCategory($id)) {
+                header('Location: /admin/categories?success=Category deleted successfully.');
+                exit;
+            } else {
+                header('Location: /admin/categories?error=Failed to delete category.');
+                exit;
+            }
+        } catch (\Exception $e) {
+            header('Location: /admin/categories?error=An error occurred: ' . $e->getMessage());
+            exit;
+        }
     }
-}
 }

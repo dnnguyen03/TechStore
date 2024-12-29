@@ -39,14 +39,19 @@ $RouterRolers = [
         'role' => 'customer',
         'routers' => [
             [
-                'icon' => '<i class="fa-solid fa-house"></i>',
-                'title' => 'Tổng quan',
-                'link' => '/home'
+                'icon' => '<i class="fa-solid fa-cart-shopping"></i>',
+                'title' => 'Đơn hàng',
+                'link' => '/customer/orders'
             ],
             [
-                'icon' => '<i class="fa-brands fa-product-hunt"></i>',
-                'title' => 'Sản phẩm',
-                'link' => '/products'
+                'icon' => '<i class="fa-solid fa-comment-dots"></i>',
+                'title' => 'Phản hồi',
+                'link' => '/customer/complaints'
+            ],
+            [
+                'icon' => '<i class="fa-solid fa-message"></i>',
+                'title' => 'Tin nhắn',
+                'link' => '/customer/chats'
             ],
         ],
     ],
@@ -69,7 +74,7 @@ $RouterRolers = [
                 'link' => '/admin/products'
             ],
             [
-                'icon' => '<i class="fa-solid fa-c"></i>',
+                'icon' => '<i class="fa-brands fa-uncharted"></i>',
                 'title' => 'Loại sản phẩm',
                 'link' => '/admin/categories'
             ],

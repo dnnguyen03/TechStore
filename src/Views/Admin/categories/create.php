@@ -9,26 +9,28 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Category</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container mt-5">
         <h1>Create New Category</h1>
-        <form action="/path/to/save/category" method="POST" enctype="multipart/form-data">
+        <form action="/admin/categories/create" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="category_name" class="form-label">Category Name</label>
                 <input type="text" class="form-control" id="category_name" name="category_name" required>
             </div>
             <div class="mb-3">
-                <label for="category_desc" class="form-label">Description</label>
-                <textarea class="form-control" id="category_desc" name="category_desc" rows="4" required></textarea>
+                <label for="category_decs" class="form-label">Description</label>
+                <textarea class="form-control" id="category_decs" name="category_decs" rows="4" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="photo_url" class="form-label">Photo</label>
                 <input type="file" class="form-control" id="photo_url" name="photo_url">
             </div>
             <button type="submit" class="btn btn-success">Create</button>
-            <a href="/path/to/categories" class="btn btn-secondary">Cancel</a>
+            <a href="/admin/categories" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

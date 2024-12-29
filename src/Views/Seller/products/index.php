@@ -61,11 +61,12 @@
             </tr>
         </thead>
         <tbody>
+        <?php if (!empty($products)): ?>
             <?php foreach ($products as $product): ?>
                 <tr>
                     <td>
                         <div style="width: 50px; height: 50px; overflow: hidden;">
-                            <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($product['image']) ? $product['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="product">
+                            <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="product">
                         </div>
                     </td>
                     <td><?= $product['product_name'] ?></td>
@@ -88,6 +89,11 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td class="text-center" colspan="6">Không có dữ liệu</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
     <div style="display: flex; flex-direction: column; align-items: center;">
