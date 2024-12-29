@@ -34,9 +34,9 @@
                         <label for="category_id" class="form-label">Loại sản phẩm:</label>
                         <select id="category_id" name="category_id" class="form-select" required>
                             <option value="">-- Chọn Loại --</option>
-                            <option value="1">TV</option>
-                            <option value="2">Tủ lạnh</option>
-                            <option value="3">Laptop</option>
+                            <?php foreach ($categories as $cate): ?>
+                                <option value=" <?=$cate['category_id']?>" <?= ($cate['category_id'] == (isset($product['category_id']) ? $product['category_id'] : '')) ? 'selected' : '' ?>><?= $cate['category_name']?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 

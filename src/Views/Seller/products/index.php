@@ -20,10 +20,10 @@
         <form class="form-search" action="/seller/products" method="get">
             <div>
                 <select class="form-select" aria-label="Select Loại" name="category">
-                    <option value="0" selected>Chọn loại</option>
-                    <option value="1">Loại 1</option>
-                    <option value="2">Loại 2</option>
-                    <option value="3">Loại 3</option>
+                    <option value="0"  <?= $category == 0 ? 'selected' : '' ?>>Tất cả</option>
+                    <?php foreach ($categories as $cate): ?>
+                        <option value=" <?=$cate['category_id']?>" <?= $cate['category_id'] == $category ? 'selected' : '' ?>><?= $cate['category_name']?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -70,7 +70,7 @@
                         </div>
                     </td>
                     <td><?= $product['product_name'] ?></td>
-                    <td><?= $product['category_id'] ?></td>
+                    <td><?= $product['category_name'] ?></td>
                     <td><?= $product['quantity'] ?></td>
                     <td><?= $product['price'] ?></td>
                     <td>
