@@ -217,13 +217,10 @@
         color: orange;
     }
 
-    .allProduct .pagination .active {
-        background-color: orange;
-    }
-
-    .allProduct .pagination .active a {
-        color: white;
-
+    .page-item.active .page-link {
+        background-color: orange !important;
+        color: white !important;
+        border-color: orange !important;
     }
 </style>
 <?php ob_start(); ?>
@@ -232,10 +229,10 @@
     <div class="container" style="padding: 0; margin-top: 40px; display: flex; gap: 30px;">
         <div class="sidebar-prod">
             <div class="overlay-filter hidec"></div>
-            <div class="filter-by-side hidec">
+            <form class="filter-by-side hidec" method="GET" action="/products">
                 <div class="headerFilter">
-                    <h5 style="margin: 0;">Filter</h5>
-                    <button>Reset</button>
+                    <h5 style="margin: 0;">Bộ lọc</h5>
+                    <button type="submit">Lọc</button>
                 </div>
                 <ul class="list-side">
                     <li class="item-side">
@@ -245,17 +242,15 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                         </label>
-                        <input type="checkbox" class="sub-price" id="C" hidden />
+                        <input type="checkbox" class="sub-price" id="C" hidden checked />
                         <ul class="sub-filter-price-input">
                             <div class="price-number">
                                 <div class="field">
-
-                                    <input type="number" class="input-min" value="0" />
+                                    <input type="number" name="minPrice" class="input-min" value="<?= $minPriceParams ? $minPriceParams : $minPriceProduct ?>" />
                                 </div>
                                 <div class="separator">-</div>
                                 <div class="field">
-
-                                    <input type="number" class="input-max" value="5000000" />
+                                    <input type="text" name="maxPrice" class="input-max" value="<?= $maxPriceParams ? $maxPriceParams : $maxPriceProduct ?>" />
                                 </div>
                             </div>
                             <div class="price-slider">
@@ -265,73 +260,79 @@
                                 <input
                                     type="range"
                                     class="range-min"
-                                    min="0"
-                                    max="5000000"
-                                    value="0"
-                                    step="100000" />
+                                    min="<?= $minPriceProduct ?>"
+                                    max="<?= $maxPriceProduct ?>"
+                                    value="<?= $minPriceParams ? $minPriceParams : $minPriceProduct ?>"
+                                    step="400000" />
                                 <input
                                     type="range"
                                     class="range-max"
-                                    min="0"
-                                    max="5000000"
-                                    value="5000000"
-                                    step="100000" />
+                                    min="<?= $minPriceProduct ?>"
+                                    max="<?= $maxPriceProduct ?>"
+                                    value="<?= $maxPriceParams ? $maxPriceParams : $maxPriceProduct ?>"
+                                    step="400000" />
                             </div>
                         </ul>
                     </li>
                     <li class="item-side size">
                         <label class="select" for="A">
-                            <div class="item-side-title">Size</div>
+                            <div class="item-side-title">Loại</div>
                             <div class="icon-down">
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                         </label>
-                        <input type="checkbox" class="sub-size" id="A" hidden />
+                        <input type="checkbox" class="sub-size" id="A" hidden checked />
                         <ul class="sub-filter-size">
-                            <li>
-                                <input type="checkbox">
-                                <p>Category 1</p>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <p>Category 1</p>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <p>Category 1</p>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <p>Category 1</p>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <p>Category 1</p>
-                            </li>
+                            <?php foreach ($category as $category): ?>
+                                <?php
+                                $isChecked = in_array($category['category_id'], $categoryParams) ? 'checked' : '';
+                                ?>
+                                <li>
+                                    <input type="checkbox" name="categories[]" value="<?php echo $category['category_id']; ?>" id="category_<?php echo $category['category_id']; ?>" <?php echo $isChecked; ?> />
+                                    <label for="category_<?php echo $category['category_id']; ?>">
+                                        <p><?php echo $category['category_name']; ?></p>
+                                    </label>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </li>
+
                 </ul>
-            </div>
+            </form>
         </div>
         <div>
-            <?php include(__DIR__ . '../../ListProduct/list-product.php'); ?>
+            <?php
+            $products = $products;
+            include(__DIR__ . '../../ListProduct/list-product.php'); ?>
             <nav aria-label="Page navigation">
                 <ul class="pagination" id="pagination" style="justify-content: center;">
-                    <li class="page-item active page-link"><a href="#">
-                            1
-                        </a></li>
-                    <li class="page-item page-link"><a href="#">
-                            2 </a></li>
-                    <li class="page-item page-link"><a href="#">
-                            3 </a></li>
+                    <!-- Nút Previous -->
+                    <?php if ($currentPage > 1): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>&minPrice=<?php echo $minPriceParams; ?>&maxPrice=<?php echo $maxPriceParams; ?>&search=<?php echo urlencode($searchParams); ?><?php echo !empty($categoryParams) ? '&categories=' . implode(',', $categoryParams) : ''; ?>">Previous</a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?php echo $i === $currentPage ? 'active' : ''; ?>">
+                            <a class="page-link" href="?page=<?php echo $i; ?>&minPrice=<?php echo $minPriceParams; ?>&maxPrice=<?php echo $maxPriceParams; ?>&search=<?php echo urlencode($searchParams); ?><?php echo !empty($categoryParams) ? '&categories=' . implode(',', $categoryParams) : ''; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <?php if ($currentPage < $totalPages): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>&minPrice=<?php echo $minPriceParams; ?>&maxPrice=<?php echo $maxPriceParams; ?>&search=<?php echo urlencode($searchParams); ?><?php echo !empty($categoryParams) ? '&categories=' . implode(',', $categoryParams) : ''; ?>">Next</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
     </div>
     <h3 class="container my-4">Choose by Shops</h3>
-    <?php include(__DIR__ . '../../ListShop/ListShop.php'); ?>
+    <?php
+    $listShop = $top8rating;
+    include(__DIR__ . '../../ListShop/ListShop.php'); ?>
     <?php include(__DIR__ . '../../Poster/poster.php'); ?>
-    <?php include(__DIR__ . '../../Tranding/tranding.php'); ?>
 </div>
 <script>
     const subfilter = document.querySelectorAll(".sub-filter");

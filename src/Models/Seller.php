@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Exception;
-
 class Seller
 {
     private $connection;
@@ -26,11 +24,105 @@ class Seller
     {
         $user_id = (int) $user_id;
         $result = $this->connection->query("SELECT COUNT(*) AS seller_count FROM seller WHERE user_id = $user_id");
-    
+
         $row = $result->fetch_assoc();
         return $row['seller_count'] > 0;
     }
-    
+
+    public function getInforSeller($seller_id)
+    {
+        //Nguyên
+        $sql = "
+        SELECT 
+            s.seller_id,
+            s.shop_name,
+            s.logo_shop,
+            s.banner,
+            s.bio_seller,
+            COALESCE(AVG(r.rating), 0) AS avg_rating,
+            (SELECT COUNT(*) FROM products p WHERE p.seller_id = s.seller_id) AS total_products
+        FROM 
+            seller s
+        LEFT JOIN 
+            ratingshop r ON s.seller_id = r.seller_id
+        WHERE 
+            s.seller_id = ?
+        GROUP BY 
+            s.seller_id;
+    ";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param("i", $seller_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $seller = $result->fetch_assoc();
+
+        return $seller;
+    }
+    public function getAllShops($search)
+    {
+        // Nguyên
+        $searchTerm = $search;
+        $sql = "
+            SELECT 
+                s.seller_id,
+                s.shop_name,
+                s.logo_shop,
+                COALESCE(AVG(r.rating), 0) AS avg_rating,
+                (SELECT COUNT(*) FROM products p WHERE p.seller_id = s.seller_id) AS total_products
+            FROM 
+                seller s
+            LEFT JOIN 
+                ratingshop r ON s.seller_id = r.seller_id
+            WHERE
+                s.shop_name LIKE CONCAT('%', ?, '%')
+            GROUP BY 
+                s.seller_id
+            ORDER BY 
+                s.seller_id DESC;
+        ";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param("s", $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $shops = $result->fetch_all(MYSQLI_ASSOC);
+        return $shops;
+    }
+
+    public function getTop8RatingShops()
+    {
+        //Nguyên
+        $sql = "
+        SELECT 
+    s.seller_id,
+    s.shop_name,
+    s.logo_shop,
+    COALESCE(AVG(r.rating), 0) AS avg_rating,
+    (SELECT COUNT(*) FROM products p WHERE p.seller_id = s.seller_id) AS total_products
+    FROM 
+       seller s
+    LEFT JOIN 
+       ratingshop r ON s.seller_id = r.seller_id
+    GROUP BY 
+       s.seller_id
+    ORDER BY 
+       avg_rating DESC
+    LIMIT 8;
+    ";
+
+        $result = $this->connection->query($sql);
+
+        $shops = [];
+        while ($shop = $result->fetch_assoc()) {
+            $shops[] = $shop;
+        }
+
+        return $shops;
+    }
+
 
     public function getSellerById($seller_id)
     {
@@ -63,7 +155,7 @@ class Seller
         if ($this->connection->query($query) === TRUE) {
             $newSellerId = $this->connection->insert_id;
             $_SESSION['seller_id'] = $newSellerId;
-            
+
             header('Location: /seller');
         } else {
             die("Error: " . $this->connection->error);

@@ -100,7 +100,10 @@ class SelProductController extends Controller
 
     public function delete($product_id)
     {
-        $this->productModel->deleteProduct($product_id);
+        $InUsed = $this->productModel->InUsed($product_id);
+        if(!$InUsed) {
+            $this->productModel->deleteProduct($product_id);
+        }
         header('Location: /seller/products');
     }
 

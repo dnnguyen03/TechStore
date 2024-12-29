@@ -18,7 +18,7 @@ class ProfileController extends Controller
     {
         $customer_id = $_SESSION['currentUser']['user_id'];
         $profiles = $this->profileModel->getProfile($customer_id);
-        $this->render('Customer/CusProfile/Profile', ['profiles' => $profiles]);
+        $this->render('Customer/CusProfile/Profile', ['profile' => $profiles]);
     }
 
     public function update()
@@ -47,7 +47,7 @@ class ProfileController extends Controller
         }
 
         $profiles = $this->profileModel->getProfile($customer_id);
-        $this->render('Customer/CusProfile/EditProfile', ['profiles' => $profiles]);
+        $this->render('Customer/CusProfile/EditProfile', ['profile' => $profiles]);
     }
 
 }

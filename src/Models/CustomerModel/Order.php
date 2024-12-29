@@ -47,7 +47,7 @@ class Order
     public function cancelOrder($orderID)
     {
         $orderID = $this->connection->real_escape_string($orderID);
-        $result = $this->connection->query("UPDATE orders set status = 'Đã hủy' where order_id = '$orderID'");
+        $result = $this->connection->query("UPDATE orders set status = '-1' where order_id = '$orderID'");
         return;
     }
 

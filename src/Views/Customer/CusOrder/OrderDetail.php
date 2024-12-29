@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 
 <div class="container mt-3" style="min-height: 100vh;">
+<div class="container mt-3" style="min-height: 100vh;">
     <div class="row flex-grow-1">
         <!-- Header thông tin đơn hàng -->
         <div class="col-12">
@@ -18,14 +19,16 @@
                         </div>
                     </div>
                     <div class="row">
+
                         <div class="col-md-4">
-                            <p><strong>Delivery Code:</strong> <span class="text-warning fw-bold">A1B2C3</span></p>
+                        <strong>Trạng thái:</strong>
+                            <span class="badge 
+                                    <?= $order['OrderStatus'] == '1' ? 'bg-success' : ($order['OrderStatus'] == '0' ? 'bg-warning text-dark' : 'bg-danger') ?>">
+                                 <?= htmlspecialchars($order['OrderStatus'] == '1' ? 'Đã giao' : ($order['OrderStatus'] == '0' ? 'Đơn hàng mới' : 'Đã hủy')) ?>
+                            </span>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Trạng thái:</strong> <span class="badge bg-primary"><?= $order['OrderStatus'] ?></span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Tổng tiền:</strong> <?= $order['TotalAmount'] ?></p>
+                            <p><strong>Tổng tiền:</strong> <?= number_format($order['TotalAmount'], 0, ',', '.')  ?></p>
                         </div>
                     </div>
                 <?php
@@ -37,23 +40,25 @@
 
         <!-- Danh sách sản phẩm -->
         <div class="col-12 pt-2 pb-2">
-            <div class="right-column p-3 rounded shadow-sm">
+            <div class="right-column p-3 rounded shadow-sm ">
                 <h6 class="fw-bold mb-3">Danh sách sản phẩm</h6>
                 <?php foreach ($orderDetails as $orderDetail): ?>
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img src="" alt="Product" class="me-3 rounded">
+                    <div class="product-item d-flex align-items-center py-3 ">
+                        <div style="width: 80px; height: 70px; overflow: hidden; margin-right: 10px ;" class="rounded">
+                            <img src=<?= "/src/assets/images/" . $orderDetail['ProductImage'] ?> alt="Product" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        </div>
                         <div class="flex-grow-1">
                             <h6 class="mb-1"><?= $orderDetail['ProductName'] ?></h6>
                             <p class="mb-0">Số lượng: <?= $orderDetail['Quantity'] ?></p>
                         </div>
-                        <div><strong><?= $orderDetail['Price'] ?></strong></div>
+                        <div><strong><?= number_format($orderDetail['Price'], 0, ',', '.') ?></strong></div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
         <!-- Phần đánh giá -->
-        <?php if ($status == 1) { ?>
+        <?php if ($status == '1') { ?>
             <div class="col-12">
                 <div class="rating-section p-3 rounded shadow-sm">
                     <h6 class="fw-bold mb-3">Đánh giá đơn hàng</h6>
@@ -103,14 +108,15 @@
     <!-- Footer hành động -->
     <div class="row">
         <div class="col-12 footer-action d-flex justify-content-between align-items-center">
-            <button type="button" class="btn btn-secondary">
-                <a href="/orders" style="text-decoration: none; color: black;">Quay lại</a>
-            </button>
-            <?php if ($status == 0) { ?>
+            <a class="btn btn-light" href="/customer/orders">
+                <i class="fa-solid fas fa-angle-left"></i>
+                Quay lại
+            </a>
+            <?php if ($status == '0') { ?>
 
-                <button type="button" class="btn btn-warning"> <a href="/customer/orders/cancel/<?= $order['OrderID'] ?>">
+                  <a href="/customer/orders/cancel/<?= $order['OrderID'] ?>" >
                         Hủy đơn hàng
-                    </a> </button>
+                    </a> 
             <?php } ?>
         </div>
     </div>
