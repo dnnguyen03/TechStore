@@ -200,8 +200,36 @@ class Product
     public function deleteProduct($product_id)
     {
         $product_id = $this->connection->real_escape_string($product_id);
-        $this->connection->query("DELETE FROM products WHERE product_id=$product_id");
+
+        $query1 = "DELETE FROM tech_store.productphotos WHERE product_id = $product_id";
+        if (!$this->connection->query($query1)) {
+            die("Error: " . $this->connection->error);
+        }
+    
+        $query2 = "DELETE FROM products WHERE product_id = $product_id";
+        if (!$this->connection->query($query2)) {
+            die("Error: " . $this->connection->error);
+        }
     }
+
+    public function InUsed($product_id)
+    {
+        $product_id = $this->connection->real_escape_string($product_id);
+        $result = $this->connection->query("SELECT 
+                                    CASE 
+                                        WHEN EXISTS (SELECT 1 FROM detailorders WHERE product_id = $product_id) 
+                                        THEN 1 
+                                        ELSE 0 
+                                    END AS result;");
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['result'] > 0;
+        }
+    
+        return false; 
+    }
+
     public function getTotalProducts()
     {
         $query = "SELECT COUNT(*) AS total FROM products";
