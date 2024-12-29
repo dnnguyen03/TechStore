@@ -59,7 +59,13 @@ class ShopController extends Controller
         $sellerModel = new Seller();
         $inforShop = $sellerModel->getInforSeller($seller_id);
         $product = $this->productModel->getAllProductBySeller($seller_id);
-        $this->render('Shop/Pages/shop', ['inforShop' => $inforShop, 'products' => $product]);
+        $top8rating = $sellerModel->getTop8RatingShops();
+        $this->render('Shop/Pages/shop', [
+            'inforShop' => $inforShop,
+            'products' => $product,
+            'top8rating' => $top8rating,
+
+        ]);
     }
 
     public function productPagination()
