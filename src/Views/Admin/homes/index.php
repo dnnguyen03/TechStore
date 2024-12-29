@@ -1,45 +1,36 @@
 <?php
 ob_start();
 ?>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
+    .stat-number {
+        color: #FF9C00;
+        font-size: 36px;
+        font-weight: bold;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Tech Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
+    .badge {
+        font-size: 14px;
+    }
 
-        .stat-number {
-            color: #FF9C00;
-            font-size: 36px;
-            font-weight: bold;
-        }
+    .badge.bg-success {
+        background-color: #28a745 !important;
+    }
 
-        .badge {
-            font-size: 14px;
-        }
+    .badge.bg-primary {
+        background-color: #007bff !important;
+    }
 
-        .badge.bg-success {
-            background-color: #28a745 !important;
-        }
-
-        .badge.bg-primary {
-            background-color: #007bff !important;
-        }
-
-        .badge.bg-danger {
-            background-color: #dc3545 !important;
-        }
-    </style>
+    .badge.bg-danger {
+        background-color: #dc3545 !important;
+    }
+</style>
 </head>
 
 <body>
@@ -50,18 +41,21 @@ ob_start();
         <div class="row g-4 mb-4">
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
-                    <h4 class="stat-number"><?= $totalSellers ?? 0; ?></h4>
-                    <p>Total Sellers</p>
+                    <i class="fa-brands fa-uncharted"></i>
+                    <h4 class="stat-number"><?= $totalCategories ?? 0; ?></h4>
+                    <p>Total Categories</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
+                    <i class="fa-solid fa-users"></i>
                     <h4 class="stat-number"><?= $totalCustomers ?? 0; ?></h4>
                     <p>Total Customers</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
+                    <i class="fa-solid fa-box"></i>
                     <h4 class="stat-number"><?= $totalProducts ?? 0; ?></h4>
                     <p>Total Products</p>
                 </div>

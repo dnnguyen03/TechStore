@@ -1,35 +1,46 @@
 <?php
 ob_start();
 ?>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
+    .content {
+        padding: 20px;
+        width: 100%;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accounts Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    .form-control {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .btn-primary {
+        min-width: 100px;
+    }
+</style>
 
 <body>
     <div class="content">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Accounts Management</h1>
-            <form class="d-flex" method="GET" action="">
-                <input class="form-control me-2" type="search" name="search" placeholder="Search by Customer Name" value="<?= htmlspecialchars($search); ?>">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Quản lý tài khoản</h1>
         </div>
-
+        <form class="d-flex mb-3" method="GET" action="">
+            <input class="form-control me-2" type="search" name="search" placeholder="Tìm kiếm" value="<?= htmlspecialchars($search); ?>">
+            <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+        </form>
         <table class="table table-bordered table-hover">
             <thead class="table-white">
                 <tr>
-                    <th>ID</th>
-                    <th>Customer Name</th>
-                    <th>Registered Date</th>
-                    <th>AC. Verification</th>
-                    <th>Type</th>
+                    <th>Mã người dùng</th>
+                    <th>Tên người dùng</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Trạng thái</th>
+                    <th>Loại</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,15 +49,13 @@ ob_start();
                         <td><?= htmlspecialchars($account['user_id']); ?></td>
                         <td><?= htmlspecialchars($account['username']); ?></td>
                         <td><?= htmlspecialchars($account['create_at']); ?></td>
-                        <td><?= htmlspecialchars($account['is_lock'] ? 'Locked' : 'Active'); ?></td>
+                        <td><?= htmlspecialchars($account['is_lock'] ? 'Khóa' : 'Hoạt đông'); ?></td>
                         <td><?= htmlspecialchars($account['role']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-</body>
 
-</html>
-<?php $content = ob_get_clean(); ?>
-<?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>
+    <?php $content = ob_get_clean(); ?>
+    <?php include(__DIR__ . '../../../../../templates/doashboard.php'); ?>

@@ -136,7 +136,7 @@ class User
 
     public function getTotalCustomers()
     {
-        $stmt = $this->connection->prepare("SELECT COUNT(*) AS total_customers FROM users WHERE role = 'Khách Hàng'");
+        $stmt = $this->connection->prepare("SELECT COUNT(*) AS total_customers FROM users WHERE role = '1'");
         $stmt->execute();
         $result = $stmt->get_result();
         $data = $result->fetch_assoc();
