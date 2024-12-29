@@ -18,7 +18,7 @@
     function getImagePath($imageName, $defaultImage)
     {
         $imagePath = "/src/assets/images/" . $imageName;
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath || empty($imageName))) {
             return $imagePath;
         } else {
             return $defaultImage;

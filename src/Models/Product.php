@@ -116,6 +116,32 @@ class Product
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function get6CategoryHot()
+    {
+        $query = "SELECT 
+    c.category_id,
+    c.category_name,
+    c.photo_url,
+    SUM(od.quantity) AS total_quantity_sold
+    FROM 
+        category c
+    JOIN 
+        products p ON c.category_id = p.category_id
+    JOIN 
+        detailorders od ON p.product_id = od.product_id
+    GROUP BY 
+        c.category_id, c.category_name
+    ORDER BY 
+        total_quantity_sold DESC
+    LIMIT 6;
+    ";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
 
     public function getMinPriceProduct()
     {
@@ -404,7 +430,7 @@ class Product
         if (!$this->connection->query($query1)) {
             die("Error: " . $this->connection->error);
         }
-    
+
         $query2 = "DELETE FROM products WHERE product_id = $product_id";
         if (!$this->connection->query($query2)) {
             die("Error: " . $this->connection->error);
@@ -425,8 +451,8 @@ class Product
             $row = $result->fetch_assoc();
             return $row['result'] > 0;
         }
-    
-        return false; 
+
+        return false;
     }
 
     public function getTotalProducts()

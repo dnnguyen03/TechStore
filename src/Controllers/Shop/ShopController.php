@@ -17,11 +17,12 @@ class ShopController extends Controller
     public function index()
     {
         unset($_SESSION['seller_id']);
-        $userId = $_SESSION['currentUser']['user_id'];
+        $userId = $_SESSION['currentUser']['user_id'] ?? null;
         $popularProduct = $this->productModel->getPopularProduct();
         $bestDealProduct = $this->productModel->getBestDeal();
         $sellerModel = new Seller();
         $profileModel = new Profile();
+        $get6Category = $this->productModel->get6CategoryHot();
         $profile = $profileModel->getProfile($userId);
         $top8rating = $sellerModel->getTop8RatingShops();
         $this->render('Shop/Pages/home', [
@@ -29,6 +30,7 @@ class ShopController extends Controller
             'bestDealProduct' => $bestDealProduct,
             'top8rating' => $top8rating,
             'profile' => $profile,
+            'get6Category' => $get6Category,
         ]);
     }
 

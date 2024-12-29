@@ -584,6 +584,12 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         cart.addEventListener("click", () => {
             showCart.classList.add("show");
         })
+        showCart.addEventListener('click', function(event) {
+            if (!event.target.closest('.cart')) {
+                showCart.classList.remove('show');
+            }
+        });
+
         closeCart.addEventListener("click", () => {
             showCart.classList.remove("show");
         })
