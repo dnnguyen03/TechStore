@@ -66,13 +66,13 @@
                 <tr>
                     <td>
                         <div style="width: 50px; height: 50px; overflow: hidden;">
-                            <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="<?= isset($product['image']) ? '/src/assets/images/'.$product['image'] : 'https://i.pinimg.com/736x/8a/cc/89/8acc896ba2585a9f46555f1138fc5d96.jpg' ?>" alt="product">
+                            <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;"  src="<?= isset($product['image']) && $product['image'] != null ? "/src/assets/images/" . $product['image'] : '/src/assets/images/no_imgProduct.png' ?>" alt="product">
                         </div>
                     </td>
                     <td><?= $product['product_name'] ?></td>
                     <td><?= $product['category_name'] ?></td>
                     <td><?= $product['quantity'] ?></td>
-                    <td><?= $product['price'] ?></td>
+                    <td><?= number_format($product['price'], 0, ',', '.') ?> đ</td>
                     <td>
                         <?php if ($product['status'] == 1): ?>
                             <p style="color: green;">Đang bán</p>

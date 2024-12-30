@@ -35,7 +35,7 @@ class Statistical
     public function totalRevenueBySeller($seller_id)
     {
         $seller_id = (int) $seller_id;
-    
+
         $query = "
             SELECT  SUM(d.quantity * p.price) AS total_revenue
             FROM  detailorders d
@@ -43,9 +43,9 @@ class Statistical
             WHERE  p.seller_id = $seller_id
             GROUP BY  p.seller_id;
         ";
-    
+
         $result = $this->connection->query($query);
-    
+
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             return isset($row['total_revenue']) ? (float)$row['total_revenue'] : 0;
@@ -53,14 +53,18 @@ class Statistical
             return 0;
         }
     }
-    
+
 
     public function countNewOrderBySeller($seller_id)
     {
-        // TODO: Chưa làm 
         $seller_id = (int) $seller_id;
-        $result = $this->connection->query("SELECT * FROM seller WHERE seller_id = $seller_id");
-        return $result->fetch_assoc();
+        $result = $this->connection->query("SELECT COUNT(*) AS total FROM orders WHERE seller_id = $seller_id and status = 0;");
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } else {
+            return 0;
+        }
     }
 
     public function countCustomerBySeller($seller_id)

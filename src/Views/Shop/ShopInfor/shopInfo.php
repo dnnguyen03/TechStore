@@ -18,7 +18,7 @@
     function getImagePath($imageName, $defaultImage)
     {
         $imagePath = "/src/assets/images/" . $imageName;
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath || empty($imageName))) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
             return $imagePath;
         } else {
             return $defaultImage;
@@ -30,11 +30,11 @@
     ?>
     <div>
         <div style="height: 350px; overflow: hidden; border-radius: 12px; background-color: #d7dfe3; display: flex; align-items: center; justify-content: center;">
-            <img src="<?= $displayBanner ?>" alt="" height="100%" style="object-fit: cover;">
+            <img src="<?= isset($inforShop['banner']) && $inforShop['banner'] != null ? "/src/assets/images/" . $inforShop['banner'] : '/src/assets/images/no_img.png' ?>" alt="" height="100%" style="object-fit: cover;">
         </div>
         <div style="display: flex;  margin-top: -110px; padding-left: 50px;">
-            <div class="avatar" style="border-radius: 100%; border: 8px solid white; overflow: hidden; width: 300px;">
-                <img src="<?= $displayImage ?>" alt="" style="object-fit: cover; width: 100%;">
+            <div class="avatar" style="border-radius: 100%; border: 8px solid white; overflow: hidden; width: 300px; height: 250px;">
+                <img src="<?= isset($inforShop['logo_shop']) && $inforShop['logo_shop'] != null ? "/src/assets/images/" . $inforShop['logo_shop'] : '/src/assets/images/no_img.png' ?>" alt="" style="object-fit: cover; width: 100%; height: 100%; object-position: center;">
             </div>
             <div style="display: flex; justify-content: space-between; align-items: end; margin-left: 30px; width: 100%;">
                 <div>

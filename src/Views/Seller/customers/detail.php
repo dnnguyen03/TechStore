@@ -50,8 +50,10 @@
                             <?php
                             if ($order['status'] == 0) { ?>
                                 <p style="color: #FF9C00;">Đơn hàng mới</p>
-                            <?php } else { ?>
+                            <?php } else if($order['status'] == 1) { ?>
                                 <p style="color: green;">Đã duyệt</p>
+                            <?php } else if ($order['status'] == -1) { ?>
+                                <p style="color: red;">Đã hủy</p>
                             <?php } ?>
                         </td>
 

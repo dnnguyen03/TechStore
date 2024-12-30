@@ -92,12 +92,12 @@
 </style>
 <div class="container mt-3 ">
     <div class="shop-banner shadow">
-        <img src="<?= isset($seller['banner']) ? '/src/assets/images/' . $seller['banner'] : 'https://i.pinimg.com/736x/70/d9/a7/70d9a7ecf4628636bf3daf72a45f9990.jpg' ?>" alt="banner" />
+    <img src="<?= isset($seller['banner']) && $seller['banner'] != null ? "/src/assets/images/" . $seller['banner'] : '/src/assets/images/no_img.png' ?>" alt="banner" />
     </div>
     <div class="row">
         <div class="col-sm-4 shop-logo">
             <div class="shop-logo-img">
-                <img src="<?= isset($seller['logo_shop']) ? '/src/assets/images/' . $seller['logo_shop'] : 'https://i.pinimg.com/736x/70/d9/a7/70d9a7ecf4628636bf3daf72a45f9990.jpg' ?>" alt="Shop Logo">
+            <img src="<?= isset($seller['logo_shop']) && $seller['logo_shop'] != null ? "/src/assets/images/" . $seller['logo_shop'] : '/src/assets/images/no_img.png' ?>" alt="Shop Logo">
             </div>
         </div>
 

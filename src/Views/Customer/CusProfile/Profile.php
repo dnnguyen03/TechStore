@@ -12,7 +12,7 @@
         <div class="col-md-3 text-center">
             <div class="bg-secondary rounded-circle mx-auto" style="width: 120px; height: 120px; overflow: hidden;">
 
-                <img src="<?= isset($profile['avata']) ? "/src/assets/images/" . $profile['avata'] : '/src/assets/images/default-avatar.png' ?>" 
+                <img src="<?= isset($profile['avata']) && $profile['avata'] != null ? "/src/assets/images/" . $profile['avata'] : '/src/assets/images/no_img.png' ?>" 
      alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
 
             </div>

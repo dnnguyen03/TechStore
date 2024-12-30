@@ -53,13 +53,15 @@
                         <td><?= $order['order_id'] ?></td>
                         <td><?= $order['full_name'] ?></td>
                         <td><?= $order['date_order'] ?></td>
-                        <td><?= floor($order['total_amount']) ?></td>
+                        <td><?=number_format($order['total_amount'], 0, ',', '.') ?></td>
                         <td>
                             <?php
                             if ($order['status'] == 0) { ?>
                                 <p style="color: #FF9C00;">Đơn hàng mới</p>
                             <?php } else if(($order['status'] == 1)) { ?>
                                 <p style="color: green;">Đã duyệt</p>
+                            <?php } else if(($order['status'] == -1)) { ?>
+                                <p style="color: red;">Đã hủy</p>
                             <?php } ?>
                         </td>
 

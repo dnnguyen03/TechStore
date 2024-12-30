@@ -80,18 +80,10 @@
     <?php else: ?>
         <?php
         foreach ($products as $product) : ?>
-            <?php
-            $imagePath = "/src/assets/images/" . $product['image'];
-            $defaultImage = "/src/assets/images/no_imgProduct.png";
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
-                $displayImage = $imagePath;
-            } else {
-                $displayImage = $defaultImage;
-            }
-            ?>
+            
             <div class="cardProduct">
                 <div class="image">
-                    <img src="<?= $displayImage ?>" height="260xp">
+                    <img src="<?= isset($product['image']) && $product['image'] != null ? "/src/assets/images/" . $product['image'] : '/src/assets/images/no_imgProduct.png' ?>" height="260xp">
                 </div>
                 <div class="inforProduct p-3">
                     <div>

@@ -30,12 +30,17 @@ ob_start();
     .badge.bg-danger {
         background-color: #dc3545 !important;
     }
+
+    .card i {
+        font-size: 30px;
+        color: #007bff;
+    }
 </style>
 </head>
 
 <body>
     <div class="container-fluid p-4">
-        <h1 class="mb-4">Dashboard</h1>
+        <h1 class="mb-4">Tổng quan</h1>
 
         <!-- Thống kê tổng quan -->
         <div class="row g-4 mb-4">
@@ -43,21 +48,21 @@ ob_start();
                 <div class="card text-center p-4 shadow-sm">
                     <i class="fa-brands fa-uncharted"></i>
                     <h4 class="stat-number"><?= $totalCategories ?? 0; ?></h4>
-                    <p>Total Categories</p>
+                    <p>Tổng số loại hàng</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
                     <i class="fa-solid fa-users"></i>
                     <h4 class="stat-number"><?= $totalCustomers ?? 0; ?></h4>
-                    <p>Total Customers</p>
+                    <p>Tổng số người dùng</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card text-center p-4 shadow-sm">
                     <i class="fa-solid fa-box"></i>
                     <h4 class="stat-number"><?= $totalProducts ?? 0; ?></h4>
-                    <p>Total Products</p>
+                    <p>Tổng số sản phẩm</p>
                 </div>
             </div>
         </div>
@@ -65,39 +70,37 @@ ob_start();
         <!-- Bảng quản lý tài khoản người dùng -->
         <div class="card shadow-sm">
             <div class="card-header bg-white">
-                <h5>Users Management</h5>
+                <h5>Quản lý tài khoản</h5>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Account ID</th>
-                            <th>Customer Name</th>
-                            <th>Created At</th>
-                            <th>AC. Verification</th>
-                            <th>Type</th>
+                            <th>Mã tài khoản</th>
+                            <th>Tên người dùng</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($newAccounts)): ?>
                             <?php foreach ($newAccounts as $account): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($account['id']); ?></td>
-                                    <td><?= htmlspecialchars($account['name']); ?></td>
-                                    <td><?= htmlspecialchars($account['date']); ?></td>
+                                    <td><?= htmlspecialchars($account['user_id']); ?></td>
+                                    <td><?= htmlspecialchars($account['username']); ?></td>
+                                    <td><?= htmlspecialchars($account['create_at']); ?></td>
                                     <td>
-                                        <?php if ($account['verification'] === 'Verified'): ?>
-                                            <span class="badge bg-success"><?= $account['verification']; ?></span>
-                                        <?php elseif ($account['verification'] === 'New'): ?>
-                                            <span class="badge bg-primary"><?= $account['verification']; ?></span>
+                                        <?php if ($account['is_lock'] == 0): ?>
+                                            <p>Hoạt động</p>
+                                        <?php else: ?>
+                                            <p>Khóa</p>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= htmlspecialchars($account['type']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="5" class="text-center">No account data available</td>
+                                <td colspan="5" class="text-center">Không có dữ liệu tài khoản</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
