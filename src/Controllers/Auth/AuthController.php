@@ -36,6 +36,7 @@ class AuthController extends Controller
                 }
                 // Lưu thông tin người dùng vào session
                 $_SESSION['currentUser'] = $user;
+                
 
 
                 // Điều hướng đến dashboard

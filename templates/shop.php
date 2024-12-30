@@ -17,6 +17,9 @@
     <title>Tech Store</title>
 </head>
 <?php
+
+use App\Models\CustomerModel\Profile;
+
 if (isset($_SESSION['alert_message'])) {
     echo '<script>alert("' . $_SESSION['alert_message'] . '");</script>';
     unset($_SESSION['alert_message']);
@@ -389,7 +392,7 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                         </div>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="/seller-router">Cửa hàng của bạn</a></li>
+                        <li><a class="dropdown-item" href="/seller-router">Cửa hàng của tôi</a></li>
                         <li><a class="dropdown-item" href="/customer/orders"> Quản lý tài khoản</a></li>
                         <li><a class="dropdown-item" href="/logout" onclick="return confirm('Xác nhận đăng xuất')">Đăng xuất</a></li>
                     </ul>
@@ -484,16 +487,24 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+            <?php
+                $profileModel = new Profile();
+                $userId = $_SESSION['currentUser']['user_id'] ?? 0;
+                $profile = $profileModel->getProfile($userId);
+                
+            
+            ?>
             <div class="inforUser mt-4" style="display: none;">
-                <button onclick="hiddenCheckoutForm()">
-                    <span>&larr;</span>
+                <button onclick="hiddenCheckoutForm()" class="btn btn-warning">
+
+                    <span style="font-size: 18px;">&larr; </span>
                 </button>
                 <p class="mt-3">Tên đầy đủ:</p>
-                <b><?= $profile['full_name'] ?></b>
+                <b><?= isset($profile['full_name']) ? $profile['full_name'] : '' ?></b>
                 <p class="mt-3">Địa chỉ:</p>
-                <b><?= $profile['address'] ?></b>
+                <b><?= isset($profile['address']) ? $profile['address'] : ''  ?></b>
                 <p class="mt-3">Số điện thoại:</p>
-                <b><?= $profile['phone'] ?></b>
+                <b><?= isset($profile['phone']) ? $profile['phone'] : ''  ?></b>
             </div>
             <footer>
                 <h3 class="cart-total" style="text-align: center;"><?= number_format($totalPrice, 0, ',', '.') ?>đ</h3>

@@ -26,10 +26,16 @@
     }
 
     .listShop .avataShop img {
-        border-radius: 100%;
         width: 100%;
         object-fit: cover;
+        height: 100%;
+    }
+
+    .listShop .avataShop {
+        border-radius: 100%;
         width: 70px;
+        height: 70px;
+        overflow: hidden;
     }
 
     .shopName {
@@ -63,20 +69,12 @@
     <?php else: ?>
         <?php
         foreach ($listShop as $shop) : ?>
-            <?php
-            $imagePath = "/src/assets/images/" . $shop['logo_shop'];
-            $defaultImage = "/src/assets/images/no_img.png";
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath) || empty($shop['logo_shop'])) {
-                $displayImage = $imagePath;
-            } else {
-                $displayImage = $defaultImage;
-            }
-            ?>
+           
             <a href="shop/<?= $shop['seller_id'] ?>">
 
                 <div class="cardShop">
-                    <div class="avataShop" style="display: grid; place-content: center;">
-                        <img src="<?= $displayImage ?>" alt="">
+                    <div class="avataShop" style="display: grid; place-content: center; ">
+                        <img src="<?= isset($shop['logo_shop']) && $shop['logo_shop'] != null ? "/src/assets/images/" . $shop['logo_shop'] : '/src/assets/images/no_img.png' ?>" alt="" height="100%" width="100%">
                     </div>
                     <div class="inforShop">
                         <div class="shopName">

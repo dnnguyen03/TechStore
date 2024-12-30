@@ -90,7 +90,7 @@
         <div class="col-md-3">
             <div class="stat-card">
                 <i class="fa fa-truck"></i>
-                <h5><?= $countCustomer ?></h5>
+                <h5><?= $countNewOrder ?></h5>
                 <p>Đơn hàng mới</p>
             </div>
         </div>
