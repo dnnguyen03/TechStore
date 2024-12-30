@@ -5,26 +5,26 @@
 
         <!-- Form -->
         <form action="/profile/edit" enctype="multipart/form-data" method="POST">
-           
+
             <div class="row">
 
 
                 <!-- Full Name -->
                 <div class="mb-3">
                     <label for="fullName" class="form-label">Họ và tên</label>
-                    <input type="text" id="fullName" name="full_name" class="form-control" placeholder="Họ tên" value='<?= $profile['full_name'] ?>' required>
+                    <input type="text" id="fullName" name="full_name" class="form-control" placeholder="Họ tên" value='<?= isset($profile['full_name']) ? $profile['full_name'] : '' ?>' required>
                 </div>
 
 
                 <!-- NIC Number -->
                 <div class="col-md-6 mb-3">
                     <label for="nic" class="form-label">Số điện thoại</label>
-                    <input type="text" id="nic" name="phone" class="form-control" placeholder="Số điện thoại" value='<?= $profile['phone'] ?>' required>
+                    <input type="text" id="nic" name="phone" class="form-control" placeholder="Số điện thoại" value='<?= isset($profile['phone']) ? $profile['phone'] : '' ?>' required>
                 </div>
                 <!-- Mobile Number -->
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" value='<?= $profile['email'] ?>' required>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" value='<?= isset($profile['email']) ? $profile['email'] : '' ?>' required>
                 </div>
 
 
@@ -33,8 +33,9 @@
                     <label for="gender" class="form-label">Giới tính</label>
                     <select id="gender" name="gender" class="form-select" required>
 
-                        <option value="Nam" <?= $profile['gender'] == 'Nam' ? 'selected' : '' ?>>Nam</option>
-                        <option value="Nữ" <?= $profile['gender'] == 'Nữ' ? 'selected' : '' ?>>Nữ</option>
+                        <option value="Nam" <?= isset($profile['gender']) && $profile['gender'] == 'Nam' ? 'selected' : '' ?>>Nam</option>
+                        <option value="Nữ" <?= isset($profile['gender']) && $profile['gender'] == 'Nữ' ? 'selected' : '' ?>>Nữ</option>
+
                     </select>
                 </div>
 
@@ -42,7 +43,7 @@
                 <div class="mb-3 col-md-6">
                     <!-- Street Address -->
                     <label for="streetAddress" class="form-label">Địa chỉ</label>
-                    <input type="text" id="streetAddress" name="address" class="form-control" placeholder="Địa chỉ" value='<?= $profile['address'] ?>' required>
+                    <input type="text" id="streetAddress" name="address" class="form-control" placeholder="Địa chỉ" value='<?= isset($profile['address']) ? $profile['address'] : '' ?>' required>
                 </div>
 
 

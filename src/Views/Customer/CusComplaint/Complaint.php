@@ -2,7 +2,7 @@
 
 <div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Phản hồi & Đánh giá</h2>
+        <h2 class="fw">Phản hồi & Đánh giá</h2>
     </div>
 
     <?php if (!empty($complaints) && count($complaints) > 0): ?>
