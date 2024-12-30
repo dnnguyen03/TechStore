@@ -53,6 +53,7 @@ if (isset($_SESSION['currentUser']) && !empty($_SESSION['currentUser'])) {
         $router->addRoute('/\/admin\/categories\/create/', [new AdCategoryController(), 'create']);
         $router->addRoute('/\/admin\/categories\/update\/(\d+)/', [new AdCategoryController(), 'update']);
         $router->addRoute('/\/admin\/categories\/delete\/(\d+)/', [new AdCategoryController(), 'delete']);
+        $router->addRoute('/\/admin\/users\/lock/', [new AdUserController(), 'lock']);
     } else {
         // Seller
         $router->addRoute('/\/seller/', [new SelHomeController(), 'index']);

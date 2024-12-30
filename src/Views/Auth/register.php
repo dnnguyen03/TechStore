@@ -71,7 +71,7 @@
             margin-bottom: 20px;
         }
 
-        input[type="username"],
+        input[type="text"],
         input[type="password"] {
             width: 100%;
             padding: 12px 15px;
@@ -105,6 +105,14 @@
             background: radial-gradient(circle at center, rgba(255, 153, 0, 0.2), rgba(255, 153, 0, 0));
             z-index: -1;
         }
+        .footer-link {
+            margin-top: 20px;
+        }
+        a {
+            color: #ff9900;
+            font-size: 14px;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -113,7 +121,7 @@
         <div class="logo">
             <img src="/src/assets/images/logoTechStore.png" alt="Logo">
         </div>
-        <h1>Create Account</h1>
+        <h1>Tạo tài khoản</h1>
 
         <!-- Hiển thị lỗi hoặc thông báo flash -->
         <?php if (isset($_SESSION['flash_error'])): ?>
@@ -129,20 +137,31 @@
             </div>
         <?php endif; ?>
 
+        <!-- Hiển thị lỗi -->
+        <?php if (isset($message) && !empty($message)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($message); ?></div>
+        <?php endif; ?>
+        
         <!-- Form đăng ký -->
         <form action="/register" method="POST">
             <div class="form-group">
-                <input type="text" name="username" placeholder="Username" required class="form-control">
+                <input type="text" name="username" placeholder="Tên đăng nhập" required class="form-control">
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Create Password" required class="form-control">
+                <input type="password" name="password" placeholder="Mật khẩu" required class="form-control">
             </div>
             <div class="form-group">
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required class="form-control">
+                <input type="password" name="confirm_password" placeholder="Xác nhận mật khẩu" required class="form-control">
             </div>
-            <?= isset($message)? $message : "" ?>
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <!-- <?php if (isset($user_exists) && $user_exists): ?>
+                <p style="color: red;">Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.</p>
+            <?php endif; ?>
+            <p style="color: red;"><?= isset($message) ? $message : "" ?></p> -->
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
         </form>
+        <div class="footer-link">
+            <a href="signin">Đăng nhập</a>
+        </div>
     </div>
 </body>
 

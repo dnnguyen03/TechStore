@@ -35,9 +35,7 @@ class AdHomeController extends Controller
     {
         $db = $this->getDatabaseConnection();
         $stmt = $db->prepare("
-            SELECT user_id AS id, username AS name, create_at AS date, 
-                   IF(is_lock = 0, 'Verified', 'New') AS verification, role AS type 
-            FROM users 
+            SELECT * FROM users
             ORDER BY create_at DESC 
             LIMIT 5
         ");
@@ -61,5 +59,3 @@ class AdHomeController extends Controller
         return $connection;
     }
 }
-?>
-

@@ -1,42 +1,7 @@
-<?php
 
-use App\Controllers\Auth\AuthController;
-
-// Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng tới trang chủ
-if (isset($_SESSION['user_id'])) {
-    header('Location: home');
-    exit();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $authController = new AuthController();
-    $error_message = $authController->signin($username, $password);
-    // Gọi phương thức xác thực người dùng trong model
-    require_once '../Models/user.php';
-    $userModel = new \App\Models\User();
-    $user = $userModel->verifyUser($username, $password);
-
-    if ($user) {
-        // Lưu thông tin người dùng vào session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
-
-        // Chuyển hướng đến trang chủ
-        header('Location: home.php');
-        exit();
-    } else {
-        $error_message = "Invalid username or password";
-    }
-}
-?>
-
-<!-- /templates/layout.php -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             align-items: center;
             height: 100vh;
         }
+
         .container {
             text-align: center;
             background: #ffffff;
@@ -63,26 +29,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             width: 100%;
             max-width: 400px;
         }
+
         .logo {
             margin-bottom: 20px;
         }
+
         .logo img {
             width: 150px;
         }
+
         .container h1 {
             font-size: 28px;
             margin-bottom: 10px;
             color: #333333;
         }
+
         .container p {
             color: #666;
             font-size: 14px;
             margin-bottom: 20px;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
-        input[type="username"], input[type="password"] {
+
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
             padding: 12px 15px;
             margin: 5px 0;
@@ -90,14 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 5px;
             font-size: 14px;
         }
+
         a {
             color: #ff9900;
             font-size: 14px;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .btn {
             width: 100%;
             padding: 12px 15px;
@@ -108,38 +84,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 16px;
             cursor: pointer;
         }
+
         .btn:hover {
             background-color: #e68a00;
         }
+
         .footer-link {
             margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
-<div class="container">
+    <div class="container">
         <div class="logo">
-            <img src="/src/assets/images/logoTechStore.png" alt="Logo"> 
+            <img src="/src/assets/images/logoTechStore.png" alt="Logo">
         </div>
-        <h1>Sign In</h1>
-        <p>Sign in with your username and password</p>
+        <h1>Đăng nhập</h1>
+        <p>Đăng nhập bằng tên người dùng và mật khẩu của bạn</p>
         <form action="/signin" method="POST">
             <div class="form-group">
-                <input type="username" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Mật khẩu" required>
             </div>
+            <?php if (!empty($_SESSION["loginerror"])): ?>
+            <p style="color: red;"><?php echo htmlspecialchars($_SESSION["loginerror"]); ?></p>
+        <?php unset($_SESSION["loginerror"]); endif; ?>
+            
             <div class="form-group">
-                <a href="forgot">Forgot password?</a>
+                <a href="forgot">Quên mật khẩu?</a>
             </div>
-            <button type="submit" class="btn">Sign in</button>
+            <button type="submit" class="btn">Đăng nhập</button>
         </form>
         <div class="footer-link">
-            <a href="register">Create Account</a>
+            <a href="register">Tạo tài khoản</a>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

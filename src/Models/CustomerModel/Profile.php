@@ -50,5 +50,20 @@ class Profile
 
         header('Location: /profile');
     }
+    public function create($user_id, $full_name, $phone, $address, $email, $avata, $gender)
+    {
+        $user_id = $this->connection->real_escape_string($user_id);
+        $full_name = $this->connection->real_escape_string($full_name ?? '');
+        $phone = $this->connection->real_escape_string($phone ?? '');
+        $address = $this->connection->real_escape_string($address ?? '');
+        $email = $this->connection->real_escape_string($email ?? '');
+        $avata = $this->connection->real_escape_string($avata ?? '');
+        $gender = $this->connection->real_escape_string($gender ?? '');
+
+        $this->connection->query("Insert Into profiles(user_id, full_name, phone, address, email, avata, gender)
+        values('$user_id', '$full_name','$phone' ,'$address','$email', '$avata', '$gender') ");
+
+        header('Location: /profile');
+    }
 
 }
