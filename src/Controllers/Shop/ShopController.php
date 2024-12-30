@@ -17,7 +17,7 @@ class ShopController extends Controller
     public function index()
     {
         unset($_SESSION['seller_id']);
-        $userId = $_SESSION['currentUser']['user_id'] ?? null;
+        $userId = $_SESSION['currentUser']['user_id'] ?? 0;
         $popularProduct = $this->productModel->getPopularProduct();
         $bestDealProduct = $this->productModel->getBestDeal();
         $sellerModel = new Seller();
