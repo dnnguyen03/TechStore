@@ -68,7 +68,7 @@ class Product
 
     public function createOrder($userId, $sellerId)
     {
-        $sql = "INSERT INTO orders (customer_id, seller_id) VALUES (?, ?)";
+        $sql = "INSERT INTO orders (customer_id, seller_id,status) VALUES (?, ?,'0')";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param("ii", $userId, $sellerId);
         $stmt->execute();
