@@ -78,7 +78,7 @@ ob_start();
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center">No categories found.</td>
+                        <td colspan="5" class="text-center">Không tìm thấy loại hàng.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

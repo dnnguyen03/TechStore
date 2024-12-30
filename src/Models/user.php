@@ -31,6 +31,7 @@ class User
         }
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -40,6 +41,7 @@ class User
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 
@@ -49,20 +51,44 @@ class User
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 
-    public function createUser($username, $password, $role)
+    public function createUser($username, $password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $this->connection->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-        $stmt->bind_param('sss', $username, $hashedPassword, $role);
+        // Kiểm tra xem username đã tồn tại chưa
+        if ($this->getUserByUsername($username)) {
+            // Nếu tồn tại, trả về false 
+            return false;
+        }
+        // Tạo người dùng mới
+        $stmt = $this->connection->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, 1)");
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $this->connection->error);
+        }
+        $stmt->bind_param('ss', $username, $hashedPassword);
+        $stmt->execute();
 
-        $result = $stmt->execute();
-        $stmt->close();
+        // Lấy `user_id` vừa được tạo
+        $userId = $this->connection->insert_id;
 
-        return $result;
+        // // Tạo profile tương ứng với user
+        // $stmtProfile = $this->connection->prepare(
+        //     "INSERT INTO profiles (user_id, full_name, phone, address, email, avata, gender) 
+        //      VALUES (?, '', '', '', '', '', '')"
+        // );
+        // if (!$stmtProfile) {
+        //     throw new Exception("Prepare failed: " . $this->connection->error);
+        // }
+        // $stmtProfile->bind_param('i', $userId);
+        // $stmtProfile->execute();
+
+        // Commit giao dịch nếu cả hai thành công
+        $this->connection->commit();
+        return $userId;
     }
 
     public function verifyUser($username, $password)
@@ -80,6 +106,7 @@ class User
 
             // Lấy kết quả truy vấn
             $result = $stmt->get_result();
+            $stmt->close();
 
             // Kiểm tra nếu tồn tại username
             if ($result->num_rows > 0) {
@@ -145,10 +172,11 @@ class User
     public function getUsers($search = '')
     {
         $searchParam = '%' . $search . '%';
+        $role = 1; // Định nghĩa role là kiểu số nguyên.
 
         $stmt = $this->connection->prepare(
             "SELECT * FROM users 
-             WHERE username LIKE ?"
+             WHERE username LIKE ? AND role = ?"
         );
 
         if (!$stmt) {
@@ -156,9 +184,19 @@ class User
             return false;
         }
 
-        $stmt->bind_param('s', $searchParam);
+        $stmt->bind_param('si', $searchParam, $role);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function updateStatusUser($user_id, $status)
+    {
+        $status = is_numeric($status) ? (int)$status : 0;
+        $user_id = (int)($user_id ?? 0);
+
+        $this->connection->query("UPDATE tech_store.users set is_lock = '$status'  
+                                    where user_id = $user_id");
+
+        header('Location: /admin/users');
     }
 }
