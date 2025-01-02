@@ -52,4 +52,48 @@ class Order
     }
 
 
+    public function getOrderWithFilter($customer_id, $filter = null, $sort = null)
+    {
+        // Escaping user input for security
+        $customer_id = $this->connection->real_escape_string($customer_id);
+        $filter_condition = '';
+        $sort_condition = 'ORDER BY OrderDate DESC'; // Default sorting
+    
+        // Xử lý điều kiện lọc (filter)
+        if (isset($filter) && $filter !== '') {
+            $filter = $this->connection->real_escape_string($filter);
+            $filter_condition = "AND OrderStatus = '$filter'";
+        }
+
+        
+        
+        if (!empty($sort)) {
+            switch ($sort) {
+                case 'date_asc':
+                    $sort_condition = 'ORDER BY OrderDate ASC';
+                    break;
+                case 'date_desc':
+                    $sort_condition = 'ORDER BY OrderDate DESC';
+                    break;
+                case 'total_asc':
+                    $sort_condition = 'ORDER BY TotalAmount ASC';
+                    break;
+                case 'total_desc':
+                    $sort_condition = 'ORDER BY TotalAmount DESC';
+                    break;
+            }
+        }
+    
+      
+        $query = "SELECT * FROM orderdetails 
+                  WHERE CustomerID = '$customer_id' $filter_condition 
+                  $sort_condition";
+    
+       
+        $result = $this->connection->query($query);
+    
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+
 }

@@ -402,10 +402,10 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <?php } else { ?>
             <div class="col-md-3 text-end">
                 <a href="/signin" style="color: white;">
-                    <button type="button" class="btn btn-primary">Login</button>
+                    <button type="button" class="btn btn-primary">Đăng nhập</button>
                 </a>
                 <a href="/register">
-                    <button type="button" class="btn btn-outline">Sign-up</button>
+                    <button type="button" class="btn btn-outline">Đăng ký</button>
                 </a>
             </div>
         <?php } ?>
