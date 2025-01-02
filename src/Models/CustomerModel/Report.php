@@ -20,7 +20,6 @@ class Report
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
         }
-
     }
 
     public function createReport($title, $content, $date_report, $customer_id)
@@ -31,7 +30,7 @@ class Report
         $customer_id = $this->connection->real_escape_string($customer_id);
 
         $result = $this->connection->query("INSERT INTO report (title, content, date_report, customer_id) VALUE ('$title', '$content', '$date_report', '$customer_id')");
-        
+
         header('Location: /customer/orders');
     }
 
@@ -39,14 +38,28 @@ class Report
     {
         $seller_id = $this->connection->real_escape_string($seller_id);
         $rating = $this->connection->real_escape_string($rating);
-      
+
         $customer_id = $this->connection->real_escape_string($customer_id);
 
         $result = $this->connection->query("INSERT into ratingshop (seller_id, customer_id, rating) value ('$seller_id','$customer_id','$rating')");
         return;
     }
 
+    public function hasRatedShop($seller_id, $customer_id)
+    {
+       
+        $seller_id = $this->connection->real_escape_string($seller_id);
+        $customer_id = $this->connection->real_escape_string($customer_id);
 
-   
+       
+        $query = "SELECT COUNT(*) as total FROM ratingshop WHERE seller_id = '$seller_id' AND customer_id = '$customer_id'";
+        $result = $this->connection->query($query);
 
+        
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'] > 0; 
+        }
+        return false; 
+    }
 }
